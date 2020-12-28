@@ -8,27 +8,16 @@ import {
   Nav,
   NavItem,
   NavLink,
-} from "reactstrap";
+} from "react-bootstrap";
 import Appbar from "../../components/Appbar";
-import Tables from "../../components/Table/index"
+import Tables from "../../components/Table/index";
+import AppbarHome from "../../components/Appbar/AppbarHome";
 
 const Index = () => {
   return (
     <>
-      <Navbar style={{position: "sticky"}} fixed="top" color="#ed51b1;" light expand="lg">
-        <Container>
-          <NavbarBrand style={{color: 'yellow',}} href="/">Psikiater</NavbarBrand>
-          <Nav className="mr-auto" navbar style={{ marginLeft: "68vw" }}>
-            <NavItem>
-              <NavLink  style={{color: 'yellow',}}>Home</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink style={{color: 'yellow',}}>About</NavLink>
-            </NavItem>
-          </Nav>
-        </Container>
-      </Navbar>
-     <Row>
+      <AppbarHome />
+      <Row>
         <Col lg="2" sm="12">
           <Appbar />
         </Col>
