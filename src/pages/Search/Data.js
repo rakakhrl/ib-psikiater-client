@@ -4,7 +4,8 @@ export const Doctor = [
   {
     id: 1,
     name: "fauzi",
-    address: "bekasi  ",
+    address: "Klinik selalu sehat Jl. jalan sore No.10 RT/RW 012/013, ciganjul Jakarta",
+    region: "bekasi",
     experience: 7,
     star: 5,
     price: 200000,
@@ -30,7 +31,8 @@ export const Doctor = [
   {
     id: 2,
     name: "Naufal",
-    address: "Jakarta",
+    address: "Klinik selalu sehat Jl. jalan sore No.10 RT/RW 012/013, ciganjul Jakarta",
+    region: "jakarta",
     experience: 2,
     star: 5,
     price: 200000,
@@ -56,7 +58,8 @@ export const Doctor = [
   {
     id: 3,
     name: "Raka",
-    address: "Bekasi ",
+    address: "Klinik selalu sehat Jl. jalan sore No.10 RT/RW 012/013, ciganjul Jakarta",
+    region: "depok",
     experience: 5,
     star: 5,
     price: 4000000,

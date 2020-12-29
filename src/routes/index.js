@@ -1,9 +1,9 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import Search from "../layout/Search";
-import Psikiater from "../layout/Psikiater";
-import Histories from "../layout/History";
-import Profile from "../layout/Profile";
+import Search from "../pages/Search";
+import Psikiater from "../pages/Psikiater";
+import Histories from "../pages/History";
+import Profile from "../pages/Profile";
 
 const index = () => {
   return (

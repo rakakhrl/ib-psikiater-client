@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import "./index.scss";
-import { Doctor } from "../../layout/Search/Data";
+import { Doctor } from "../../pages/Search/Data";
 
 const index = () => {
   return (

@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Nav, NavItem } from "react-bootstrap";
+import { Navbar, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./index.scss";
 import { BsArrowCounterclockwise, BsFillPersonFill, BsFillCalendarFill, BsBoxArrowInLeft } from "react-icons/bs";

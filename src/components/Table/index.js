@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { Table, Row } from "react-bootstrap";
-import { Doctor } from "../../layout/Search/Data";
+import { Doctor } from "../../pages/Search/Data";
 import Cards from "../Card/index";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
-import { Col, Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 
 const Index = () => {
   const [toggle, setToggle] = useState(false);
