@@ -1,7 +1,7 @@
 import API from "../../API/mainServer";
 import appAction from "./appAction";
 import swal from "sweetalert"
-import axios from "axios"
+
 
 const userLogin =(email,password)=> async(dispatch)=>{
     try {
@@ -18,23 +18,24 @@ const userLogin =(email,password)=> async(dispatch)=>{
         console.log(userLogin.data);
         localStorage.setItem("accessToken", userLogin.data.token);
         localStorage.setItem("role",userLogin.data.role)
-
+        
         
         const getUserProfile = await API({
             method: "GET",
-            url:"/auth/profile",
+            url:"/auth/identifer",
             headers: {
                 accessToken : userLogin.data.token,
             },
         });
+
         console.log(getUserProfile.data)
 
         // console.log(getUserProfile)
         dispatch({
             type: "LOGIN",
             payload: {
-                user_id : getUserProfile.data.profile.user_id,
-                role : getUserProfile.data.profile.role, 
+                user_id : getUserProfile.data.data.user_id,
+                role : getUserProfile.data.data.role, 
             }
         })
     } catch (error) {
@@ -48,19 +49,18 @@ const checkAccessToken = (accessToken)=> async(dispatch)=>{
     try {
         const getUserProfile = await API({
             method: "GET",
-            url:"/auth/profile",
+            url:"/auth/identifer",
             headers: {
                 accessToken : accessToken,
             },
         });
-        console.log(getUserProfile.data)
 
         // console.log(getUserProfile)
         dispatch({
             type: "LOGIN",
             payload: {
-                user_id : getUserProfile.data.profile.user_id,
-                role : getUserProfile.data.profile.role, 
+                user_id : getUserProfile.data.data.user_id,
+                role : getUserProfile.data.data.role, 
             }
         })
         dispatch(appAction.setLoading(false));

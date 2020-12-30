@@ -50,11 +50,7 @@ const Login = () => {
                   placeholder="email"
                   onChange={(e) => setEmail(e.target.value)}
                   value={email}
-                  required
                 ></Form.Control>
-                <Form.Control.Feedback type="invalid">
-                  email tidak boleh kosong.
-                </Form.Control.Feedback>{" "}
               </Form.Group>
               <Form.Group controlId="formBasicEmail">
                 <Form.Control
@@ -62,11 +58,7 @@ const Login = () => {
                   placeholder="password"
                   onChange={(e) => setPassword(e.target.value)}
                   value={password}
-                  required
                 ></Form.Control>
-                <Form.Control.Feedback type="invalid">
-                  password tidak boleh kosong.
-                </Form.Control.Feedback>{" "}
               </Form.Group>
               <Button
                 variant="secondary"

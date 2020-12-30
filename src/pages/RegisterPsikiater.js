@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import userAction from "../redux/actions/registerPsikiaterAction";
 import { useHistory } from "react-router-dom";
-import swal from "sweetalert";
 import { ArrowLeft } from "react-bootstrap-icons";
 import { Form, Row, Col, Container, Button, Image } from "react-bootstrap";
 
@@ -22,7 +21,7 @@ const Register = () => {
   const formHandle = (e) => {
     e.preventDefault();
     dispatch(
-      userAction.userRegister(
+      userAction.userRegisterPsikiater(
         first_name,
         last_name,
         password,
@@ -31,15 +30,22 @@ const Register = () => {
         gender,
         experience_year,
         region
-      )
+      ),
     );
-    swal("Register Sukses!", "", "success");
-    history.push("/login");
+    
   };
+
 
   const handleBack = () => {
     history.goBack();
   };
+
+
+  useEffect(() => {
+    if (user.role === "PSIKIATER") {
+      history.push("/psikiater");
+    }
+  }, [user]);
 
   return (
     <>
