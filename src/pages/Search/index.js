@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {  Container, InputGroup, FormControl } from "react-bootstrap";
 import { Doctor } from "./Data";
-import AppbarHome from "../../components/Appbar/AppbarHome";
+import Navbar from "../../components/Navbar/AppbarHome";
 import CardResult from "../../components/CardResult/index";
 import "./index.scss";
 
@@ -11,9 +11,9 @@ const Index = () => {
 
   return (
     <>
-      <AppbarHome/>
+      <Navbar/>
       <Container>
-        <h1>SEARCH DOCTOR</h1>
+        <h1>SEARCH RESULT</h1>
         <InputGroup className="mb-3">
           <FormControl
             placeholder="Find Your Region..."

@@ -1,12 +1,12 @@
 import React from "react";
-import AppBar from "../../components/Appbar/index";
-import AppbarHome from "../../components/Appbar/AppbarHome";
+import SideBar from "../../components/Sidebar/index";
+import Navbar from "../../components/Navbar/AppbarHome";
 
 const index = () => {
   return (
     <>
-      <AppbarHome />
-      <AppBar />
+      <Navbar />
+      <SideBar />
       <h1 style={{ fontWeight: "bold", textAlign: "center" }}>Hisotry</h1>
     </>
   );

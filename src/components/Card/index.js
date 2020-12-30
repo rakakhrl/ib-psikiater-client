@@ -3,7 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import "./index.scss";
 import { Doctor } from "../../pages/Search/Data";
 
-const index = () => {
+const index = ({user}) => {
   return (
     <Container style={{ backgroundColor: "#ededed", padding: "20px" }}>
       {Doctor.filter((item) => {
@@ -25,7 +25,7 @@ const index = () => {
               </Col>
 
               <Col xs="12" lg="6" md="12">
-                <h2 className="title">{item.patient.name}</h2>
+                <h2 className="title">{user}</h2>
                 <p>Age: {2020 - item.patient.birthDate}</p>
                 <p>{item.patient.gender}</p>
                 <p>{item.patient.email}</p>
