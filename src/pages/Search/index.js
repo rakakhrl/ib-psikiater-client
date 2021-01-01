@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import {  Container, InputGroup, FormControl } from "react-bootstrap";
+import {useHistory} from "react-router-dom";
+import {  Container, InputGroup, FormControl, Button, Card } from "react-bootstrap";
 import { Doctor } from "./Data";
 import Navbar from "../../components/Navbar/AppbarHome";
 import CardResult from "../../components/CardResult/index";
 import "./index.scss";
 
 const Index = () => {
-  const [isSearch, setIsSearch] = useState();
+  const [searchInput, setSearchInput] = useState("");
+  const history = useHistory();
+
+  function handleClick() {
+    history.push("/history", {_id: 1})
+  }
 
   return (
     <>
@@ -20,18 +26,19 @@ const Index = () => {
             aria-describedby="basic-addon1"
             prefix="fas fa-search"
             onChange={(e) => {
-              setIsSearch(e.target.value);
+              setSearchInput(e.target.value);
             }}
           />
-          <InputGroup.Prepend>
-            <InputGroup.Text id="basic-addon1">Search</InputGroup.Text>
-          </InputGroup.Prepend>
+          <Button>
+            Search
+          </Button>
         </InputGroup>
-        <Link to="/psikiater" className="link">
+
+        <Card onClick={handleClick} className="link">
           {Doctor.filter((item) => {
-            if (isSearch === "") {
+            if (searchInput === "") {
               return item;
-            } else if (item.region.toLowerCase().includes(isSearch)) {
+            } else if (item.region.toLowerCase().includes(searchInput)) {
               return item;
             } else {
               return null;
@@ -39,16 +46,19 @@ const Index = () => {
           }).map((item) => {
             return (
               <CardResult
-              name={item.name}
-              address={item.address}
-              experience={item.experience}
-              image={item.image}
+              _id={item._id}
+              first_name={item.first_name}
+              last_name={item.last_name}
+              work_address={item.work_address}
+              experience_year={item.experience_year}
+              avatar_url={item.avatar_url}
               price={item.price}
               region={item.region}
+              star={item.star}
               />
             );
           })}
-        </Link>
+        </Card> 
       </Container>
     </>
   );

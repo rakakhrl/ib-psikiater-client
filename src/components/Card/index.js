@@ -7,7 +7,7 @@ const index = ({user}) => {
   return (
     <Container style={{ backgroundColor: "#ededed", padding: "20px" }}>
       {Doctor.filter((item) => {
-        if (item.id === 2) {
+        if (item._id === 2) {
           return item;
         } else {
           return null;
