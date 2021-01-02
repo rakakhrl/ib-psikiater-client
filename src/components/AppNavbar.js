@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Navbar, Button, Image } from "react-bootstrap";
+import { Navbar, Button, Image, Nav } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const AppNavbar = () => {
   const isLogin = useSelector((store) => store.user.isLogin);
@@ -9,6 +10,9 @@ const AppNavbar = () => {
   const RoleAction = () => {
     return role === "PATIENT" ? (
       <div className="ml-auto ">
+        <Link className="mr-3 text-light" to="/patient-history">
+          History
+        </Link>
         <Image className="mr-3" src="holder.js/180x180" roundedCircle />
         <Button variant="outline-light">Sign Out</Button>
       </div>
@@ -35,7 +39,7 @@ const AppNavbar = () => {
   return (
     <Navbar bg="primary" variant="dark">
       <div className="container">
-        <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+        <Navbar.Brand href="/">Navbar</Navbar.Brand>
         <NavbarActions />
       </div>
     </Navbar>

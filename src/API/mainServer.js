@@ -1,8 +1,9 @@
 import Axios from "axios";
+import env from "react-dotenv";
 
 const instance = Axios.create({
-    baseURL: "http://122.248.194.13:3000",
-    timeout: 60000,
+  baseURL: env.BASE_URL,
+  timeout: 60000,
 });
 
 export default instance;

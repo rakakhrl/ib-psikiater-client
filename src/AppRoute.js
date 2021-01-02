@@ -8,7 +8,7 @@ import RegisterPasien from "./pages/RegisterPasien";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Psikiater from "./pages/Psikiater";
-import Pasien from "./pages/Pasien";
+import PatientHistory from "./pages/PatientHistory/index";
 
 const AppRoute = () => {
   return (
@@ -19,17 +19,17 @@ const AppRoute = () => {
       <Route path="/" exact>
         <Home />
       </Route>
-      <Route path="/login">
+      <Route path="/login" exact>
         <Login />
       </Route>
-      <Route path="/registerPsikiater">
+      <Route path="/registerPsikiater" exact>
         <RegisterPsikiater />
       </Route>
-      <Route path="/registerPasien">
+      <Route path="/registerPasien" exact>
         <RegisterPasien />
       </Route>
-      <PrivateRoutePasien path="/pasien" exact>
-        <Pasien />
+      <PrivateRoutePasien path="/patient-history" exact>
+        <PatientHistory />
       </PrivateRoutePasien>
     </Switch>
   );

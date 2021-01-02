@@ -1,7 +1,7 @@
 import API from "../../API/mainServer";
 import appAction from "./appAction";
 import swal from "sweetalert";
-import { LOGIN } from "./actionTypes";
+import { LOGIN, LOGOUT } from "./actionTypes";
 
 const registerPsikiater = (
   first_name,
