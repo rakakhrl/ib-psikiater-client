@@ -17,7 +17,7 @@ const arrayDoctor = [
     appointment_date: "2020-12-31",
     appointment_time: "09:00",
   },
-   {
+  {
     id: 2,
     psikiater_id: "123332",
     patient_id: {
@@ -28,7 +28,7 @@ const arrayDoctor = [
     appointment_date: "2020-12-30",
     appointment_time: "08:00",
   },
-   {
+  {
     id: 3,
     psikiater_id: "123332",
     patient_id: {
@@ -39,7 +39,7 @@ const arrayDoctor = [
     appointment_date: "2020-12-29",
     appointment_time: "07:00",
   },
-   {
+  {
     id: 4,
     psikiater_id: "123332",
     patient_id: {
@@ -50,7 +50,7 @@ const arrayDoctor = [
     appointment_date: "2020-12-28",
     appointment_time: "06:00",
   },
-   {
+  {
     id: 5,
     psikiater_id: "123332",
     patient_id: {
@@ -61,25 +61,26 @@ const arrayDoctor = [
     appointment_date: "2021-01-01",
     appointment_time: "10:00",
   },
-]
+];
 
 const Index = () => {
   const [toggle, setToggle] = useState(false);
-  const[user, setUser] = useState("");
+  const [user, setUser] = useState("");
   const appointment = arrayDoctor.map((data) => {
-    return{
+    return {
       title: `${data.patient_id.first_name} ${data.patient_id.last_name}`,
       date: `${data.appointment_date} ${data.appointment_time}`,
-    }
-  })
+    };
+  });
   function handleEvent(params) {
     console.log(params);
     setToggle(true);
-    setUser(params.event._def.title)
+    setUser(params.event._def.title);
   }
   console.log(user);
   return (
     <Container>
+      <h1 style={{ fontWeight: "bold", textAlign: "center" }}>Schedule</h1>
       <FullCalendar
         plugins={[timeGridPlugin]}
         initialView="timeGridWeek"
@@ -88,9 +89,7 @@ const Index = () => {
         eventClick={handleEvent}
       />
       <br />
-      {toggle && <Cards
-      user = {user}
-      />}
+      {toggle && <Cards user={user} />}
     </Container>
   );
 };

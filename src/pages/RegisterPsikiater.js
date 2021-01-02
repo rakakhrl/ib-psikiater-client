@@ -43,7 +43,7 @@ const Register = () => {
 
   useEffect(() => {
     if (user.role === "PSIKIATER") {
-      history.push("/psikiater");
+      history.push("/psikiater-dashboard");
     }
   }, [user.isLogin]);
 

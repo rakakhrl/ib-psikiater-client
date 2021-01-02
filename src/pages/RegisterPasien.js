@@ -39,7 +39,7 @@ const Register = () => {
 
   useEffect(() => {
     if (user.role === "PATIENT") {
-      history.push("/pasien");
+      history.push("/");
     }
   }, [user.isLogin]);
 

@@ -48,7 +48,7 @@ const registerPsikiater = (
     swal("Register Sukses!", "", "success");
   } catch (error) {
     swal("Register Gagal!", "", "error");
-    console.log("Gagal Register");
+    console.log(error);
   }
 };
 
@@ -70,7 +70,7 @@ const registerPatient = (
         last_name: last_name,
         password: password,
         email: email,
-        date_of_birth,
+        date_of_birth: date_of_birth,
         gender: gender,
         address: address,
       },
@@ -93,7 +93,7 @@ const registerPatient = (
     swal("Register Sukses!", "", "success");
   } catch (error) {
     swal("Register Gagal!", "", "error");
-    console.log("Gagal Register");
+    console.log(error);
   }
 };
 
@@ -104,8 +104,11 @@ const fetchUserData = () => async (dispatch) => {
     const accesstoken = localStorage.getItem("accesstoken");
 
     if (!role || !user_id || !accesstoken) {
+      console.log("not persist data");
       dispatch({ type: LOGOUT });
     }
+
+    console.log(accesstoken);
 
     if (role === "PATIENT") {
       const patient = await API({
@@ -143,6 +146,8 @@ const fetchUserData = () => async (dispatch) => {
           user_data: psikiater.data.data,
         },
       });
+
+      console.log("psikiater fetched");
     }
   } catch (error) {
     console.log(error);

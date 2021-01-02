@@ -7,15 +7,13 @@ import RegisterPsikiater from "./pages/RegisterPsikiater";
 import RegisterPasien from "./pages/RegisterPasien";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
-import Psikiater from "./pages/Psikiater";
 import PatientHistory from "./pages/PatientHistory/index";
+import Search from "./pages/Search";
+import Psikiater from "./pages/Psikiater";
 
 const AppRoute = () => {
   return (
     <Switch>
-      <PrivateRoutePsikiater path="/psikiater" exact>
-        <Psikiater />
-      </PrivateRoutePsikiater>
       <Route path="/" exact>
         <Home />
       </Route>
@@ -31,6 +29,12 @@ const AppRoute = () => {
       <PrivateRoutePasien path="/patient-history" exact>
         <PatientHistory />
       </PrivateRoutePasien>
+      <PrivateRoutePasien path="/search-result" exact>
+        <Search />
+      </PrivateRoutePasien>
+      <PrivateRoutePsikiater path="/psikiater-dashboard" exact>
+        <Psikiater />
+      </PrivateRoutePsikiater>
     </Switch>
   );
 };
