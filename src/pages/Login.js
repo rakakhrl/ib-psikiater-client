@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import userAction from "../redux/actions/userAction";
+import { login } from "../redux/actions/authAction";
 import { useHistory } from "react-router-dom";
 import { Button, Form, Container, Row, Col } from "react-bootstrap";
 
@@ -10,13 +10,23 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
+
+  useEffect(() => {
+    if (user.role === "PSIKIATER") {
+      // TODO: change the route to psikiater dashboard
+      history.push("/psikiater");
+    } else if (user.role === "PATIENT") {
+      history.push("/");
+    }
+  }, [user.isLogin]);
+
   const handleClose = () => {
     history.push("/");
   };
 
   const formHandle = (e) => {
     e.preventDefault();
-    dispatch(userAction.userLogin(email, password));
+    dispatch(login(email, password));
   };
 
   const registerPsikiater = () => {
@@ -27,21 +37,16 @@ const Login = () => {
     history.push("/registerPasien");
   };
 
-  useEffect(() => {
-    if (user.role === "PSIKIATER") {
-      history.push("/psikiater");
-    } else if (user.role === "PATIENT") {
-      history.push("/pasien");
-    }
-  }, [user]);
-
   return (
     <div>
-      <Container style={{marginLeft:"0%"}}>
+      <Container style={{ marginLeft: "0%" }}>
         <Row>
-          <Col style={{backgroundImage: `url("https://images.unsplash.com/photo-1580820267682-426da823b514?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cG9ydHJhaXQlMjBiYWNrZ3JvdW5kfGVufDB8fDB8&ixlib=rb-1.2.1&w=1000&q=80")`}}>
-          </Col>
-          <Col style={{padding:"18%"}}>
+          <Col
+            style={{
+              backgroundImage: `url("https://images.unsplash.com/photo-1580820267682-426da823b514?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cG9ydHJhaXQlMjBiYWNrZ3JvdW5kfGVufDB8fDB8&ixlib=rb-1.2.1&w=1000&q=80")`,
+            }}
+          ></Col>
+          <Col style={{ padding: "18%" }}>
             <h1>Login</h1>
             <Form>
               <Form.Group controlId="formBasicEmail">
@@ -71,7 +76,9 @@ const Login = () => {
                 Sign In
               </Button>
             </Form>
-            <Form.Group style={{ textAlign: "center", color: "red" , marginTop:"10%"}}>
+            <Form.Group
+              style={{ textAlign: "center", color: "red", marginTop: "10%" }}
+            >
               <a>Don't have an account?</a>
             </Form.Group>
             <Form.Group style={{ textAlign: "center", color: "blue" }}>

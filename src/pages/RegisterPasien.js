@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import userAction from "../redux/actions/registerPasienAction";
+import userAction from "../redux/actions/userAction";
 import { useHistory } from "react-router-dom";
 import { ArrowLeft } from "react-bootstrap-icons";
 import { Form, Row, Col, Container, Button, Image } from "react-bootstrap";
 
 const Register = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
+
   const user = useSelector((state) => state.user);
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
@@ -16,11 +18,10 @@ const Register = () => {
   const [gender, setGender] = useState("");
   const [address, setAddress] = useState("");
 
-  const history = useHistory();
   const formHandle = (e) => {
     e.preventDefault();
     dispatch(
-      userAction.userRegisterPatient(
+      userAction.registerPatient(
         first_name,
         last_name,
         password,
@@ -40,7 +41,8 @@ const Register = () => {
     if (user.role === "PATIENT") {
       history.push("/pasien");
     }
-  }, [user]);
+  }, [user.isLogin]);
+
   return (
     <>
       <Container style={{ margin: "0px" }}>

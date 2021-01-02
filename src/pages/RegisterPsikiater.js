@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import userAction from "../redux/actions/registerPsikiaterAction";
+import userAction from "../redux/actions/userAction";
 import { useHistory } from "react-router-dom";
 import { ArrowLeft } from "react-bootstrap-icons";
 import { Form, Row, Col, Container, Button, Image } from "react-bootstrap";
 
 const Register = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const user = useSelector((state) => state.user);
+
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
   const [password, setPassword] = useState("");
@@ -16,12 +18,12 @@ const Register = () => {
   const [gender, setGender] = useState("");
   const [experience_year, setExperienceYear] = useState("");
   const [region, setRegion] = useState("");
+  const [fee, setFee] = useState("");
 
-  const history = useHistory();
   const formHandle = (e) => {
     e.preventDefault();
     dispatch(
-      userAction.userRegisterPsikiater(
+      userAction.registerPsikiater(
         first_name,
         last_name,
         password,
@@ -29,23 +31,21 @@ const Register = () => {
         date_of_birth,
         gender,
         experience_year,
-        region
-      ),
+        region,
+        fee
+      )
     );
-    
   };
-
 
   const handleBack = () => {
     history.goBack();
   };
 
-
   useEffect(() => {
     if (user.role === "PSIKIATER") {
       history.push("/psikiater");
     }
-  }, [user]);
+  }, [user.isLogin]);
 
   return (
     <>
@@ -123,8 +123,8 @@ const Register = () => {
                   Must be 8-20 characters long.
                 </Form.Text>
                 <Form.Control.Feedback type="invalid">
-              email tidak boleh kosong.
-            </Form.Control.Feedback>
+                  email tidak boleh kosong.
+                </Form.Control.Feedback>
               </Form.Group>
               <Form.Group>
                 <Form.Label>Date of Birth</Form.Label>
@@ -179,6 +179,20 @@ const Register = () => {
                       placeholder="Region"
                       onChange={(e) => setRegion(e.target.value)}
                       value={region}
+                    ></Form.Control>
+                    <Form.Text id="passwordHelpBlock" muted>
+                      Must be 8-20 characters long.
+                    </Form.Text>
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group>
+                    <Form.Label>Fee</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Fee"
+                      onChange={(e) => setFee(e.target.value)}
+                      value={fee}
                     ></Form.Control>
                     <Form.Text id="passwordHelpBlock" muted>
                       Must be 8-20 characters long.
