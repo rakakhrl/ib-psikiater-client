@@ -1,28 +1,24 @@
 import React from "react";
 import { Row, Col, Image, Container } from "react-bootstrap";
 
+
 const LineDua = () => {
   return (
     <>
-      <h1 style={{textAlign:"center", marginTop:"80px"}}>Psikolog atau Psikiater: Mana yang Tepat Untuk Anda?</h1>
+    <div className="wrapper style2">
       <Container>
       <Row>
         <Col style={{textAlign:"justify"}}>
-          Pilih psikolog atau psikiater jika Anda atau orang-orang terdekat Anda
-          merasa atau sedang mengalami masalah kesehatan mental? Apa
-          perbedannya? Anda bukanlah satu-satunya orang yang merasa kebingungan
-          di luar sana. Memang ada kesamaan, tetapi ada perbedaan yang penting
-          untuk diperhatikan. Inilah yang perlu di ketahui untuk memutuskan mana
-          yang tepat untuk Anda.
+          <h3>Area</h3>
+          <p>Pelayanan Kami hanya Sekitar Jabodetabek</p>
         </Col>
         <Col>
-          <Image
-            src="https://res.cloudinary.com/dk0z4ums3/image/upload/v1606056941/attached_image/memanfaatkan-konsultasi-psikologi-untuk-meningkatkan-kesehatan-mental.jpg"
-            fluid
-          />
+        <div class="mapouter"><div class="gmap_canvas"><iframe width="100%" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=Depok&amp;t=&amp;z=10&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe><a href="https://piratebayproxy.net/">pirate bay proxy</a></div></div>
         </Col>
       </Row>
       </Container>
+    </div>
+      
       
     </>
   );

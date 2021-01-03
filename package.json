@@ -47,7 +47,9 @@
       "last 1 safari version"
     ]
   },
-    "react-dotenv": {
-    "whitelist": ["BASE_URL"]
+  "react-dotenv": {
+    "whitelist": [
+      "BASE_URL"
+    ]
   }
 }
