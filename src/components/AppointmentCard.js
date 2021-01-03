@@ -27,26 +27,44 @@ const AppointmentCard = ({ appointment, showModal }) => {
               {`${appointment.appointment_time}`}
             </h6>
             <h6>
-              <strong>Prescription: </strong>
-              {!appointment.prescription_id ? (
-                "No prescription."
-              ) : (
-                <a
-                  href=""
-                  onClick={(e) => showModal(appointment.prescription_id, e)}
-                >
-                  Open prescription
-                </a>
-              )}
+              <strong>Allergy: </strong>
+              {`${appointment.allergy.map((a) => `${a}, `)}`}
+            </h6>
+            <h6
+              style={{
+                color: appointment.status === "Paid" ? "orange" : "green",
+              }}
+            >
+              <strong style={{ color: "black" }}>Status: </strong>
+              {`${appointment.status}`}
             </h6>
           </Col>
-          <Col style={{ textAlign: "end" }}>
-            <Image
-              height="100"
-              width="100"
-              src={appointment.psikiater_id.avatar_url}
-              roundedCircle
-            />
+          <Col>
+            <Row>
+              <Col>
+                <h6>
+                  <strong>Prescription: </strong>
+                  {!appointment.prescription_id ? (
+                    "No prescription."
+                  ) : (
+                    <p
+                      style={{ textDecorationLine: "underline", color: "blue" }}
+                      onClick={(e) => showModal(appointment.prescription_id, e)}
+                    >
+                      Open prescription
+                    </p>
+                  )}
+                </h6>
+              </Col>
+              <Col style={{ textAlign: "end" }}>
+                <Image
+                  height="100"
+                  width="100"
+                  src={appointment.psikiater_id.avatar_url}
+                  roundedCircle
+                />
+              </Col>
+            </Row>
           </Col>
         </Row>
       </div>

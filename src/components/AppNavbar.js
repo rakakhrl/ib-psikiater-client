@@ -8,6 +8,7 @@ import { logout } from "../redux/actions/authAction";
 const AppNavbar = () => {
   const isLogin = useSelector((store) => store.user.isLogin);
   const role = useSelector((store) => store.user.role);
+  const user = useSelector((store) => store.user.user_data);
   const dispatch = useDispatch();
 
   const RoleAction = () => {
@@ -20,7 +21,10 @@ const AppNavbar = () => {
           height="30"
           width="30"
           className="mr-3"
-          src="https://images.unsplash.com/photo-1580820267682-426da823b514?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cG9ydHJhaXQlMjBiYWNrZ3JvdW5kfGVufDB8fDB8&ixlib=rb-1.2.1&w=1000&q=80"
+          src={
+            user.avatar_url ??
+            "https://images.unsplash.com/photo-1580820267682-426da823b514?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cG9ydHJhaXQlMjBiYWNrZ3JvdW5kfGVufDB8fDB8&ixlib=rb-1.2.1&w=1000&q=80"
+          }
           roundedCircle
         />
         <Button onClick={() => dispatch(logout())} variant="outline-light">
@@ -32,7 +36,10 @@ const AppNavbar = () => {
         <Image
           height="30"
           width="30"
-          src="https://images.unsplash.com/photo-1580820267682-426da823b514?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cG9ydHJhaXQlMjBiYWNrZ3JvdW5kfGVufDB8fDB8&ixlib=rb-1.2.1&w=1000&q=80"
+          src={
+            user.avatar_url ??
+            "https://images.unsplash.com/photo-1580820267682-426da823b514?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cG9ydHJhaXQlMjBiYWNrZ3JvdW5kfGVufDB8fDB8&ixlib=rb-1.2.1&w=1000&q=80"
+          }
           roundedCircle
         />
       </div>
@@ -60,9 +67,13 @@ const AppNavbar = () => {
   return (
     <Navbar bg="primary" variant="dark" sticky="top">
       <div className="container">
-        <Link to="/">
+        {role !== "PSIKIATER" ? (
+          <Link to="/">
+            <Navbar.Brand>Navbar</Navbar.Brand>
+          </Link>
+        ) : (
           <Navbar.Brand>Navbar</Navbar.Brand>
-        </Link>
+        )}
         <NavbarActions />
       </div>
     </Navbar>

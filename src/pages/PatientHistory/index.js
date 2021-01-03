@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./main.css";
 import AppointmentCard from "../../components/AppointmentCard";
 import PrescriptionModal from "../../components/PrescriptionModal";
+import API from "../../API/mainServer";
+import { useSelector } from "react-redux";
 
 const dummyData = [
   {
@@ -52,8 +54,31 @@ const dummyData = [
 ];
 
 const PatientHistory = () => {
+  const user = useSelector((store) => store.user.user_data);
   const [modalShow, setModalShow] = useState(false);
   const [prescription, setPrescription] = useState({});
+  const [appointment, setAppointment] = useState([]);
+
+  const fetchAppointment = async () => {
+    const token = localStorage.getItem("accesstoken");
+    const response = await API({
+      method: "GET",
+      url: `/appointments/patient/${user._id}`,
+      headers: {
+        accesstoken: token,
+      },
+    });
+
+    setAppointment(response.data.data);
+  };
+
+  useEffect(
+    () => {
+      fetchAppointment();
+    },
+    // eslint-disable-next-line
+    []
+  );
 
   const handleModalShow = (content, e) => {
     e.preventDefault();
@@ -76,14 +101,7 @@ const PatientHistory = () => {
           prescription={prescription}
         />
 
-        {dummyData.map((d, i) => (
-          <AppointmentCard
-            key={i}
-            appointment={d}
-            showModal={(v, e) => handleModalShow(v, e)}
-          />
-        ))}
-        {dummyData.map((d, i) => (
+        {appointment.map((d, i) => (
           <AppointmentCard
             key={i}
             appointment={d}

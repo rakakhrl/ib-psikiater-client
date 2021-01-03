@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { logout } from "./redux/actions/authAction";
 import userAction from "./redux/actions/userAction";
 import AppRoute from "./AppRoute";
@@ -7,13 +8,14 @@ import AppNavbar from "./components/AppNavbar";
 
 const App = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const isLoading = useSelector((state) => state.app.isLoading);
+  const user = useSelector((state) => state.user);
 
   useEffect(
     () => {
       const isLoginPersist = localStorage.getItem("isLogin");
       if (isLoginPersist === "true") {
-        console.log("persist");
         dispatch(userAction.fetchUserData());
       } else {
         dispatch(logout());
@@ -21,6 +23,16 @@ const App = () => {
     },
     // eslint-disable-next-line
     []
+  );
+
+  useEffect(
+    () => {
+      if (user.role === "PSIKIATER") {
+        history.push("/psikiater-dashboard");
+      }
+    },
+    // eslint-disable-next-line
+    [user]
   );
 
   return (
