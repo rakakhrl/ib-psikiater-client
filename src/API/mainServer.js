@@ -1,8 +1,7 @@
 import Axios from "axios";
-import env from "react-dotenv";
 
 const instance = Axios.create({
-  baseURL: env.BASE_URL,
+  baseURL: process.env.REACT_APP_BASE_URL,
   timeout: 60000,
 });
 
