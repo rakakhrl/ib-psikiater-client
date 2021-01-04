@@ -19,6 +19,7 @@ const Register = () => {
   const [experience_year, setExperienceYear] = useState("");
   const [region, setRegion] = useState("");
   const [fee, setFee] = useState("");
+  const [work_address,setWorkAddress]= useState("")
 
   const formHandle = (e) => {
     e.preventDefault();
@@ -32,7 +33,8 @@ const Register = () => {
         gender,
         experience_year,
         region,
-        fee
+        fee,
+        work_address
       )
     );
   };
@@ -130,7 +132,6 @@ const Register = () => {
                 <Form.Label>Date of Birth</Form.Label>
                 <Form.Control
                   type="date"
-                  placeholder="Tanggal Lahir"
                   onChange={(e) => setDateofBirth(e.target.value)}
                   value={date_of_birth}
                 ></Form.Control>
@@ -156,6 +157,18 @@ const Register = () => {
                   Must be 8-20 characters long.
                 </Form.Text>
               </Form.Group>
+              <Form.Group>
+                    <Form.Label>Work Address</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Work Address"
+                      onChange={(e) => setWorkAddress(e.target.value)}
+                      value={work_address}
+                    ></Form.Control>
+                    <Form.Text id="passwordHelpBlock" muted>
+                      Must be 8-20 characters long.
+                    </Form.Text>
+                  </Form.Group>
               <Row>
                 <Col>
                   <Form.Group>
