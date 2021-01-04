@@ -1,49 +1,36 @@
 import React from "react";
-import { Carousel } from "react-bootstrap";
-import "../../css/Part.css";
+import * as Icon from 'react-bootstrap-icons';
+import "../../assets/css/main.css"
+import {InputGroup, Form} from "react-bootstrap"
 
-const Corousel = () => {
+
+const Carousel = () => {
+  
   return (
     <>
-      <Carousel id="corousel">
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="https://freellustrustrations.s3.us-east-2.amazonaws.com/free-images/freeimg_2767530freejpg850.jpg"
-            alt="First slide"
-          />
-          <Carousel.Caption>
-            <h3>First slide label</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="https://freellustrustrations.s3.us-east-2.amazonaws.com/free-images/freeimg_33784289freejpg850.jpg"
-            alt="Third slide"
-          />
-          <Carousel.Caption>
-            <h3>Second slide label</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="https://freellustrustrations.s3.us-east-2.amazonaws.com/free-images/freeimg_58746987freejpg850.jpg"
-            alt="Third slide"
-          />
-          <Carousel.Caption>
-            <h3>Third slide label</h3>
-            <p>
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-            </p>
-          </Carousel.Caption>
-        </Carousel.Item>
-      </Carousel>
+      <section id="banner">
+				<div className="inner">
+					<header>
+						<h1>Prioritaskan Kesehatan Mental Anda</h1>
+						<p>Karena tak hanya fisik, kesehatan mental pun perlu dijaga.</p>
+					</header>
+          <InputGroup>
+                
+                <Form.Control
+                  type="text"
+                  placeholder="Search"
+                  style={{borderColor:"white"}}
+                />
+                <InputGroup.Prepend onClick={()=>{console.log("tes")}} style={{cursor:"pointer"}}>
+                  <InputGroup.Text id="inputGroupPrepend">
+                  <Icon.Search />
+                  </InputGroup.Text>
+                </InputGroup.Prepend>
+              </InputGroup>
+				</div>
+			</section>
     </>
   );
 };
 
-export default Corousel;
+export default Carousel;
