@@ -1,6 +1,8 @@
 import { useDispatch } from "react-redux";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import swal from "sweetalert";
+import API from "../../API/mainServer";
 import {
   Jumbotron,
   Container,
@@ -13,13 +15,7 @@ import {
 import { changeStatusCheckout } from "../../redux/actions/appointmentAction";
 
 function Checkout() {
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const location = useLocation();
-  // Where the data pass from previous route is kept
-  console.log(location.state);
-
-  const dummyData = {
+  const [appointment, setAppointment] = useState({
     _id: 123,
     psikiater_id: {
       first_name: "Naufal",
@@ -34,13 +30,39 @@ function Checkout() {
       first_name: "Jajang",
       last_name: "Ramlan",
     },
-  };
+  });
+  const { appointment_id } = useParams();
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const appointment = await API({
+          method: "GET",
+          url: `/appointments/${appointment_id}`,
+          headers: {
+            accesstoken: localStorage.getItem("accesstoken"),
+          },
+        });
+
+        setAppointment(appointment.data.data);
+        console.log(appointment.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    getData();
+
+    return getData;
+  }, []);
 
   const checkoutButtonHandler = () => {
     dispatch(
       changeStatusCheckout(
         "Paid",
-        dummyData._id, //props.location.state
+        appointment._id,
         localStorage.getItem("accesstoken")
       )
     );
@@ -67,7 +89,7 @@ function Checkout() {
                   maxWidth: "250px",
                   maxHeight: "230px",
                 }}
-                src={dummyData.psikiater_id.avatar_url}
+                src={appointment.psikiater_id?.avatar_url}
               ></img>
             </Col>
             <Col
@@ -87,7 +109,7 @@ function Checkout() {
                         backgroundColor: "#70a1ff",
                       }}
                       type="text"
-                      value={`${dummyData.psikiater_id.first_name} ${dummyData.psikiater_id.last_name}`}
+                      value={`${appointment.psikiater_id?.first_name} ${appointment.psikiater_id?.last_name}`}
                       readOnly
                     ></Form.Control>
                   </Form.Group>
@@ -101,7 +123,7 @@ function Checkout() {
                         backgroundColor: "#70a1ff",
                       }}
                       type="text"
-                      value={`${dummyData.patient_id.first_name} ${dummyData.patient_id.last_name}`}
+                      value={`${appointment.patient_id?.first_name} ${appointment.patient_id?.last_name}`}
                       readOnly
                     ></Form.Control>
                   </Form.Group>
@@ -115,7 +137,7 @@ function Checkout() {
                         backgroundColor: "#70a1ff",
                       }}
                       type="text"
-                      value={`${dummyData.psikiater_id.work_schedule},  ${dummyData.psikiater_id.work_time}`}
+                      value={`${appointment.psikiater_id?.work_schedule},  ${appointment.psikiater_id?.work_time}`}
                       readOnly
                     ></Form.Control>
                   </Form.Group>
@@ -139,7 +161,7 @@ function Checkout() {
           </Card.Header>
           <Card.Body>
             <Card.Text style={{ color: "#ffffff" }}>
-              {dummyData.psikiater_id.fees}
+              {appointment.psikiater_id?.fees}
             </Card.Text>
           </Card.Body>
         </Card>
