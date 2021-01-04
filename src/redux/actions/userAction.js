@@ -108,8 +108,6 @@ const fetchUserData = () => async (dispatch) => {
       dispatch({ type: LOGOUT });
     }
 
-    console.log(accesstoken);
-
     if (role === "PATIENT") {
       const patient = await API({
         method: "GET",
@@ -146,8 +144,6 @@ const fetchUserData = () => async (dispatch) => {
           user_data: psikiater.data.data,
         },
       });
-
-      console.log("psikiater fetched");
     }
   } catch (error) {
     console.log(error);
