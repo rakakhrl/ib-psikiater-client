@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import {
   Container,
   InputGroup,
@@ -7,16 +7,45 @@ import {
   Button,
   Card,
 } from "react-bootstrap";
-import { Doctor } from "./Data";
 import CardResult from "../../components/CardResult/index";
 import "./index.scss";
+import API from "../../API/mainServer";
 
 const Index = () => {
   const [searchInput, setSearchInput] = useState("");
+  const [searchResult, setSearchResult] = useState([]);
   const history = useHistory();
+  const location = useLocation();
+
+  const fetchSearchResult = async (region) => {
+    try {
+      const token = localStorage.getItem("accesstoken");
+
+      const response = await API({
+        method: "GET",
+        url: `/psikiater/search/${region}`,
+        headers: {
+          accesstoken: token,
+        },
+      });
+
+      console.log(response.data.data);
+      setSearchResult(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(
+    () => {
+      fetchSearchResult(location.state.region);
+    },
+    // eslint-disable-next-line
+    []
+  );
 
   function handleClick() {
-    history.push("/history", { _id: 1 });
+    // TODO: go to create appointment page
   }
 
   return (
@@ -32,29 +61,21 @@ const Index = () => {
               setSearchInput(e.target.value);
             }}
           />
-          <Button>Search</Button>
+          <Button onClick={() => fetchSearchResult(searchInput)}>Search</Button>
         </InputGroup>
 
         <Card onClick={handleClick} className="link">
-          {Doctor.filter((item) => {
-            if (searchInput === "") {
-              return item;
-            } else if (item.region.toLowerCase().includes(searchInput)) {
-              return item;
-            } else {
-              return null;
-            }
-          }).map((item) => {
+          {searchResult.map((item) => {
             return (
               <CardResult
-                _id={item._id}
+                key={item._id}
                 first_name={item.first_name}
                 last_name={item.last_name}
                 work_address={item.work_address}
-                experience_year={item.experience_year}
+                experience_year={item.info.experience_year}
                 avatar_url={item.avatar_url}
-                price={item.price}
-                region={item.region}
+                price={item.fees}
+                region={item.info.region}
                 star={item.star}
               />
             );

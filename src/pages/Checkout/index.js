@@ -1,6 +1,5 @@
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
-import swal from "sweetalert";
+import { useHistory, useLocation } from "react-router-dom";
 import {
   Jumbotron,
   Container,
@@ -15,6 +14,10 @@ import { changeStatusCheckout } from "../../redux/actions/appointmentAction";
 function Checkout() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
+  // Where the data pass from previous route is kept
+  console.log(location.state);
+
   const dummyData = {
     _id: 123,
     psikiater_id: {
