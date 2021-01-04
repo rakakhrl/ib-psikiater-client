@@ -23,6 +23,8 @@ function Checkout() {
       avatar_url:
         "https://www.pngkey.com/png/full/14-142665_crying-pepe-png-pepe-cry-png.png",
       fees: "Rp 2.000.000",
+      work_schedule: ["Monday"],
+      work_time: ["13.00 PM - 13.45 PM"],
     },
     patient_id: {
       first_name: "Jajang",
@@ -45,11 +47,19 @@ function Checkout() {
   return (
     <div>
       <Container>
-        <Jumbotron style={{ marginTop: "5%", textAlign: "center" }}>
+        <Jumbotron
+          style={{
+            marginTop: "5%",
+            textAlign: "center",
+            backgroundColor: "#ff4757",
+            color: "white",
+          }}
+        >
           <Row>
             <Col style={{ display: "flex", justifyContent: "space-evenly" }}>
               <img
                 style={{
+                  marginTop: "30px",
                   maxWidth: "250px",
                   maxHeight: "230px",
                 }}
@@ -65,10 +75,13 @@ function Checkout() {
                 <Form style={{ marginTop: "30px" }}>
                   <Form.Group controlId="formPsikiaterName">
                     <Form.Label>
-                      <b>Psikiater</b>
+                      <b style={{ color: "white" }}>Psikiater</b>
                     </Form.Label>
                     <Form.Control
-                      style={{ textAlign: "center" }}
+                      style={{
+                        textAlign: "center",
+                        backgroundColor: "#70a1ff",
+                      }}
                       type="text"
                       value={`${dummyData.psikiater_id.first_name} ${dummyData.psikiater_id.last_name}`}
                       readOnly
@@ -76,12 +89,29 @@ function Checkout() {
                   </Form.Group>
                   <Form.Group controlId="formPatientName">
                     <Form.Label>
-                      <b>Patient</b>
+                      <b style={{ color: "white" }}>Patient</b>
                     </Form.Label>
                     <Form.Control
-                      style={{ textAlign: "center" }}
+                      style={{
+                        textAlign: "center",
+                        backgroundColor: "#70a1ff",
+                      }}
                       type="text"
                       value={`${dummyData.patient_id.first_name} ${dummyData.patient_id.last_name}`}
+                      readOnly
+                    ></Form.Control>
+                  </Form.Group>
+                  <Form.Group controlId="formScheduledAppointment">
+                    <Form.Label>
+                      <b style={{ color: "white" }}>Schedule</b>
+                    </Form.Label>
+                    <Form.Control
+                      style={{
+                        textAlign: "center",
+                        backgroundColor: "#70a1ff",
+                      }}
+                      type="text"
+                      value={`${dummyData.psikiater_id.work_schedule},  ${dummyData.psikiater_id.work_time}`}
                       readOnly
                     ></Form.Control>
                   </Form.Group>
@@ -92,6 +122,7 @@ function Checkout() {
         </Jumbotron>
         <Card
           style={{
+            backgroundColor: "#2ed573",
             width: "17rem",
             height: "10rem",
             textAlign: "center",
@@ -100,21 +131,32 @@ function Checkout() {
           }}
         >
           <Card.Header>
-            <b>TOTAL PAYMENT</b>
+            <b style={{ color: "#ffffff" }}>TOTAL PAYMENT</b>
           </Card.Header>
           <Card.Body>
-            <Card.Text>{dummyData.psikiater_id.fees}</Card.Text>
+            <Card.Text style={{ color: "#ffffff" }}>
+              {dummyData.psikiater_id.fees}
+            </Card.Text>
           </Card.Body>
         </Card>
-        <Button
+        <Container
           style={{
             marginTop: "30px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
-          onClick={checkoutButtonHandler}
-          variant="outline-dark"
         >
-          CHECKOUT
-        </Button>
+          <Button
+            style={{
+              margin: "auto",
+            }}
+            variant="dark"
+            onClick={checkoutButtonHandler}
+          >
+            CHECKOUT
+          </Button>
+        </Container>
       </Container>
     </div>
   );
