@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import swal from "sweetalert";
 import {
   Jumbotron,
   Container,
@@ -38,12 +39,13 @@ function Checkout() {
       )
     );
     history.push("/");
+    swal("Checkout Sukses!", "", "success");
   };
 
   return (
     <div>
       <Container>
-        <Jumbotron style={{ marginTop: "5%" }}>
+        <Jumbotron style={{ marginTop: "5%", textAlign: "center" }}>
           <Row>
             <Col style={{ display: "flex", justifyContent: "space-evenly" }}>
               <img
@@ -62,16 +64,22 @@ function Checkout() {
               <Container>
                 <Form style={{ marginTop: "30px" }}>
                   <Form.Group controlId="formPsikiaterName">
-                    <Form.Label>Psikiater</Form.Label>
+                    <Form.Label>
+                      <b>Psikiater</b>
+                    </Form.Label>
                     <Form.Control
+                      style={{ textAlign: "center" }}
                       type="text"
                       value={`${dummyData.psikiater_id.first_name} ${dummyData.psikiater_id.last_name}`}
                       readOnly
                     ></Form.Control>
                   </Form.Group>
                   <Form.Group controlId="formPatientName">
-                    <Form.Label>Patient</Form.Label>
+                    <Form.Label>
+                      <b>Patient</b>
+                    </Form.Label>
                     <Form.Control
+                      style={{ textAlign: "center" }}
                       type="text"
                       value={`${dummyData.patient_id.first_name} ${dummyData.patient_id.last_name}`}
                       readOnly
@@ -83,21 +91,28 @@ function Checkout() {
           </Row>
         </Jumbotron>
         <Card
-          className="container"
           style={{
             width: "17rem",
             height: "10rem",
             textAlign: "center",
-            display: "flex",
-            justifyContent: "center",
+            marginLeft: "auto",
+            marginRight: "auto",
           }}
         >
-          <Card.Header>TOTAL PAYMENT</Card.Header>
+          <Card.Header>
+            <b>TOTAL PAYMENT</b>
+          </Card.Header>
           <Card.Body>
             <Card.Text>{dummyData.psikiater_id.fees}</Card.Text>
           </Card.Body>
         </Card>
-        <Button onClick={checkoutButtonHandler} variant="dark">
+        <Button
+          style={{
+            marginTop: "30px",
+          }}
+          onClick={checkoutButtonHandler}
+          variant="outline-dark"
+        >
           CHECKOUT
         </Button>
       </Container>
