@@ -8,8 +8,12 @@ import {
   BsFillCalendarFill,
   BsBoxArrowInLeft,
 } from "react-icons/bs";
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/actions/authAction";
 
-const index = ({ url }) => {
+const Index = ({ url }) => {
+  const dispatch = useDispatch();
+
   return (
     <Navbar
       style={{ position: "fixed", minWidth: "12vw" }}
@@ -18,7 +22,7 @@ const index = ({ url }) => {
       <Nav className="flex-column">
         <div style={{ position: "absolute", top: 20 }}>
           <Nav.Item>
-            <Link to={`${url}/schedule`} className="links">
+            <Link to={`${url}`} className="links">
               <h5 className="link">
                 {" "}
                 <i>
@@ -52,16 +56,13 @@ const index = ({ url }) => {
               </h5>
             </Link>
           </Nav.Item>
-          <Nav.Item>
-            <Link to="/" className="links">
-              <h5 className="link">
-                {" "}
-                <i>
-                  <BsBoxArrowInLeft />
-                </i>{" "}
-                Sign Out
-              </h5>
-            </Link>
+          <Nav.Item onClick={() => dispatch(logout())}>
+            <h5 className="links">
+              <i>
+                <BsBoxArrowInLeft />
+              </i>
+              Sign Out
+            </h5>
           </Nav.Item>
         </div>
       </Nav>
@@ -70,4 +71,4 @@ const index = ({ url }) => {
   );
 };
 
-export default index;
+export default Index;
