@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 const PrivateRoutePsikiater = (props) => {
   const user = useSelector((state) => state.user);
 
-  console.log(user);
+
 
   return (
     <Route {...props}>
