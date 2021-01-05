@@ -46,8 +46,6 @@ const registerPsikiater = (
         user_data: psikiater.data.data,
       },
     });
-
-    swal("Register Sukses!", "", "success");
   } catch (error) {
     swal("Register Gagal!", "", "error");
     console.log(error);
@@ -91,8 +89,6 @@ const registerPatient = (
         user_data: patient.data.data,
       },
     });
-
-    swal("Register Sukses!", "", "success");
   } catch (error) {
     swal("Register Gagal!", "", "error");
     console.log(error);

@@ -26,8 +26,6 @@ const login = (email, password) => async (dispatch) => {
         user_data: user.data.data,
       },
     });
-
-    swal("Login Sukses!", "", "success");
   } catch (error) {
     swal("Login Gagal!", "Username/Password Salah!", "error");
     console.error(error);
