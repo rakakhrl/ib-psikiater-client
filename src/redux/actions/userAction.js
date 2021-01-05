@@ -47,7 +47,7 @@ const registerPsikiater = (
       },
     });
   } catch (error) {
-    swal("Register Gagal!", error.message, "error");
+    swal("Register Gagal!", error.response.data.message, "error");
   }
 };
 
@@ -89,7 +89,7 @@ const registerPatient = (
       },
     });
   } catch (error) {
-    swal("Register Gagal!", error.message, "error");
+    swal("Register Gagal!", error.response.data.message, "error");
   }
 };
 

@@ -27,7 +27,7 @@ const login = (email, password) => async (dispatch) => {
       },
     });
   } catch (error) {
-    swal("Login Gagal!", error.message, "error");
+    swal("Login Gagal!", error.response.data.message, "error");
   }
 };
 
