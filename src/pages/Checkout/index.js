@@ -12,13 +12,13 @@ import {
   Card,
   Button,
 } from "react-bootstrap";
-import { changeStatusCheckout } from "../../redux/actions/appointmentAction";
+import appointmentAction from "../../redux/actions/appointmentAction";
 
 function Checkout() {
   const [appointment, setAppointment] = useState({});
   const { appointment_id } = useParams();
   const dispatch = useDispatch();
-  const history = useHistory();
+  // const history = useHistory();
 
   useEffect(() => {
     const getData = async () => {
@@ -32,6 +32,7 @@ function Checkout() {
         });
 
         setAppointment(appointment.data.data);
+        console.log(appointment.data);
       } catch (err) {
         console.log(err);
       }
@@ -44,13 +45,13 @@ function Checkout() {
 
   const checkoutButtonHandler = () => {
     dispatch(
-      changeStatusCheckout(
+      appointmentAction.changeStatusPaid(
         "Paid",
         appointment._id,
         localStorage.getItem("accesstoken")
       )
     );
-    history.push("/");
+
     swal("Checkout Sukses!", "", "success");
   };
 
@@ -73,7 +74,7 @@ function Checkout() {
                   maxWidth: "250px",
                   maxHeight: "230px",
                 }}
-                src={appointment.psikiater_id?.avatar_url}
+                src={appointment?.psikiater_id?.avatar_url}
               ></img>
             </Col>
             <Col
@@ -93,7 +94,7 @@ function Checkout() {
                         backgroundColor: "#70a1ff",
                       }}
                       type="text"
-                      value={`${appointment.psikiater_id?.first_name} ${appointment.psikiater_id?.last_name}`}
+                      value={`${appointment?.psikiater_id?.first_name} ${appointment?.psikiater_id?.last_name}`}
                       readOnly
                     ></Form.Control>
                   </Form.Group>
@@ -107,7 +108,7 @@ function Checkout() {
                         backgroundColor: "#70a1ff",
                       }}
                       type="text"
-                      value={`${appointment.patient_id?.first_name} ${appointment.patient_id?.last_name}`}
+                      value={`${appointment?.patient_id?.first_name} ${appointment?.patient_id?.last_name}`}
                       readOnly
                     ></Form.Control>
                   </Form.Group>
@@ -121,7 +122,7 @@ function Checkout() {
                         backgroundColor: "#70a1ff",
                       }}
                       type="text"
-                      value={`${appointment.psikiater_id?.work_schedule},  ${appointment.psikiater_id?.work_time}`}
+                      value={`${appointment?.appointment_date},  ${appointment?.appointment_time}`}
                       readOnly
                     ></Form.Control>
                   </Form.Group>
@@ -145,7 +146,7 @@ function Checkout() {
           </Card.Header>
           <Card.Body>
             <Card.Text style={{ color: "#ffffff" }}>
-              {appointment.psikiater_id?.fees}
+              {appointment?.psikiater_id?.fees}
             </Card.Text>
           </Card.Body>
         </Card>
