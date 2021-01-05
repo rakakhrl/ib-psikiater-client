@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import userAction from "../redux/actions/userAction";
 import { useHistory } from "react-router-dom";
 import { ArrowLeft } from "react-bootstrap-icons";
-import { Form, Row, Col, Container, Button, Image} from "react-bootstrap";
+import { Form, Row, Col, Container, Button, Image } from "react-bootstrap";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -133,7 +133,8 @@ const Register = () => {
               <Form.Group>
                 <Form.Label>Address</Form.Label>
                 <Form.Control
-                  type="text"
+                  as="textarea"
+                  rows={2}
                   placeholder="Address"
                   onChange={(e) => setAddress(e.target.value)}
                   value={address}
