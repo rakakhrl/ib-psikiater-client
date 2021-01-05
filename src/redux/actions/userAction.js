@@ -12,7 +12,8 @@ const registerPsikiater = (
   gender,
   experience_year,
   region,
-  fee
+  fee,
+  work_address
 ) => async (dispatch) => {
   try {
     const psikiater = await API({
@@ -28,6 +29,7 @@ const registerPsikiater = (
         experience_year: experience_year,
         region: region,
         fees: fee,
+        work_address: work_address,
       },
     });
 
@@ -160,7 +162,6 @@ const checkAccessToken = (accessToken) => async (dispatch) => {
       },
     });
 
-    // console.log(getUserProfile)
     dispatch({
       type: "LOGIN",
       payload: {
