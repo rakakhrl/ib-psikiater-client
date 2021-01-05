@@ -44,4 +44,20 @@ const createRating = (
   }
 };
 
-export { changeStatusCheckout, createRating };
+const createAppointment = (first_name, last_name, complaint, allergy) => async (
+  dispatch
+) => {
+  try {
+    const createAppointment = await API({
+      method: "POST",
+      url: "/appointments",
+      headers: {
+        accesstoken: accesstoken,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { changeStatusCheckout, createRating, createAppointment };

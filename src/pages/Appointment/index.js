@@ -173,7 +173,9 @@ const Appointment = () => {
             </Form>
           </Col>
         </Row>
-        <Button variant="dark">Make Appointment</Button>
+        <Button onClick={createAppointmentHandler} variant="dark">
+          Make Appointment
+        </Button>
       </Container>
     </div>
   );
