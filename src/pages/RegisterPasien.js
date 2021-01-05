@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import userAction from "../redux/actions/userAction";
 import { useHistory } from "react-router-dom";
 import { ArrowLeft } from "react-bootstrap-icons";
-import { Form, Row, Col, Container, Button, Image } from "react-bootstrap";
+import { Form, Row, Col, Container, Button, Image} from "react-bootstrap";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -111,7 +111,6 @@ const Register = () => {
                 <Form.Label>Date of Birth</Form.Label>
                 <Form.Control
                   type="date"
-                  placeholder="Tanggal Lahir"
                   onChange={(e) => setDateofBirth(e.target.value)}
                   value={date_of_birth}
                 ></Form.Control>
