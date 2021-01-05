@@ -15,22 +15,7 @@ import {
 import { changeStatusCheckout } from "../../redux/actions/appointmentAction";
 
 function Checkout() {
-  const [appointment, setAppointment] = useState({
-    _id: 123,
-    psikiater_id: {
-      first_name: "Naufal",
-      last_name: "Fachri",
-      avatar_url:
-        "https://www.pngkey.com/png/full/14-142665_crying-pepe-png-pepe-cry-png.png",
-      fees: "Rp 2.000.000",
-      work_schedule: ["Monday"],
-      work_time: ["13.00 PM - 13.45 PM"],
-    },
-    patient_id: {
-      first_name: "Jajang",
-      last_name: "Ramlan",
-    },
-  });
+  const [appointment, setAppointment] = useState({});
   const { appointment_id } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
@@ -47,7 +32,6 @@ function Checkout() {
         });
 
         setAppointment(appointment.data.data);
-        console.log(appointment.data);
       } catch (err) {
         console.log(err);
       }
