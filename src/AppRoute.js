@@ -34,13 +34,13 @@ const AppRoute = () => {
       <PrivateRoutePasien path="/patient-history" exact>
         <PatientHistory />
       </PrivateRoutePasien>
-      <PrivateRoutePasien path="/search-result" exact>
+      <Route path="/search-result" exact>
         <Search />
-      </PrivateRoutePasien>
+      </Route>
       <PrivateRoutePsikiater path="/psikiater-dashboard" exact>
         <Psikiater />
       </PrivateRoutePsikiater>
-      <Route path="/checkout-payment" exact>
+      <Route path="/checkout-payment/:appointment_id" exact>
         <Checkout />
       </Route>
     </Switch>

@@ -111,7 +111,6 @@ const Register = () => {
                 <Form.Label>Date of Birth</Form.Label>
                 <Form.Control
                   type="date"
-                  placeholder="Tanggal Lahir"
                   onChange={(e) => setDateofBirth(e.target.value)}
                   value={date_of_birth}
                 ></Form.Control>
@@ -134,7 +133,8 @@ const Register = () => {
               <Form.Group>
                 <Form.Label>Address</Form.Label>
                 <Form.Control
-                  type="text"
+                  as="textarea"
+                  rows={2}
                   placeholder="Address"
                   onChange={(e) => setAddress(e.target.value)}
                   value={address}

@@ -2,61 +2,16 @@ import React, { useState, useEffect } from "react";
 import "./main.css";
 import AppointmentCard from "../../components/AppointmentCard";
 import PrescriptionModal from "../../components/PrescriptionModal";
+import ReviewAppointmentModal from "../../components/ReviewAppointmentModal";
 import API from "../../API/mainServer";
 import { useSelector } from "react-redux";
 
-const dummyData = [
-  {
-    psikiater_id: {
-      first_name: "Mamang",
-      last_name: "Suparman",
-      work_address:
-        "Jln. Raya Macet No. 41 Bojong Kulur 004/012 Jatisari Jatiasih Bekasi",
-      info: {
-        region: "Bekasi",
-      },
-      avatar_url:
-        "https://images.unsplash.com/photo-1580820267682-426da823b514?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cG9ydHJhaXQlMjBiYWNrZ3JvdW5kfGVufDB8fDB8&ixlib=rb-1.2.1&w=1000&q=80",
-    },
-    prescription_id: {
-      drugs: {
-        drug_name: "Sakatonik ABC",
-        consume_method: {
-          method_name: "Digerus dulu sama emak",
-          time_sequence: ["Sesudah sarapan", "Sebelum tidur"],
-        },
-      },
-    },
-    appointment_date: "2021-01-01T10:59:42.518+00:00",
-    appointment_time: "14:00",
-    complaint: "Feeling down and can't concentrate",
-    allergy: ["Panadol"],
-    status: "Done",
-  },
-  {
-    psikiater_id: {
-      first_name: "Mamang",
-      last_name: "Suparman",
-      work_address:
-        "Jln. Raya Macet No. 41 Bojong Kulur 004/012 Jatisari Jatiasih Bekasi",
-      info: {
-        region: "Bekasi",
-      },
-      avatar_url:
-        "https://images.unsplash.com/photo-1580820267682-426da823b514?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cG9ydHJhaXQlMjBiYWNrZ3JvdW5kfGVufDB8fDB8&ixlib=rb-1.2.1&w=1000&q=80",
-    },
-    appointment_date: "2021-01-19T10:59:42.518+00:00",
-    appointment_time: "14:00",
-    complaint: "",
-    allergy: ["Panadol"],
-    status: "Paid",
-  },
-];
-
 const PatientHistory = () => {
   const user = useSelector((store) => store.user.user_data);
-  const [modalShow, setModalShow] = useState(false);
+  const [prescriptionModalShow, setPrescriptionModalShow] = useState(false);
+  const [reviewModalShow, setReviewModalShow] = useState(false);
   const [prescription, setPrescription] = useState({});
+  const [choosenAppointment, setChoosenAppointment] = useState({});
   const [appointment, setAppointment] = useState([]);
 
   const fetchAppointment = async () => {
@@ -80,14 +35,24 @@ const PatientHistory = () => {
     []
   );
 
-  const handleModalShow = (content, e) => {
+  const handlePerscriptionModalShow = (content, e) => {
     e.preventDefault();
     setPrescription(content);
-    setModalShow(true);
+    setPrescriptionModalShow(true);
   };
-  const handleModalClose = () => {
-    setModalShow(false);
+  const handlePrescriptionModalClose = () => {
+    setPrescriptionModalShow(false);
     setPrescription({});
+  };
+
+  const handleReviewModalShow = (content, e) => {
+    e.preventDefault();
+    setChoosenAppointment(content);
+    setReviewModalShow(true);
+  };
+  const handleReviewModalClose = () => {
+    setReviewModalShow(false);
+    setChoosenAppointment({});
   };
 
   return (
@@ -96,16 +61,24 @@ const PatientHistory = () => {
 
       <div className="list-history">
         <PrescriptionModal
-          show={modalShow}
-          handleClose={handleModalClose}
+          show={prescriptionModalShow}
+          handleClose={handlePrescriptionModalClose}
           prescription={prescription}
         />
+        <ReviewAppointmentModal
+          show={reviewModalShow}
+          handleClose={handleReviewModalClose}
+          patient_id={choosenAppointment.patient_id?._id}
+          psikiater_id={choosenAppointment.psikiater_id?._id}
+          appointment_id={choosenAppointment._id}
+        />
 
-        {appointment.map((d, i) => (
+        {appointment.map((d) => (
           <AppointmentCard
-            key={i}
+            key={d._id}
             appointment={d}
-            showModal={(v, e) => handleModalShow(v, e)}
+            showPrescriptionModal={(v, e) => handlePerscriptionModalShow(v, e)}
+            showReviewModal={(v, e) => handleReviewModalShow(v, e)}
           />
         ))}
       </div>

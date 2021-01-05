@@ -15,26 +15,33 @@ const changeStatusCheckout = (status, appointment_id, accesstoken) => async (
   });
 };
 
-const submitAppointment = (
-  first_name,
-  last_name,
-  complaint,
-  allergy,
-  accesstoken
+const createRating = (
+  patient_id,
+  psikiater_id,
+  appointment_id,
+  rating,
+  review
 ) => async (dispatch) => {
-  const submitAppointment = await API({
-    url: `/appointments`,
-    method: "POST",
-    headers: {
-      accesstoken: accesstoken,
-    },
-    data: {
-      first_name: first_name,
-      last_name: last_name,
-      complaint: complaint,
-      allergy: allergy,
-    },
-  });
+  try {
+    const token = localStorage.getItem("accesstoken");
+
+    const response = await API({
+      method: "POST",
+      url: "/reviews",
+      headers: {
+        accesstoken: token,
+      },
+      data: {
+        patient_id,
+        psikiater_id,
+        appointment_id,
+        rating,
+        feedback: review,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-export { changeStatusCheckout, submitAppointment };
+export { changeStatusCheckout, createRating };
