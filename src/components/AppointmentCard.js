@@ -55,6 +55,10 @@ const AppointmentCard = ({ appointment, showModal }) => {
                     </p>
                   )}
                 </h6>
+                <h6>
+                  <strong>Diagnose: </strong>
+                  {appointment.diagnose.diagnose_name}
+                </h6>
               </Col>
               <Col style={{ textAlign: "end" }}>
                 <Image
