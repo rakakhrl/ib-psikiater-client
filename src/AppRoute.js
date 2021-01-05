@@ -11,10 +11,14 @@ import PatientHistory from "./pages/PatientHistory/index";
 import Search from "./pages/Search";
 import Psikiater from "./pages/Psikiater";
 import Checkout from "./pages/Checkout/index";
+import Appointment from "./pages/Appointment/index";
 
 const AppRoute = () => {
   return (
     <Switch>
+      <Route path="/Appointment/:psikiater_id" exact>
+        <Appointment />
+      </Route>
       <Route path="/" exact>
         <Home />
       </Route>

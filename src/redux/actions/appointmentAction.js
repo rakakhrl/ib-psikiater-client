@@ -15,4 +15,26 @@ const changeStatusCheckout = (status, appointment_id, accesstoken) => async (
   });
 };
 
-export { changeStatusCheckout };
+const submitAppointment = (
+  first_name,
+  last_name,
+  complaint,
+  allergy,
+  accesstoken
+) => async (dispatch) => {
+  const submitAppointment = await API({
+    url: `/appointments`,
+    method: "POST",
+    headers: {
+      accesstoken: accesstoken,
+    },
+    data: {
+      first_name: first_name,
+      last_name: last_name,
+      complaint: complaint,
+      allergy: allergy,
+    },
+  });
+};
+
+export { changeStatusCheckout, submitAppointment };
