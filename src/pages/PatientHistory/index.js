@@ -18,7 +18,7 @@ const PatientHistory = () => {
     const token = localStorage.getItem("accesstoken");
     const response = await API({
       method: "GET",
-      url: `/appointments/patient/${user._id}`,
+      url: `/appointments/patient`,
       headers: {
         accesstoken: token,
       },
