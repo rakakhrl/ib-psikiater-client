@@ -11,7 +11,7 @@ const Testimoni = () => {
           </header>
           <Container>
             <div class="flex flex-3">
-              <div class="col align-center">
+              <div class="col align-center" id="linesatu">
                 <div class="image round fit">
                   <img
                     src="https://non-indonesia-distribution.brta.in/2018-08/ce8014b02db258d883f545cc27bf4b35.jpg"
@@ -27,7 +27,7 @@ const Testimoni = () => {
                   ke psikiater dulu.
                 </p>
               </div>
-              <div class="col align-center">
+              <div class="col align-center" id="linesatu">
                 <div class="image round fit">
                   <img
                     src="https://cdn.idntimes.com/content-images/post/20190110/c12-e35fa457b5c8da29b2c488cf2204dcbd_600x400.jpg"
@@ -43,7 +43,7 @@ const Testimoni = () => {
                   semakin memahami mekanisme pikiran dan emosi saya.
                 </p>
               </div>
-              <div class="col align-center">
+              <div class="col align-center" id="linesatu">
                 <div class="image round fit">
                   <img
                     src="https://image-cdn.medkomtek.com/VU4jKu3sxnr8jCNWpXZ99DDqQhM=/673x379/smart/klikdokter-media-buckets/medias/2309218/original/027041400_1573260772-Setiap-Orang-Punya-Tipe-Pasangan-Ideal-Mengapa-Bisa-Begitu-By-Roman-Samborskyi-Shutterstock_777923671.jpg"

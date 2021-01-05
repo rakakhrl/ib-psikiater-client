@@ -14,21 +14,14 @@ const LineSatu = () => {
                   fluid
                 />
               </Col>
-              <Col style={{ textAlign: "justify" }}>
+              <Col style={{ textAlign: "justify" }} id="linesatu">
                 <h3>Konseling Keluarga</h3>
                 <p>
                   Apakah anda terjebak dengan berbagai persoalan konflik dalam
                   rumah tangga, anak, pasangan, mertua dan sejuta persoalan
                   lainnya? Apakah keluarga Anda terlibat berbagai masalah bagai
                   benang kusut dimana Anda sudah tidak tahu bagaimana
-                  menyelesaikan berbagai persoalan yang ada? Apakah Anda merasa
-                  lelah dan tidak tahu apa dan bagaimana solusi untuk berbagai
-                  persoalan Anda? Anda merasa ingin mendapatkan pertolongan
-                  profesional untuk membantu Anda memecahkan masalah tanpa
-                  adanya ancaman dipermalukan dan rahasia Anda tersebar? Jika
-                  ya, Anda membuka website yang tepat. Dalam kehidupan saat ini
-                  yang penuh dengan tantangan, Konseling menjadi suatu kebutuhan
-                  mutlak bagi siapapun Anda.
+                  menyelesaikan berbagai persoalan yang ada?
                 </p>
               </Col>
             </Row>
@@ -43,20 +36,14 @@ const LineSatu = () => {
                   fluid
                 />
               </Col>
-              <Col style={{ textAlign: "justify" }}>
+              <Col style={{ textAlign: "justify" }} id="linesatu">
                 <h3>Konseling Pra Nikah</h3>
                 <p>
                   Pernikahan adalah menyatukan dua pribadi yang berbeda dengan
                   keunikan masing-masing. Setiap individu memiliki ekspektasi
                   yang berbeda terhadap pernikahan dan pasangannya. Kesamaan
                   persepsi mengenai pernikahan tentu harus ditemukan sebelum dua
-                  insan ini memutuskan untuk hidup bersama selamanya. Untuk
-                  menyamakan persepsi ini terkadang dibutuhkan konseling sebelum
-                  pernikahan. Sebelum menikah, Anda dan pasangan perlu
-                  menjelaskan visi masing-masing, termasuk apa yang diyakini dan
-                  rencana saat menikah nanti. Konseling pra-nikah membantu Anda
-                  dan pasangan untuk mengindentifikasikan visi dan menyatukannya
-                  sebelum akhirnya menjalani hidup bersama.
+                  insan ini memutuskan untuk hidup bersama selamanya. 
                 </p>
               </Col>
             </Row>
@@ -71,7 +58,7 @@ const LineSatu = () => {
                   fluid
                 />
               </Col>
-              <Col style={{ textAlign: "justify" }}>
+              <Col style={{ textAlign: "justify" }} id="linesatu">
                 <h3>Konseling Anak</h3>
                 <p>
                   Bimbingan konseling anak merupakan kegiatan yang sengaja

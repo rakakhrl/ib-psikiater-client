@@ -3929,3 +3929,53 @@
 			}
 
 		}
+
+		@media screen and (max-width: 980px) {
+
+			#linesatu h3 {
+				font-size: 1.5em;
+			}
+
+			#linesatu p {
+				font-size: 0.8em;
+			}
+			iframe{
+				width: 400px;
+				height: 400px;
+			}
+		}
+
+		@media screen and (max-width: 736px) {
+
+
+				#linesatu h3 {
+					font-size: 1.25em;
+				}
+
+				#linesatu p {
+					font-size: 0.65em;
+				}
+
+				iframe{
+					width: 300px;
+					height: 300px;
+				}
+
+		}
+
+		@media screen and (max-width: 480px) {
+
+			#linesatu h3 {
+				font-size: 0.9em;
+			}
+
+			#linesatu p {
+				font-size: 0.4em;
+			}
+
+			iframe{
+				width: 200px;
+				height: 200px;
+			}
+
+		}

@@ -36,7 +36,7 @@ const AppRoute = () => {
       <PrivateRoutePsikiater path="/psikiater-dashboard" exact>
         <Psikiater />
       </PrivateRoutePsikiater>
-      <Route path="/checkout-payment" exact>
+      <Route path="/checkout-payment/:appointment_id" exact>
         <Checkout />
       </Route>
     </Switch>
