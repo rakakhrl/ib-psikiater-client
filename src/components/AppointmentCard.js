@@ -1,7 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Row, Col, Image } from "react-bootstrap";
+import API from "../API/mainServer";
 
-const AppointmentCard = ({ appointment, showModal }) => {
+const AppointmentCard = ({
+  appointment,
+  showPrescriptionModal,
+  showReviewModal,
+}) => {
+  const [existedRating, setExistedRating] = useState({});
+
+  const fetchReview = async () => {
+    try {
+      const token = localStorage.getItem("accesstoken");
+
+      const response = await API({
+        method: "GET",
+        url: `/reviews/appointment/${appointment._id}`,
+        headers: {
+          accesstoken: token,
+        },
+      });
+
+      console.log(response.data.data);
+      setExistedRating(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(
+    () => {
+      fetchReview();
+    },
+    // eslint-disable-next-line
+    []
+  );
+
   return (
     <Card body className="mb-4">
       <div className="container">
@@ -49,7 +83,9 @@ const AppointmentCard = ({ appointment, showModal }) => {
                   ) : (
                     <p
                       style={{ textDecorationLine: "underline", color: "blue" }}
-                      onClick={(e) => showModal(appointment.prescription_id, e)}
+                      onClick={(e) =>
+                        showPrescriptionModal(appointment.prescription_id, e)
+                      }
                     >
                       Open prescription
                     </p>
@@ -59,6 +95,21 @@ const AppointmentCard = ({ appointment, showModal }) => {
                   <strong>Diagnose: </strong>
                   {appointment.diagnose.diagnose_name}
                 </h6>
+                {!existedRating?._id ? (
+                  <h6>
+                    <p
+                      style={{ textDecorationLine: "underline", color: "blue" }}
+                      onClick={(e) => showReviewModal(appointment, e)}
+                    >
+                      Rate this appointment
+                    </p>
+                  </h6>
+                ) : (
+                  <h6>
+                    <strong>You rated: </strong>
+                    <p>{existedRating?.rating?.$numberDecimal ?? 0}/5</p>
+                  </h6>
+                )}
               </Col>
               <Col style={{ textAlign: "end" }}>
                 <Image

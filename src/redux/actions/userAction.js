@@ -12,7 +12,8 @@ const registerPsikiater = (
   gender,
   experience_year,
   region,
-  fee
+  fee,
+  work_address
 ) => async (dispatch) => {
   try {
     const psikiater = await API({
@@ -28,6 +29,7 @@ const registerPsikiater = (
         experience_year: experience_year,
         region: region,
         fees: fee,
+        work_address: work_address,
       },
     });
 
@@ -44,11 +46,8 @@ const registerPsikiater = (
         user_data: psikiater.data.data,
       },
     });
-
-    swal("Register Sukses!", "", "success");
   } catch (error) {
-    swal("Register Gagal!", "", "error");
-    console.log(error);
+    swal("Register Gagal!", error.response.data.message, "error");
   }
 };
 
@@ -89,11 +88,8 @@ const registerPatient = (
         user_data: patient.data.data,
       },
     });
-
-    swal("Register Sukses!", "", "success");
   } catch (error) {
-    swal("Register Gagal!", "", "error");
-    console.log(error);
+    swal("Register Gagal!", error.response.data.message, "error");
   }
 };
 
@@ -160,7 +156,6 @@ const checkAccessToken = (accessToken) => async (dispatch) => {
       },
     });
 
-    // console.log(getUserProfile)
     dispatch({
       type: "LOGIN",
       payload: {

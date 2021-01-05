@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
 import * as Icon from "react-bootstrap-icons";
 import "../../assets/css/main.css";
 import { InputGroup, Form } from "react-bootstrap";
@@ -8,13 +7,9 @@ import swal from "sweetalert";
 
 const Carousel = () => {
   const history = useHistory();
-  const isLogin = useSelector((store) => store.user.isLogin);
   const [searchInput, setSearchInput] = useState("");
 
   const search = () => {
-    if (!isLogin) {
-      swal("Anda harus login sebagai pasien terlebih dahulu", "", "error");
-    }
     history.push("search-result", { region: searchInput });
   };
 

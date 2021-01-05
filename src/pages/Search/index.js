@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 import {
   Container,
   InputGroup,
@@ -10,8 +11,10 @@ import {
 import CardResult from "../../components/CardResult/index";
 import "./index.scss";
 import API from "../../API/mainServer";
+import swal from "sweetalert";
 
 const Index = () => {
+  const isLogin = useSelector((store) => store.user.isLogin);
   const [searchInput, setSearchInput] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const history = useHistory();
@@ -45,6 +48,9 @@ const Index = () => {
   );
 
   function handleClick() {
+    if (!isLogin) {
+      swal("Anda harus login sebagai pasien terlebih dahulu", "", "error");
+    }
     // TODO: go to create appointment page
   }
 

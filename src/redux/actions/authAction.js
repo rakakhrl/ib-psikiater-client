@@ -26,11 +26,8 @@ const login = (email, password) => async (dispatch) => {
         user_data: user.data.data,
       },
     });
-
-    swal("Login Sukses!", "", "success");
   } catch (error) {
-    swal("Login Gagal!", "Username/Password Salah!", "error");
-    console.error(error);
+    swal("Login Gagal!", error.response.data.message, "error");
   }
 };
 
@@ -40,7 +37,7 @@ const logout = () => (dispatch) => {
 
     dispatch({ type: LOGOUT });
   } catch (error) {
-    console.error(error);
+    swal("Sign Out Gagal!", error.message, "error");
   }
 };
 
