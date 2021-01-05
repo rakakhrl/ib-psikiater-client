@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import StarRatings from "react-star-ratings";
-import { createRating } from "../redux/actions/appointmentAction";
+import appointmentAction from "../redux/actions/appointmentAction";
 
 const ReviewAppointmentModal = ({
   show,
@@ -18,7 +18,13 @@ const ReviewAppointmentModal = ({
   const submitReview = (e) => {
     e.preventDefault();
     dispatch(
-      createRating(patient_id, psikiater_id, appointment_id, rating, review)
+      appointmentAction.createRating(
+        patient_id,
+        psikiater_id,
+        appointment_id,
+        rating,
+        review
+      )
     );
     handleClose();
   };
