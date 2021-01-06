@@ -52,6 +52,22 @@ const registerPsikiater = (
   }
 };
 
+const uploadFotoPsikiater = (
+  avatar,
+) => async (dispatch) => {
+  try {
+    const uploadFotoPsikiater = await API({
+      method: "POST",
+      url: "/psikiater/upload/:id",
+      data: {
+        avatar: avatar,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const registerPatient = (
   first_name,
   last_name,
@@ -96,6 +112,10 @@ const registerPatient = (
     console.log(error);
   }
 };
+
+
+
+
 
 const fetchUserData = () => async (dispatch) => {
   try {
@@ -179,6 +199,7 @@ const userAction = {
   registerPsikiater,
   registerPatient,
   fetchUserData,
+  uploadFotoPsikiater,
 };
 
 export default userAction;
