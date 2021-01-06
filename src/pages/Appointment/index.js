@@ -12,10 +12,10 @@ import {
   FormControl,
 } from "react-bootstrap";
 
-import DatePicker from "react-datepicker";
+// import DatePicker from "react-datepicker";
 import appointmentAction from "../../redux/actions/appointmentAction";
 
-import "react-datepicker/dist/react-datepicker.css";
+// import "react-datepicker/dist/react-datepicker.css";
 
 const Appointment = () => {
   const [psikiaterData, setPsikiaterData] = useState({});

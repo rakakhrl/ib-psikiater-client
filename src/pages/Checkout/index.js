@@ -124,7 +124,7 @@ function Checkout() {
                       }}
                       type="text"
                       value={`${moment(appointment?.appointment_date).format(
-                        "YYYY, MMM, DD"
+                        "YYYY MMM DD"
                       )} - ${appointment?.appointment_time}`}
                       readOnly
                     ></Form.Control>
