@@ -169,11 +169,35 @@ const checkAccessToken = (accessToken) => async (dispatch) => {
   }
 };
 
+const changePsikiaterSchedule = (
+  psikiater_id,
+  accesstoken,
+  work_days,
+  work_time
+) => async (dispatch) => {
+  try {
+    const response = await API({
+      method: "PATCH",
+      url: `/schedule/${psikiater_id}`,
+      headers: {
+        accesstoken: accesstoken,
+      },
+      data: {
+        work_days: work_days,
+        work_time: work_time,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const userAction = {
   checkAccessToken,
   registerPsikiater,
   registerPatient,
   fetchUserData,
+  changePsikiaterSchedule,
 };
 
 export default userAction;
