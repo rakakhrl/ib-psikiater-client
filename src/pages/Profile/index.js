@@ -1,26 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import API from "../../API/mainServer";
 import { Container, Form, Col, Row } from "react-bootstrap";
 
 const Index = () => {
-  const userId = localStorage.getItem("userId");
   const accesstoken = localStorage.getItem("accesstoken");
-  const [profile, setProfile] = useState({});
-  useEffect(() => {
-    const fetchProfile = async () => {
-      const response = await API({
-        method: "GET",
-        url: `/psikiater/${userId}`,
-        headers: {
-          accesstoken: accesstoken,
-        },
-      });
-      setProfile(response.data.data);
-      console.log(response.data.data);
-    };
-    fetchProfile();
-    return fetchProfile;
-  }, []);
+  const profile = useSelector((store) => store.user.user_data);
+  console.log(profile);
 
   return (
     <>
@@ -38,11 +24,9 @@ const Index = () => {
               }}
             />
           </Col>
-          <Form.Group as={Row} controlId="formPlaintextEmail">
-            <Form.Label column sm="2">
-              Nama Depan
-            </Form.Label>
+          <Form.Group as={Row}>
             <Col sm="3">
+              <Form.Label>Nama Depan</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Nama Depan"
@@ -50,10 +34,8 @@ const Index = () => {
                 readOnly
               />
             </Col>
-            <Form.Label column sm="2">
-              Nama Panjang
-            </Form.Label>
             <Col sm="3">
+              <Form.Label>Nama Belakang</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Nama Panjang"
@@ -62,11 +44,9 @@ const Index = () => {
               />
             </Col>
           </Form.Group>
-          <Form.Group as={Row} controlId="formPlaintextPassword">
-            <Form.Label column sm="2">
-              Email
-            </Form.Label>
+          <Form.Group>
             <Col sm="8">
+              <Form.Label>Email</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="email"
@@ -75,11 +55,9 @@ const Index = () => {
               />
             </Col>
           </Form.Group>
-          <Form.Group as={Row} controlId="formPlaintextPassword">
-            <Form.Label column sm="2">
-              Tanggal Lahir
-            </Form.Label>
+          <Form.Group>
             <Col sm="8">
+              <Form.Label>Tanggal Lahir</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Tanggal Lahir"
@@ -88,11 +66,9 @@ const Index = () => {
               />
             </Col>
           </Form.Group>
-          <Form.Group as={Row} controlId="formPlaintextPassword">
-            <Form.Label column sm="2">
-              Jenis Kelamin
-            </Form.Label>
+          <Form.Group>
             <Col sm="8">
+              <Form.Label>Jenis Kelamin</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Jenis Kelamin"
@@ -101,11 +77,9 @@ const Index = () => {
               />
             </Col>
           </Form.Group>
-          <Form.Group as={Row} controlId="formPlaintextPassword">
-            <Form.Label column sm="2">
-              Alamat Kantor
-            </Form.Label>
+          <Form.Group>
             <Col sm="8">
+              <Form.Label>Alamat Kantor</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Alamat Kantor"
@@ -114,37 +88,31 @@ const Index = () => {
               />
             </Col>
           </Form.Group>
-          <Form.Group as={Row} controlId="formPlaintextPassword">
-            <Form.Label column sm="2">
-              Pengalaman
-            </Form.Label>
+          <Form.Group>
             <Col sm="8">
+              <Form.Label>Pengalaman</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Pengalaman"
-                value={profile.info.experience_year}
+                value={profile.info?.experience_year}
                 readOnly
               />
             </Col>
           </Form.Group>
-          <Form.Group as={Row} controlId="formPlaintextPassword">
-            <Form.Label column sm="2">
-              Wilayah
-            </Form.Label>
+          <Form.Group>
             <Col sm="8">
+              <Form.Label>Wilayah</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Wilayah"
-                value={profile.info.region}
+                value={profile.info?.region}
                 readOnly
               />
             </Col>
           </Form.Group>
-          <Form.Group as={Row} controlId="formPlaintextPassword">
-            <Form.Label column sm="2">
-              Jam Kerja
-            </Form.Label>
+          <Form.Group>
             <Col sm="8">
+              <Form.Label>Hari Kerja</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Jam Kerja"
@@ -153,14 +121,12 @@ const Index = () => {
               />
             </Col>
           </Form.Group>
-          <Form.Group as={Row} controlId="formPlaintextPassword">
-            <Form.Label column sm="2">
-              Waktu Bekerja
-            </Form.Label>
+          <Form.Group>
             <Col sm="8">
+              <Form.Label>Waktu Bekerja</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Waktu Bekerja"
+                placeholder="Jam Kerja"
                 value={profile.schedule.work_time}
                 readOnly
               />

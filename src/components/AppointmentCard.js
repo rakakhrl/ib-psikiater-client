@@ -5,7 +5,8 @@ import API from "../API/mainServer";
 const AppointmentCard = ({
   appointment,
   showPrescriptionModal,
-  showReviewModal,
+  showReviewModal = () => {},
+  showRating = true,
 }) => {
   const [existedRating, setExistedRating] = useState({});
 
@@ -34,6 +35,22 @@ const AppointmentCard = ({
     },
     // eslint-disable-next-line
     []
+  );
+
+  const ratingFromPatient = !existedRating?._id ? (
+    <h6>
+      <p
+        style={{ textDecorationLine: "underline", color: "blue" }}
+        onClick={(e) => showReviewModal(appointment, e)}
+      >
+        Rate this appointment
+      </p>
+    </h6>
+  ) : (
+    <h6>
+      <strong>You rated: </strong>
+      <p>{existedRating?.rating?.$numberDecimal ?? 0}/5</p>
+    </h6>
   );
 
   return (
@@ -95,21 +112,7 @@ const AppointmentCard = ({
                   <strong>Diagnose: </strong>
                   {appointment.diagnose.diagnose_name}
                 </h6>
-                {!existedRating?._id ? (
-                  <h6>
-                    <p
-                      style={{ textDecorationLine: "underline", color: "blue" }}
-                      onClick={(e) => showReviewModal(appointment, e)}
-                    >
-                      Rate this appointment
-                    </p>
-                  </h6>
-                ) : (
-                  <h6>
-                    <strong>You rated: </strong>
-                    <p>{existedRating?.rating?.$numberDecimal ?? 0}/5</p>
-                  </h6>
-                )}
+                {showRating && ratingFromPatient}
               </Col>
               <Col style={{ textAlign: "end" }}>
                 <Image
