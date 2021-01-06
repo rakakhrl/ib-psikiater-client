@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import API from "../../API/mainServer";
 import { useState, useEffect } from "react";
+import appointmentAction from "../../redux/actions/appointmentAction.js";
 import {
   Container,
   Row,
