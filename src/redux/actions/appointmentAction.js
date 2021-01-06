@@ -32,7 +32,7 @@ const addDiagnosePatient = (
       headers: {
         accesstoken: accesstoken,
       },
-      body: {
+      data: {
         diagnose_name: diagnose_name,
         diagnose_date: diagnose_date,
       },
