@@ -1,7 +1,7 @@
 import API from "../../API/mainServer";
 import swal from "sweetalert";
 
-const changeStatusPaid = (status, appointment_id, accesstoken) => async (
+const changeStatusAppointment = (status, appointment_id, accesstoken) => async (
   dispatch
 ) => {
   try {
@@ -20,29 +20,9 @@ const changeStatusPaid = (status, appointment_id, accesstoken) => async (
   }
 };
 
-const changeStatusDone = (status, appointment_id, accesstoken) => async (
-  dispatch
-) => {
-  try {
-    const response = await API({
-      // => fungsi ini di panggil di psikaiter dashborard, setiap kali psikiater tekan tombol selesai makan akan menjalankan fungsi ini
-      method: "PATCH",
-      url: `/appointments/status/${appointment_id}`,
-      headers: {
-        accesstoken: accesstoken,
-      },
-      data: {
-        status: status, // => expect status yang dikirim oleh psikiater "done"S
-      },
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 const addDiagnosePatient = (
   diagnose_name,
-  diagnose_time,
+  diagnose_date,
   accesstoken,
   appointment_id
 ) => async (dispatch) => {
@@ -53,9 +33,9 @@ const addDiagnosePatient = (
       headers: {
         accesstoken: accesstoken,
       },
-      body: {
+      data: {
         diagnose_name: diagnose_name,
-        diagnose_time: diagnose_time,
+        diagnose_date: diagnose_date,
       },
     });
   } catch (error) {
@@ -120,8 +100,7 @@ const createPrescription = (
 };
 
 const appointmentAction = {
-  changeStatusPaid,
-  changeStatusDone,
+  changeStatusAppointment,
   addDiagnosePatient,
   createRating,
   createPrescription,
