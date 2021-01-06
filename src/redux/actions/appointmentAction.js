@@ -38,6 +38,8 @@ const addDiagnosePatient = (
         diagnose_date: diagnose_date,
       },
     });
+
+    swal("Success", response.data.message, "success");
   } catch (error) {
     console.log(error);
   }
@@ -69,6 +71,7 @@ const createRating = (
     });
   } catch (error) {
     console.log(error);
+    swal("Failed", error.response.data.message, "error");
   }
 };
 
@@ -93,7 +96,7 @@ const createPrescription = (
     });
 
     swal("Success", response.data.message, "success");
-  } catch (e) {
+  } catch (error) {
     console.log(error);
     swal("Failed", error.response.data.message, "error");
   }
