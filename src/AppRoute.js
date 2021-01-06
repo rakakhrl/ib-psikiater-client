@@ -10,6 +10,7 @@ import Home from "./pages/Home";
 import PatientHistory from "./pages/PatientHistory/index";
 import Search from "./pages/Search";
 import Psikiater from "./pages/Psikiater";
+import Checkout from "./pages/Checkout/index";
 
 const AppRoute = () => {
   return (
@@ -35,6 +36,9 @@ const AppRoute = () => {
       <PrivateRoutePsikiater path="/psikiater-dashboard" exact>
         <Psikiater />
       </PrivateRoutePsikiater>
+      <Route path="/checkout-payment" exact>
+        <Checkout />
+      </Route>
     </Switch>
   );
 };
