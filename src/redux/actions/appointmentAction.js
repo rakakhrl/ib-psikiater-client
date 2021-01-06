@@ -138,11 +138,8 @@ const appointmentAction = {
   changeStatusAppointment,
   addDiagnosePatient,
   createRating,
-<<<<<<< HEAD
   createAppointment,
-=======
   createPrescription,
->>>>>>> 340816e57dd746189bb189634d0c44d47df13231
 };
 
 export default appointmentAction;
