@@ -11,11 +11,11 @@ const AppNavbar = () => {
   const role = useSelector((store) => store.user.role);
   const user = useSelector((store) => store.user.user_data);
   const dispatch = useDispatch();
-  console.log(user);
+  console.log(user.avatar_url);
 
   const [show, setShow] = useState(false);
 
-  const [nameFile, setNameFile] = useState(null);
+  const [nameFile, setNameFile] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleClose = () => setShow(false);
@@ -27,13 +27,24 @@ const AppNavbar = () => {
     e.preventDefault();
     setSelectedFile(e.target.files[0])
     setNameFile(e.target.files[0].name)
-    // dispatch(
-    //   userAction.uploadFotoPsikiater(
-    //     photoPsikiater,
-    //   ),
-    // );
-    
   };
+
+  const handlePhoto = ()=>{
+    dispatch(
+      userAction.uploadFotoPasien(
+        selectedFile,
+      ),
+    );
+  }
+  const handlePhotoPsikiater = ()=>{
+    dispatch(
+      userAction.uploadFotoPsikiater(
+        selectedFile,
+      ),
+    );
+  }
+
+  
 
   const RoleAction = () => {
     return role === "PATIENT" ? (
@@ -46,8 +57,7 @@ const AppNavbar = () => {
           width="30"
           className="mr-3"
           src={
-            user.avatar_url ??
-            "https://images.unsplash.com/photo-1580820267682-426da823b514?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cG9ydHJhaXQlMjBiYWNrZ3JvdW5kfGVufDB8fDB8&ixlib=rb-1.2.1&w=1000&q=80"
+            user.avatar_url
           }
           roundedCircle
           onClick={handleShow}
@@ -60,13 +70,19 @@ const AppNavbar = () => {
             <Modal.Title>Upload Foto Profile Patient</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            
+          <form>
+        <label>{nameFile}</label>
+        <input
+          type="file"
+          onChange={uploadPhoto}
+        />
+      </form>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" type="submit" value="Upload">
+            <Button variant="primary" type="submit" value="Upload" onClick={handlePhoto}>
               Upload
             </Button>
           </Modal.Footer>
@@ -83,7 +99,6 @@ const AppNavbar = () => {
         <label>{nameFile}</label>
         <input
           type="file"
-          value={selectedFile}
           onChange={uploadPhoto}
         />
       </form>
@@ -92,7 +107,7 @@ const AppNavbar = () => {
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleClose}>
+            <Button variant="primary" onClick={handlePhotoPsikiater}>
               Upload
             </Button>
           </Modal.Footer>
