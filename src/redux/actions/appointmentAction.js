@@ -92,8 +92,6 @@ const createRating = (
 };
 
 const createAppointment = (
-  first_name,
-  last_name,
   complaint,
   allergy,
   accesstoken,
@@ -109,7 +107,7 @@ const createAppointment = (
       headers: {
         accesstoken: accesstoken,
       },
-      body: {
+      data: {
         psikiater_id: psikiater_id,
         patient_id: patient_id,
         appointment_date: appointment_date,

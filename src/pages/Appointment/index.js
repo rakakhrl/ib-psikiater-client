@@ -1,4 +1,4 @@
-// import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import API from "../../API/mainServer";
 import { useState, useEffect } from "react";
@@ -11,17 +11,26 @@ import {
   InputGroup,
   FormControl,
 } from "react-bootstrap";
-// import DatePicker from "react-datepicker";
-import { changeStatusCheckout } from "../../redux/actions/appointmentAction";
-// import "react-datepicker/dist/react-datepicker.css";
+
+import DatePicker from "react-datepicker";
+import appointmentAction from "../../redux/actions/appointmentAction";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 const Appointment = () => {
   const [psikiaterData, setPsikiaterData] = useState({});
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [appointment_time, setAppointmentTime] = useState("");
+  const [appointment_date, setAppointmentDate] = useState("");
   const [complaint, setComplaint] = useState("");
   const [allergy, setAllergy] = useState("");
 
+  // const [startDate, setStartDate] = useState(new Date());
+
+  const dispatch = useDispatch();
+  const dataUser = useSelector((state) => state.user.user_data);
+  const patient_id = dataUser.patient_id;
+  // const appointment_date = dataUser.appointment_date;
+  // const appointment_time = dataUser.appointment_time;
   const { psikiater_id } = useParams();
 
   useEffect(() => {
@@ -47,22 +56,28 @@ const Appointment = () => {
 
   const createAppointmentHandler = (e) => {
     e.preventDefault();
-    console.log(firstName);
-    console.log(lastName);
-    console.log(complaint);
-    console.log(allergy);
-  };
-
-  const firstNameHandler = (e) => {
-    setFirstName(e.target.value);
-  };
-
-  const lastNameHandler = (e) => {
-    setLastName(e.target.value);
+    const accesstoken = localStorage.getItem("accesstoken");
+    dispatch(
+      appointmentAction.createAppointment(
+        complaint,
+        allergy,
+        accesstoken,
+        psikiater_id,
+        patient_id,
+        appointment_date,
+        appointment_time
+      )
+    );
   };
 
   const complaintHandler = (e) => {
     setComplaint(e.target.value);
+  };
+  const appointmentDateHandler = (e) => {
+    setAppointmentDate(e.target.value);
+  };
+  const appointmentTimeHandler = (e) => {
+    setAppointmentTime(e.target.value);
   };
 
   const allergyHandler = (e) => {
@@ -70,9 +85,10 @@ const Appointment = () => {
   };
   //   history.push("/");
   // };
-  // const [hours, setHours] = useState();
-  // const [minutes, setMinutes] = useState();
-  // const [startDate, setStartDate] = useState(new Date());
+  // () => {
+  //   const [startDate, setStartDate] = useState(
+  //     setHours(setMinutes(new Date(), 30), 16)
+  //   );
 
   return (
     <div>
@@ -124,6 +140,29 @@ const Appointment = () => {
                   <option>{`${psikiaterData?.work_time}`}</option>
                 </Form.Control>
               </Form.Group>
+              {/* <DatePicker
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+                showTimeSelect
+                includeTimes={[setHours(setMinutes(new Date(), 0), 17)]}
+                dateFormat="MMMM d, yyyy h:mm aa"
+              /> */}
+              <Form.Group>
+                <Form.Label>Appointment Date</Form.Label>
+                <Form.Control
+                  type="date"
+                  onChange={appointmentDateHandler}
+                  value={appointment_date}
+                ></Form.Control>
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Appointment Time</Form.Label>
+                <Form.Control
+                  type="time"
+                  onChange={appointmentTimeHandler}
+                  value={appointment_time}
+                ></Form.Control>
+              </Form.Group>
             </Form>
           </Col>
         </Row>
@@ -136,8 +175,7 @@ const Appointment = () => {
                 <Form.Group as={Col} controlId="formGridEmail">
                   <Form.Label>First Name</Form.Label>
                   <Form.Control
-                    onChange={firstNameHandler}
-                    value={firstName}
+                    value={dataUser.first_name}
                     type="text"
                     placeholder="Enter first name here"
                   />
@@ -145,8 +183,7 @@ const Appointment = () => {
                 <Form.Group as={Col} controlId="formGridPassword">
                   <Form.Label>Last Name</Form.Label>
                   <Form.Control
-                    onChange={lastNameHandler}
-                    value={lastName}
+                    value={dataUser.last_name}
                     type="text"
                     placeholder="Enter last name here"
                   />
