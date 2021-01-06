@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import API from "../../API/mainServer";
-import { Container, Form, Col, Row } from "react-bootstrap";
+import { Container, Form, Col, Row, Image } from "react-bootstrap";
 
 const Index = () => {
   const accesstoken = localStorage.getItem("accesstoken");
@@ -14,9 +14,9 @@ const Index = () => {
       <Container style={{ backgroundColor: "#ededed", padding: "20px" }}>
         <Form>
           <Col style={{ textAlign: "center" }}>
-            <img
+            <Image
               src="https://scontent.fsub7-1.fna.fbcdn.net/v/t1.0-9/135604960_3854645761223085_2398874445404700536_n.jpg?_nc_cat=106&ccb=2&_nc_sid=730e14&_nc_eui2=AeGd1wFCmdo4yvvuAsb016Rghkoj8IS0f8KGSiPwhLR_wir5549QBF8cbUFFzc5qxOLhMLLgO1itgducXBtVcgMr&_nc_ohc=51hqTJGvAPUAX_gPASH&_nc_ht=scontent.fsub7-1.fna&oh=34e59394671ff2788c3f0641555681ba&oe=6015FD64"
-              fluid
+              roundedCircle
               alt="images"
               style={{
                 width: "300px",
