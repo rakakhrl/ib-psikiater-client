@@ -1,4 +1,5 @@
 import API from "../../API/mainServer";
+import swal from "sweetalert";
 
 const changeStatusPaid = (status, appointment_id, accesstoken) => async (
   dispatch
@@ -91,11 +92,39 @@ const createRating = (
   }
 };
 
+const createPrescription = (
+  appointment_id,
+  drug_name,
+  method_name,
+  time_sequence
+) => async (dispatch) => {
+  try {
+    const response = await API({
+      method: "POST",
+      url: `/prescriptions/${appointment_id}`,
+      headers: {
+        accesstoken: localStorage.getItem("accesstoken"),
+      },
+      data: {
+        drug_name: drug_name,
+        method_name: method_name,
+        time_sequence: time_sequence,
+      },
+    });
+
+    swal("Success", response.data.message, "success");
+  } catch (e) {
+    console.log(error);
+    swal("Failed", error.response.data.message, "error");
+  }
+};
+
 const appointmentAction = {
   changeStatusPaid,
   changeStatusDone,
   addDiagnosePatient,
   createRating,
+  createPrescription,
 };
 
 export default appointmentAction;
