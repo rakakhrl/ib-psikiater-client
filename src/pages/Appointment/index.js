@@ -25,7 +25,7 @@ const Appointment = () => {
   const [allergy, setAllergy] = useState("");
 
   // const [startDate, setStartDate] = useState(new Date());
-
+  const history = useHistory();
   const dispatch = useDispatch();
   const dataUser = useSelector((state) => state.user.user_data);
   const patient_id = dataUser.patient_id;
@@ -68,6 +68,9 @@ const Appointment = () => {
         appointment_time
       )
     );
+    const idAppointment = localStorage.getItem("id_appointment");
+    console.log(idAppointment);
+    history.push(`/checkout-payment/${idAppointment}`);
   };
 
   const complaintHandler = (e) => {
@@ -83,7 +86,7 @@ const Appointment = () => {
   const allergyHandler = (e) => {
     setAllergy(e.target.value);
   };
-  //   history.push("/");
+
   // };
   // () => {
   //   const [startDate, setStartDate] = useState(

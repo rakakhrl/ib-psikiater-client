@@ -16,7 +16,7 @@ import Appointment from "./pages/Appointment/index";
 const AppRoute = () => {
   return (
     <Switch>
-      <Route path="/Appointment/:psikiater_id" exact>
+      <Route path="/appointment/:psikiater_id" exact>
         <Appointment />
       </Route>
       <Route path="/" exact>

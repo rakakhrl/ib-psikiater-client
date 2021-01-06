@@ -116,6 +116,8 @@ const createAppointment = (
         allergy: [allergy],
       },
     });
+    console.log(createAppointment.data.data._id);
+    localStorage.setItem("id_appointment", createAppointment.data.data._id);
   } catch (error) {
     console.log(error);
   }
