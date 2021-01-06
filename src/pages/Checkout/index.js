@@ -3,6 +3,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import swal from "sweetalert";
 import API from "../../API/mainServer";
+import moment from "moment";
 import {
   Jumbotron,
   Container,
@@ -19,7 +20,8 @@ function Checkout() {
   const { appointment_id } = useParams();
   const dispatch = useDispatch();
   // const history = useHistory();
-
+  console.log(appointment_id);
+  console.log(process.env.REACT_APP_BASE_URL);
   useEffect(() => {
     const getData = async () => {
       try {
@@ -122,7 +124,9 @@ function Checkout() {
                         backgroundColor: "#70a1ff",
                       }}
                       type="text"
-                      value={`${appointment?.appointment_date},  ${appointment?.appointment_time}`}
+                      value={`${moment(appointment?.appointment_date).format(
+                        "YYYY, MMM, DD"
+                      )} ${appointment?.appointment_time}`}
                       readOnly
                     ></Form.Control>
                   </Form.Group>
