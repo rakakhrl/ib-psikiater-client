@@ -102,10 +102,43 @@ const createPrescription = (
   }
 };
 
+const createAppointment = (
+  complaint,
+  allergy,
+  accesstoken,
+  psikiater_id,
+  patient_id,
+  appointment_date,
+  appointment_time
+) => async (dispatch) => {
+  try {
+    const createAppointment = await API({
+      method: "POST",
+      url: "/appointments",
+      headers: {
+        accesstoken: accesstoken,
+      },
+      data: {
+        psikiater_id: psikiater_id,
+        patient_id: patient_id,
+        appointment_date: appointment_date,
+        appointment_time: appointment_time,
+        complaint: complaint,
+        allergy: [allergy],
+      },
+    });
+    console.log(createAppointment.data.data._id);
+    localStorage.setItem("id_appointment", createAppointment.data.data._id);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const appointmentAction = {
   changeStatusAppointment,
   addDiagnosePatient,
   createRating,
+  createAppointment,
   createPrescription,
 };
 
