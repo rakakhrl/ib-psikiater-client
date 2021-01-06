@@ -19,7 +19,7 @@ function Checkout() {
   const [appointment, setAppointment] = useState({});
   const { appointment_id } = useParams();
   const dispatch = useDispatch();
-  // const history = useHistory();
+  const history = useHistory();
   console.log(appointment_id);
   console.log(process.env.REACT_APP_BASE_URL);
   useEffect(() => {
@@ -34,7 +34,6 @@ function Checkout() {
         });
 
         setAppointment(appointment.data.data);
-        console.log(appointment.data);
       } catch (err) {
         console.log(err);
       }
@@ -53,7 +52,7 @@ function Checkout() {
         localStorage.getItem("accesstoken")
       )
     );
-
+    history.push("/patient-history");
     swal("Checkout Sukses!", "", "success");
   };
 
@@ -126,7 +125,7 @@ function Checkout() {
                       type="text"
                       value={`${moment(appointment?.appointment_date).format(
                         "YYYY, MMM, DD"
-                      )} ${appointment?.appointment_time}`}
+                      )} - ${appointment?.appointment_time}`}
                       readOnly
                     ></Form.Control>
                   </Form.Group>
