@@ -45,7 +45,7 @@ function Checkout() {
 
   const checkoutButtonHandler = () => {
     dispatch(
-      appointmentAction.changeStatusPaid(
+      appointmentAction.changeStatusAppointment(
         "Paid",
         appointment._id,
         localStorage.getItem("accesstoken")
