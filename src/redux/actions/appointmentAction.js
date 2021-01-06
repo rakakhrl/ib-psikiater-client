@@ -1,4 +1,5 @@
 import API from "../../API/mainServer";
+import swal from "sweetalert";
 
 const changeStatusAppointment = (status, appointment_id, accesstoken) => async (
   dispatch
@@ -37,6 +38,8 @@ const addDiagnosePatient = (
         diagnose_date: diagnose_date,
       },
     });
+
+    swal("Success", response.data.message, "success");
   } catch (error) {
     console.log(error);
   }
@@ -68,6 +71,34 @@ const createRating = (
     });
   } catch (error) {
     console.log(error);
+    swal("Failed", error.response.data.message, "error");
+  }
+};
+
+const createPrescription = (
+  appointment_id,
+  drug_name,
+  method_name,
+  time_sequence
+) => async (dispatch) => {
+  try {
+    const response = await API({
+      method: "POST",
+      url: `/prescriptions/${appointment_id}`,
+      headers: {
+        accesstoken: localStorage.getItem("accesstoken"),
+      },
+      data: {
+        drug_name: drug_name,
+        method_name: method_name,
+        time_sequence: time_sequence,
+      },
+    });
+
+    swal("Success", response.data.message, "success");
+  } catch (error) {
+    console.log(error);
+    swal("Failed", error.response.data.message, "error");
   }
 };
 
@@ -107,7 +138,11 @@ const appointmentAction = {
   changeStatusAppointment,
   addDiagnosePatient,
   createRating,
+<<<<<<< HEAD
   createAppointment,
+=======
+  createPrescription,
+>>>>>>> 340816e57dd746189bb189634d0c44d47df13231
 };
 
 export default appointmentAction;

@@ -47,12 +47,15 @@ const Index = () => {
     []
   );
 
-  function handleClick() {
+  const handleClick = (psikiater_id) => {
     if (!isLogin) {
-      swal("Anda harus login sebagai pasien terlebih dahulu", "", "error");
+      swal("anda harus login terlebih dahulu");
+    } else {
+      history.push(`/appointment/${psikiater_id}`);
     }
+
     // TODO: go to create appointment page
-  }
+  };
 
   return (
     <>
@@ -70,10 +73,11 @@ const Index = () => {
           <Button onClick={() => fetchSearchResult(searchInput)}>Search</Button>
         </InputGroup>
 
-        <Card onClick={handleClick} className="link">
+        <Card className="link">
           {searchResult.map((item) => {
             return (
               <CardResult
+                onClick={() => handleClick(item._id)}
                 key={item._id}
                 first_name={item.first_name}
                 last_name={item.last_name}

@@ -28,7 +28,7 @@ const Appointment = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const dataUser = useSelector((state) => state.user.user_data);
-  const patient_id = dataUser.patient_id;
+  const patient_id = dataUser._id;
   // const appointment_date = dataUser.appointment_date;
   // const appointment_time = dataUser.appointment_time;
   const { psikiater_id } = useParams();
