@@ -17,7 +17,7 @@ const Index = ({ url }) => {
   return (
     <Navbar
       style={{ position: "fixed", minWidth: "12vw" }}
-      className="navbar d-none d-md-block"
+      className="side-bar d-none d-md-block"
     >
       <Nav className="flex-column">
         <div style={{ position: "absolute", top: 20 }}>
