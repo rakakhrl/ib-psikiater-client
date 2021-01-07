@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import API from "../../API/mainServer";
 import { useState, useEffect } from "react";
-import appointmentAction from "../../redux/actions/appointmentAction.js";
 import {
   Container,
   Row,
@@ -12,6 +11,7 @@ import {
   InputGroup,
   FormControl,
 } from "react-bootstrap";
+import appointmentAction from "../../redux/actions/appointmentAction";
 import TimePicker from "react-time-picker";
 
 const Appointment = () => {
