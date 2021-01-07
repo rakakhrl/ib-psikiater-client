@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 const PrivateRoutePasien = (props) => {
   const user = useSelector((state) => state.user);
-
+  console.log(user)
   return (
     <Route {...props}>
       {user.isLogin && user.role === "PATIENT" ? (
