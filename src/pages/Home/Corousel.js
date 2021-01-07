@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import * as Icon from "react-bootstrap-icons";
-import "../../assets/css/main.css";
+// import "../../assets/css/main.css";
 import { InputGroup, Form } from "react-bootstrap";
 import swal from "sweetalert";
 
