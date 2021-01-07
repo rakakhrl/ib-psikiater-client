@@ -1,12 +1,14 @@
 import React from "react";
+import { Jumbotron,Container,Row,Col } from "react-bootstrap";
+import "../../css/Part.css";
 
 const Footer = () => {
   return (
     <>
-      <footer className="footer">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-4 col-sm-12">
+      <Jumbotron id="footer">
+        <Container>
+          <Row>
+            <Col className="colom">
               <h2>About Us</h2>
               <p>
                 Di (nama website) kami berusaha keras untuk memberi Anda pilihan
@@ -16,8 +18,8 @@ const Footer = () => {
                 melalui email(……………...com) atau Instagram / Facebook kami
                 (@..................).
               </p>
-            </div>
-            <div className="col-md-4 col-sm-12">
+            </Col>
+            <Col className="colom">
               <h2>Jam Operasional Customer Service</h2>
               <ul className="list-unstyled link-list">
                 <li>SENIN 09:00 - 21:00</li>
@@ -28,10 +30,10 @@ const Footer = () => {
                 <li>SABTU Tutup</li>
                 <li>MINGGU Tutup</li>
               </ul>
-            </div>
-            <div className="col-md-4 col-sm-12 map-img">
+            </Col>
+            <Col className="colom">
               <h2>Contact Us</h2>
-              <address className="md-margin-bottom-40">
+              <address>
                 BlueDart <br />
                 Marthandam (K.K District) <br />
                 Tamil Nadu, IND <br />
@@ -40,10 +42,10 @@ const Footer = () => {
                 <br />
                 Web: <a href="smart-eye.html">www.bluedart.in</a>
               </address>
-            </div>
-          </div>
-        </div>
-      </footer>
+            </Col>
+          </Row>
+        </Container>
+      </Jumbotron>
     </>
   );
 };
