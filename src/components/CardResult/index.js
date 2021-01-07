@@ -10,12 +10,12 @@ const Index = ({
   price,
   region,
   star,
+  onClick,
 }) => {
   const [rating] = useState();
-
   return (
     <>
-      <div className="card">
+      <div className="card" onClick={onClick}>
         <div className="left-side">
           <div className="name">
             <h4>
