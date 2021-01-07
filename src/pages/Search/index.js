@@ -41,7 +41,7 @@ const Index = () => {
 
   useEffect(
     () => {
-      fetchSearchResult(location.state.region);
+      fetchSearchResult(location.state?.region ?? "none");
     },
     // eslint-disable-next-line
     []
