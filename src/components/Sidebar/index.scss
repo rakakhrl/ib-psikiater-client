@@ -1,0 +1,21 @@
+.navbar {
+  background-color: #ed51b1 !important;
+  height: 94%;
+  // display: flex;
+  // flex-direction: column;
+  padding-left: 0;
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold !important;
+  color: yellow;
+  .link {
+    &:hover {
+      text-decoration: none !important;
+    }
+    color: yellow;
+  }
+}
+
+.links:hover {
+  text-decoration: none;
+  cursor: pointer;
+}

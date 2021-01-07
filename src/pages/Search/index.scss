@@ -1,0 +1,26 @@
+.link{
+    &:hover{
+    text-decoration: none;
+    }
+    font-family: "Montserrat", sans-serif;
+    .card {
+        &:hover{
+            box-shadow: 7px 9px 12px rgb(29, 29, 29);
+        }
+        display: grid !important;
+        grid-template-columns: repeat(12, auto);
+        border-radius: 5px;
+        border: 2px solid rgb(10, 10, 10);
+        color: black;
+        padding: 12px;
+        margin-top: 30px;
+        .left-side{
+            .name{
+                h4{
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+
+}

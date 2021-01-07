@@ -1,0 +1,14 @@
+.main-container {
+  margin-top: 1.75rem;
+}
+
+.title {
+  text-align: center;
+}
+
+.list-history {
+  margin-top: 1.75rem;
+  height: 520px;
+  max-height: 520px;
+  overflow-y: scroll;
+}
