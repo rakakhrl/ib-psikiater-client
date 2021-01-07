@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../redux/actions/authAction";
 import userAction from "../redux/actions/userAction";
+import "./AppNavbar.css";
 
 const AppNavbar = () => {
   const isLogin = useSelector((store) => store.user.isLogin);
@@ -131,7 +132,7 @@ const AppNavbar = () => {
   };
 
   return (
-    <Navbar bg="primary" variant="dark" sticky="top">
+    <Navbar className="navbar-color" sticky="top">
       <div className="container">
         {role !== "PSIKIATER" ? (
           <Link to="/">
