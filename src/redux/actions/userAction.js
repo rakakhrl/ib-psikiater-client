@@ -51,6 +51,52 @@ const registerPsikiater = (
   }
 };
 
+const uploadFotoPasien = (
+  avatar,
+) => async (dispatch) => {
+  try {
+    const role = localStorage.getItem("role");
+    const user_id = localStorage.getItem("userId");
+    const accesstoken = localStorage.getItem("accesstoken");
+
+    const data = new FormData()
+    data.append("profile_photo", avatar)
+    const uploadFotoPasien = await API({
+      method: "POST",
+      url: `/patients/upload/${user_id}`,
+      data: data,
+      headers:{
+        accesstoken: accesstoken,
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const uploadFotoPsikiater = (
+  avatar,
+) => async (dispatch) => {
+  try {
+    const role = localStorage.getItem("role");
+    const user_id = localStorage.getItem("userId");
+    const accesstoken = localStorage.getItem("accesstoken");
+
+    const data = new FormData()
+    data.append("profile_photo", avatar)
+    const uploadFotoPsikiater = await API({
+      method: "POST",
+      url: `/psikiater/upload/${user_id}`,
+      data: data,
+      headers:{
+        accesstoken: accesstoken,
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const registerPatient = (
   first_name,
   last_name,
@@ -92,6 +138,10 @@ const registerPatient = (
     swal("Register Gagal!", error.response.data.message, "error");
   }
 };
+
+
+
+
 
 const fetchUserData = () => async (dispatch) => {
   try {
@@ -156,6 +206,8 @@ const checkAccessToken = (accessToken) => async (dispatch) => {
       },
     });
 
+    console.log(getUserProfile)
+
     dispatch({
       type: "LOGIN",
       payload: {
@@ -198,6 +250,8 @@ const userAction = {
   registerPatient,
   fetchUserData,
   changePsikiaterSchedule,
+  uploadFotoPasien,
+  uploadFotoPsikiater,
 };
 
 export default userAction;
