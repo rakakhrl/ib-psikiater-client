@@ -12,17 +12,12 @@ const AppNavbar = () => {
   const role = useSelector((store) => store.user.role);
   const user = useSelector((store) => store.user.user_data);
   const dispatch = useDispatch();
-  console.log(user.avatar_url);
-
   const [show, setShow] = useState(false);
-
   const [nameFile, setNameFile] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  console.log(selectedFile);
-  console.log(nameFile);
 
   const uploadPhoto = (e) => {
     e.preventDefault();
@@ -32,9 +27,13 @@ const AppNavbar = () => {
 
   const handlePhoto = () => {
     dispatch(userAction.uploadFotoPasien(selectedFile));
+    dispatch(userAction.fetchUserData());
+    handleClose();
   };
   const handlePhotoPsikiater = () => {
     dispatch(userAction.uploadFotoPsikiater(selectedFile));
+    dispatch(userAction.fetchUserData());
+    handleClose();
   };
 
   const RoleAction = () => {
