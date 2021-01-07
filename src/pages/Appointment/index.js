@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import API from "../../API/mainServer";
 import { useState, useEffect } from "react";
+import appointmentAction from "../../redux/actions/appointmentAction.js";
 import {
   Container,
   Row,
@@ -11,11 +12,15 @@ import {
   InputGroup,
   FormControl,
 } from "react-bootstrap";
+<<<<<<< HEAD
 
 // import DatePicker from "react-datepicker";
 import appointmentAction from "../../redux/actions/appointmentAction";
 
 // import "react-datepicker/dist/react-datepicker.css";
+=======
+import TimePicker from "react-time-picker";
+>>>>>>> 70b0b5e2f2396bf749880a751922756d7cef7177
 
 const Appointment = () => {
   const [psikiaterData, setPsikiaterData] = useState({});
@@ -23,14 +28,10 @@ const Appointment = () => {
   const [appointment_date, setAppointmentDate] = useState("");
   const [complaint, setComplaint] = useState("");
   const [allergy, setAllergy] = useState("");
-
-  // const [startDate, setStartDate] = useState(new Date());
   const history = useHistory();
   const dispatch = useDispatch();
   const dataUser = useSelector((state) => state.user.user_data);
   const patient_id = dataUser._id;
-  // const appointment_date = dataUser.appointment_date;
-  // const appointment_time = dataUser.appointment_time;
   const { psikiater_id } = useParams();
 
   useEffect(() => {
@@ -54,6 +55,10 @@ const Appointment = () => {
     return getData;
   }, []);
 
+  const getIdCallback = (id) => {
+    history.push(`/checkout-payment/${id}`);
+  };
+
   const createAppointmentHandler = (e) => {
     e.preventDefault();
     const accesstoken = localStorage.getItem("accesstoken");
@@ -65,12 +70,10 @@ const Appointment = () => {
         psikiater_id,
         patient_id,
         appointment_date,
-        appointment_time
+        appointment_time,
+        getIdCallback
       )
     );
-    const idAppointment = localStorage.getItem("id_appointment");
-    console.log(idAppointment);
-    history.push(`/checkout-payment/${idAppointment}`);
   };
 
   const complaintHandler = (e) => {
@@ -80,29 +83,21 @@ const Appointment = () => {
     setAppointmentDate(e.target.value);
   };
   const appointmentTimeHandler = (e) => {
+    console.log(e.target.value);
     setAppointmentTime(e.target.value);
+    console.log(appointment_time);
   };
 
   const allergyHandler = (e) => {
     setAllergy(e.target.value);
   };
 
-  // };
-  // () => {
-  //   const [startDate, setStartDate] = useState(
-  //     setHours(setMinutes(new Date(), 30), 16)
-  //   );
-
   return (
     <div>
       <h1 style={{ fontWeight: "bold", textAlign: "center" }}>Appointment</h1>
       <Container>
         <Row>
-          <Col
-            sm={12}
-            lg={6}
-            // style={{ display: "flex", justifyContent: "space-evenly" }}
-          >
+          <Col sm={12} lg={6}>
             <h5 style={{ fontWeight: "bold" }}>PSIKIATER DATA</h5>
             <img
               src={`${psikiaterData.avatar_url}`}
@@ -121,35 +116,16 @@ const Appointment = () => {
                 <Form.Label>Address</Form.Label>
                 <Form.Control
                   type="text"
-                  value={`${psikiaterData?.address}`}
+                  value={`${psikiaterData?.work_address}`}
                   readOnly
                 ></Form.Control>
                 <Form.Label>Fees</Form.Label>
                 <Form.Control
                   type="text"
-                  value={`${psikiaterData?.fee}`}
+                  value={`${psikiaterData?.fees}`}
                   readOnly
                 ></Form.Control>
-                <Form.Label>Choose Working Days</Form.Label>
               </Form.Group>
-              <Form.Group>
-                <Form.Control as="select">
-                  <option>{`${psikiaterData?.work_days}`}</option>
-                </Form.Control>
-              </Form.Group>
-              <Form.Label>Choose Working Hours</Form.Label>
-              <Form.Group>
-                <Form.Control as="select">
-                  <option>{`${psikiaterData?.work_time}`}</option>
-                </Form.Control>
-              </Form.Group>
-              {/* <DatePicker
-                selected={startDate}
-                onChange={(date) => setStartDate(date)}
-                showTimeSelect
-                includeTimes={[setHours(setMinutes(new Date(), 0), 17)]}
-                dateFormat="MMMM d, yyyy h:mm aa"
-              /> */}
               <Form.Group>
                 <Form.Label>Appointment Date</Form.Label>
                 <Form.Control
@@ -158,14 +134,13 @@ const Appointment = () => {
                   value={appointment_date}
                 ></Form.Control>
               </Form.Group>
-              <Form.Group>
-                <Form.Label>Appointment Time</Form.Label>
-                <Form.Control
-                  type="time"
-                  onChange={appointmentTimeHandler}
-                  value={appointment_time}
-                ></Form.Control>
-              </Form.Group>
+
+              <TimePicker
+                onChange={(v) => {
+                  setAppointmentTime(v);
+                }}
+                value={appointment_time}
+              />
             </Form>
           </Col>
         </Row>

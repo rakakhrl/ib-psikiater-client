@@ -109,7 +109,8 @@ const createAppointment = (
   psikiater_id,
   patient_id,
   appointment_date,
-  appointment_time
+  appointment_time,
+  getIdCallback
 ) => async (dispatch) => {
   try {
     const createAppointment = await API({
@@ -128,7 +129,7 @@ const createAppointment = (
       },
     });
     console.log(createAppointment.data.data._id);
-    localStorage.setItem("id_appointment", createAppointment.data.data._id);
+    getIdCallback(createAppointment.data.data._id);
   } catch (error) {
     console.log(error);
   }
