@@ -12,15 +12,7 @@ import {
   InputGroup,
   FormControl,
 } from "react-bootstrap";
-<<<<<<< HEAD
-
-// import DatePicker from "react-datepicker";
-import appointmentAction from "../../redux/actions/appointmentAction";
-
-// import "react-datepicker/dist/react-datepicker.css";
-=======
 import TimePicker from "react-time-picker";
->>>>>>> 70b0b5e2f2396bf749880a751922756d7cef7177
 
 const Appointment = () => {
   const [psikiaterData, setPsikiaterData] = useState({});
