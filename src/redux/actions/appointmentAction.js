@@ -135,12 +135,32 @@ const createAppointment = (
   }
 };
 
+const fetchPsikiaterAppointment = () => async (dispatch) => {
+  try {
+    const res = await API({
+      method: "GET",
+      url: `/appointments/psikiater`,
+      headers: {
+        accesstoken: localStorage.getItem("accesstoken"),
+      },
+    });
+
+    dispatch({
+      type: "FETCH_PSIKIATER_APPOINTMENT",
+      payload: { appointments: res.data.data },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const appointmentAction = {
   changeStatusAppointment,
   addDiagnosePatient,
   createRating,
   createAppointment,
   createPrescription,
+  fetchPsikiaterAppointment,
 };
 
 export default appointmentAction;
