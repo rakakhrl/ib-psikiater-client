@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import swal from "sweetalert";
 import API from "../../API/mainServer";
 import moment from "moment";
+import "./checkout.css";
 import {
   Jumbotron,
   Container,
@@ -59,41 +60,23 @@ function Checkout() {
   return (
     <div>
       <Container>
-        <Jumbotron
-          style={{
-            marginTop: "5%",
-            textAlign: "center",
-            backgroundColor: "#ff4757",
-            color: "white",
-          }}
-        >
+        <Jumbotron className="jumbotron-checkout">
           <Row>
-            <Col style={{ display: "flex", justifyContent: "space-evenly" }}>
+            <Col className="column-kiri">
               <img
-                style={{
-                  marginTop: "30px",
-                  maxWidth: "250px",
-                  maxHeight: "230px",
-                }}
+                className="checkout-image"
                 src={appointment?.psikiater_id?.avatar_url}
               ></img>
             </Col>
-            <Col
-              sm={12}
-              lg={6}
-              style={{ display: "flex", justifyContent: "space-evenly" }}
-            >
+            <Col className="column-kanan" sm={12} lg={6}>
               <Container>
-                <Form style={{ marginTop: "30px" }}>
+                <Form className="form-checkout-wrapper">
                   <Form.Group controlId="formPsikiaterName">
                     <Form.Label>
-                      <b style={{ color: "white" }}>Psikiater</b>
+                      <b>Psikiater</b>
                     </Form.Label>
                     <Form.Control
-                      style={{
-                        textAlign: "center",
-                        backgroundColor: "#70a1ff",
-                      }}
+                      className="form-psikiater"
                       type="text"
                       value={`${appointment?.psikiater_id?.first_name} ${appointment?.psikiater_id?.last_name}`}
                       readOnly
@@ -101,13 +84,10 @@ function Checkout() {
                   </Form.Group>
                   <Form.Group controlId="formPatientName">
                     <Form.Label>
-                      <b style={{ color: "white" }}>Patient</b>
+                      <b>Patient</b>
                     </Form.Label>
                     <Form.Control
-                      style={{
-                        textAlign: "center",
-                        backgroundColor: "#70a1ff",
-                      }}
+                      className="form-patient"
                       type="text"
                       value={`${appointment?.patient_id?.first_name} ${appointment?.patient_id?.last_name}`}
                       readOnly
@@ -118,10 +98,7 @@ function Checkout() {
                       <b style={{ color: "white" }}>Schedule</b>
                     </Form.Label>
                     <Form.Control
-                      style={{
-                        textAlign: "center",
-                        backgroundColor: "#70a1ff",
-                      }}
+                      className="form-schedule"
                       type="text"
                       value={`${moment(appointment?.appointment_date).format(
                         "YYYY MMM DD"
@@ -134,37 +111,19 @@ function Checkout() {
             </Col>
           </Row>
         </Jumbotron>
-        <Card
-          style={{
-            backgroundColor: "#2ed573",
-            width: "17rem",
-            height: "10rem",
-            textAlign: "center",
-            marginLeft: "auto",
-            marginRight: "auto",
-          }}
-        >
+        <Card className="card-checkout-wrapper">
           <Card.Header>
-            <b style={{ color: "#ffffff" }}>TOTAL PAYMENT</b>
+            <b className="header-card-payment">TOTAL PAYMENT</b>
           </Card.Header>
           <Card.Body>
-            <Card.Text style={{ color: "#ffffff" }}>
+            <Card.Text className="text-card-payment">
               {appointment?.psikiater_id?.fees}
             </Card.Text>
           </Card.Body>
         </Card>
-        <Container
-          style={{
-            marginTop: "30px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
+        <Container className="button-wrapper">
           <Button
-            style={{
-              margin: "auto",
-            }}
+            className="button-checkout"
             variant="dark"
             onClick={checkoutButtonHandler}
           >
