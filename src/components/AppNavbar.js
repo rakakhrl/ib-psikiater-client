@@ -12,17 +12,12 @@ const AppNavbar = () => {
   const role = useSelector((store) => store.user.role);
   const user = useSelector((store) => store.user.user_data);
   const dispatch = useDispatch();
-  console.log(user.avatar_url);
-
   const [show, setShow] = useState(false);
-
   const [nameFile, setNameFile] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  console.log(selectedFile);
-  console.log(nameFile);
 
   const uploadPhoto = (e) => {
     e.preventDefault();
@@ -32,9 +27,13 @@ const AppNavbar = () => {
 
   const handlePhoto = () => {
     dispatch(userAction.uploadFotoPasien(selectedFile));
+    dispatch(userAction.fetchUserData());
+    handleClose();
   };
   const handlePhotoPsikiater = () => {
     dispatch(userAction.uploadFotoPsikiater(selectedFile));
+    dispatch(userAction.fetchUserData());
+    handleClose();
   };
 
   const RoleAction = () => {
@@ -118,7 +117,7 @@ const AppNavbar = () => {
     return isLogin ? (
       <RoleAction />
     ) : (
-      <div className="ml-auto ">
+      <div className="ml-auto">
         <Link to="/registerPasien" className="mr-3 ">
           <Button variant="outline-light">Register as Patient</Button>
         </Link>
@@ -133,18 +132,22 @@ const AppNavbar = () => {
   };
 
   return (
+    // <div className="container">
     <Navbar className="navbar-color" sticky="top">
-      <div className="container">
-        {role !== "PSIKIATER" ? (
-          <Link to="/">
-            <Navbar.Brand>Navbar</Navbar.Brand>
-          </Link>
-        ) : (
-          <Navbar.Brand>Navbar</Navbar.Brand>
-        )}
-        <NavbarActions />
-      </div>
+      {role !== "PSIKIATER" ? (
+        <Link to="/">
+          <Navbar.Brand style={{ color: "white" }}>
+            <b>CAPER | CARI PSIKIATER</b>
+          </Navbar.Brand>
+        </Link>
+      ) : (
+        <Navbar.Brand>
+          <b>CAPER | CARI PSIKIATER</b>
+        </Navbar.Brand>
+      )}
+      <NavbarActions />
     </Navbar>
+    // </div>
   );
 };
 

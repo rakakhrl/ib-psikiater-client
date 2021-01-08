@@ -45,7 +45,17 @@ const Index = () => {
 
   return (
     <>
-      <h1 style={{ fontWeight: "bold", textAlign: "center" }}>History</h1>
+      <h1
+        style={{
+          fontWeight: "bold",
+          textAlign: "center",
+          marginTop: "30px",
+          color: "#70a1ff",
+          marginBottom: "50px",
+        }}
+      >
+        History
+      </h1>
       <PrescriptionModal
         show={prescriptionModalShow}
         handleClose={handlePrescriptionModalClose}

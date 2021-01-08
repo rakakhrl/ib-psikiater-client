@@ -10,18 +10,37 @@ const Index = () => {
 
   return (
     <>
-      <h1 style={{ fontWeight: "bold", textAlign: "center" }}>Profile</h1>
-      <Container style={{ backgroundColor: "#ededed", padding: "20px" }}>
-        <Form>
+      <h1
+        style={{
+          fontWeight: "bold",
+          textAlign: "center",
+          marginTop: "50px",
+          marginBottom: "50px",
+          color: "#70a1ff",
+        }}
+      >
+        Profile
+      </h1>
+      <Container
+        style={{
+          backgroundColor: "#ff6b81",
+          padding: "20px",
+        }}
+      >
+        <Row></Row>
+        <Form
+          style={{
+            marginTop: "20px",
+            textAlign: "center",
+          }}
+        >
           <Col style={{ textAlign: "center" }}>
             <Image
-              src="https://scontent.fsub7-1.fna.fbcdn.net/v/t1.0-9/135604960_3854645761223085_2398874445404700536_n.jpg?_nc_cat=106&ccb=2&_nc_sid=730e14&_nc_eui2=AeGd1wFCmdo4yvvuAsb016Rghkoj8IS0f8KGSiPwhLR_wir5549QBF8cbUFFzc5qxOLhMLLgO1itgducXBtVcgMr&_nc_ohc=51hqTJGvAPUAX_gPASH&_nc_ht=scontent.fsub7-1.fna&oh=34e59394671ff2788c3f0641555681ba&oe=6015FD64"
+              src={profile.avatar_url}
               roundedCircle
               alt="images"
-              style={{
-                width: "300px",
-                paddingBottom: "20px",
-              }}
+              height="300"
+              width="300"
             />
           </Col>
           <Form.Group as={Row}>
@@ -99,35 +118,13 @@ const Index = () => {
               />
             </Col>
           </Form.Group>
-          <Form.Group>
+          <Form.Group style={{ marginBottom: "100px" }}>
             <Col sm="8">
               <Form.Label>Wilayah</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Wilayah"
                 value={profile.info?.region}
-                readOnly
-              />
-            </Col>
-          </Form.Group>
-          <Form.Group>
-            <Col sm="8">
-              <Form.Label>Hari Kerja</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Jam Kerja"
-                value={profile.schedule.work_days}
-                readOnly
-              />
-            </Col>
-          </Form.Group>
-          <Form.Group>
-            <Col sm="8">
-              <Form.Label>Waktu Bekerja</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Jam Kerja"
-                value={profile.schedule.work_time}
                 readOnly
               />
             </Col>

@@ -41,7 +41,7 @@ const Index = () => {
 
   useEffect(
     () => {
-      fetchSearchResult(location.state.region);
+      fetchSearchResult(location.state?.region ?? "none");
     },
     // eslint-disable-next-line
     []
@@ -60,8 +60,12 @@ const Index = () => {
   return (
     <>
       <Container>
-        <h1>SEARCH RESULT</h1>
-        <InputGroup className="mb-3">
+        <h1
+          style={{ textAlign: "center", marginTop: "30px", color: "#70a1ff" }}
+        >
+          SEARCH RESULT
+        </h1>
+        <InputGroup style={{ marginTop: "50px" }} className="mb-3">
           <FormControl
             placeholder="Find Your Region..."
             aria-describedby="basic-addon1"
@@ -73,21 +77,25 @@ const Index = () => {
           <Button onClick={() => fetchSearchResult(searchInput)}>Search</Button>
         </InputGroup>
 
-        <Card className="link">
+        <Card style={{ marginTop: "50px" }} className="link">
           {searchResult.map((item) => {
             return (
-              <CardResult
-                onClick={() => handleClick(item._id)}
-                key={item._id}
-                first_name={item.first_name}
-                last_name={item.last_name}
-                work_address={item.work_address}
-                experience_year={item.info.experience_year}
-                avatar_url={item.avatar_url}
-                price={item.fees}
-                region={item.info.region}
-                star={item.star}
-              />
+              <Card.Body
+                style={{ paddingBottom: "50px", backgroundColor: "#70a1ff" }}
+              >
+                <CardResult
+                  onClick={() => handleClick(item._id)}
+                  key={item._id}
+                  first_name={item.first_name}
+                  last_name={item.last_name}
+                  work_address={item.work_address}
+                  experience_year={item.info.experience_year}
+                  avatar_url={item.avatar_url}
+                  price={item.fees}
+                  region={item.info.region}
+                  star={item.star}
+                />
+              </Card.Body>
             );
           })}
         </Card>

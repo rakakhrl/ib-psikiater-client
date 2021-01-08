@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Cards from "../Card/index";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -13,29 +13,27 @@ import swal from "sweetalert";
 
 const Index = () => {
   const dispatch = useDispatch();
-  const accesstoken = localStorage.getItem("accesstoken");
+  const appointmentData = useSelector(
+    (store) => store.appointment.psikiater_appointment
+  );
   const [toggle, setToggle] = useState(false);
   const [selectedAppointment, setSelectedAppointment] = useState({});
-  const [appointmentData, setAppointmentData] = useState([]);
   const [showPrescriptionModal, setShowPrescriptionModal] = useState(false);
   const [showDiagnoseModal, setShowDiagnoseModal] = useState(false);
+  const [rerender, setRerender] = useState(false);
 
   //fetch data ketika page pertama kali di buka
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await API({
-        method: "GET",
-        url: `/appointments/psikiater`,
-        headers: {
-          accesstoken: accesstoken,
-        },
-      });
-      console.log(res.data);
-      setAppointmentData(res.data.data);
-    };
-    fetchData();
-    return fetchData;
+    dispatch(appointmentAction.fetchPsikiaterAppointment());
   }, []);
+
+  useEffect(() => {
+    const filteredUpdatedAppointment = appointmentData.filter(
+      (apt) => apt._id === selectedAppointment?._id
+    )[0];
+    setSelectedAppointment(filteredUpdatedAppointment);
+    console.log("should rerender");
+  }, [appointmentData]);
 
   const appointment = appointmentData.map((data) => {
     return {
@@ -48,7 +46,6 @@ const Index = () => {
   });
 
   function handleEvent(params) {
-    console.log(params.event._def.extendedProps.appointment);
     setSelectedAppointment(params.event._def.extendedProps.appointment);
     setToggle(true);
   }
@@ -57,6 +54,7 @@ const Index = () => {
     setShowPrescriptionModal(true);
   };
   const handlePrescriptionModalClose = () => {
+    dispatch(appointmentAction.fetchPsikiaterAppointment());
     setShowPrescriptionModal(false);
   };
 
@@ -64,10 +62,11 @@ const Index = () => {
     setShowDiagnoseModal(true);
   };
   const handleDiagnoseModalClose = () => {
+    dispatch(appointmentAction.fetchPsikiaterAppointment());
     setShowDiagnoseModal(false);
   };
 
-  const handleFinishAppointment = () => {
+  const handleFinishAppointment = async () => {
     dispatch(
       appointmentAction.changeStatusAppointment(
         "Done",
@@ -75,6 +74,9 @@ const Index = () => {
         localStorage.getItem("accesstoken")
       )
     );
+
+    dispatch(appointmentAction.fetchPsikiaterAppointment());
+
     swal("Success", "Appointment sudah selesai", "success");
   };
 
@@ -101,7 +103,10 @@ const Index = () => {
             variant="primary"
             onClick={handleDiagnoseModalShow}
             disabled={
-              selectedAppointment.diagnose.diagnose_name === "" ? false : true
+              selectedAppointment.diagnose.diagnose_date !== null ||
+              selectedAppointment.status === "Done"
+                ? true
+                : false
             }
           >
             Buat Diagnosa
@@ -127,8 +132,19 @@ const Index = () => {
 
   return (
     <Container>
-      <h1 style={{ fontWeight: "bold", textAlign: "center" }}>Schedule</h1>
+      <h1
+        style={{
+          fontWeight: "bold",
+          textAlign: "center",
+          marginTop: "10%",
+          marginBottom: "50px",
+          color: "#70a1ff",
+        }}
+      >
+        Schedule
+      </h1>
       <FullCalendar
+        height={500}
         plugins={[timeGridPlugin]}
         initialView="timeGridWeek"
         weekends={false}

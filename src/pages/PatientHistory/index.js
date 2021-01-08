@@ -56,8 +56,9 @@ const PatientHistory = () => {
   };
 
   return (
-    <div className="container main-container">
+    <>
       <h3 className="title">Patient Appointment History</h3>
+    <div className="container main-container">
 
       <div className="list-history">
         <PrescriptionModal
@@ -83,6 +84,7 @@ const PatientHistory = () => {
         ))}
       </div>
     </div>
+    </>
   );
 };
 
