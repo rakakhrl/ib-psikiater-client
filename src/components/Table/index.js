@@ -132,7 +132,17 @@ const Index = () => {
 
   return (
     <Container>
-      <h1 style={{ fontWeight: "bold", textAlign: "center" }}>Schedule</h1>
+      <h1
+        style={{
+          fontWeight: "bold",
+          textAlign: "center",
+          marginTop: "10%",
+          marginBottom: "50px",
+          color: "#70a1ff",
+        }}
+      >
+        Schedule
+      </h1>
       <FullCalendar
         height={500}
         plugins={[timeGridPlugin]}
