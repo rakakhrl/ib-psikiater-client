@@ -16,7 +16,11 @@ const Index = ({ appointment }) => {
         <Row>
           <Col xs="3" lg="3" md="12" className="d-none d-md-block">
             <Image
-              src={appointment.patient_id.avatar_url}
+              src={
+                appointment.patient_id.avatar_url === ""
+                  ? "../../images/pic04.jpg"
+                  : appointment.patient_id.avatar_url
+              }
               alt="images"
               roundedCircle
               style={{ width: "200px" }}
