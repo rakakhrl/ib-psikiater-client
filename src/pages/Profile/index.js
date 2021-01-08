@@ -10,12 +10,37 @@ const Index = () => {
 
   return (
     <>
-      <h1 style={{ fontWeight: "bold", textAlign: "center" }}>Profile</h1>
-      <Container style={{ backgroundColor: "#ededed", padding: "20px" }}>
-        <Form>
+      <h1
+        style={{
+          fontWeight: "bold",
+          textAlign: "center",
+          marginTop: "50px",
+          marginBottom: "50px",
+          color: "#70a1ff",
+        }}
+      >
+        Profile
+      </h1>
+      <Container
+        style={{
+          backgroundColor: "#ff6b81",
+          padding: "20px",
+        }}
+      >
+        <Row></Row>
+        <Form
+          style={{
+            marginTop: "20px",
+            textAlign: "center",
+          }}
+        >
           <Col style={{ textAlign: "center" }}>
             <Image
-              src={profile.avatar_url}
+              src={
+                profile.avatar_url === ""
+                  ? "../images/pic04.jpg"
+                  : profile.avatar_url
+              }
               roundedCircle
               alt="images"
               height="300"
@@ -97,7 +122,7 @@ const Index = () => {
               />
             </Col>
           </Form.Group>
-          <Form.Group>
+          <Form.Group style={{ marginBottom: "100px" }}>
             <Col sm="8">
               <Form.Label>Wilayah</Form.Label>
               <Form.Control

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import * as Icon from "react-bootstrap-icons";
-// import "../../assets/css/main.css";
+import "../../css/Part.css";
 import { InputGroup, Form } from "react-bootstrap";
 import swal from "sweetalert";
 
-const Carousel = () => {
+const Corousel = () => {
   const history = useHistory();
   const [searchInput, setSearchInput] = useState("");
 
@@ -15,11 +15,19 @@ const Carousel = () => {
 
   return (
     <>
-      <section id="banner">
-        <div className="inner">
-          <header>
-            <h1>Prioritaskan Kesehatan Mental Anda</h1>
-            <p>Karena tak hanya fisik, kesehatan mental pun perlu dijaga.</p>
+      <section id="jumbotron">
+        <div>
+          <img
+            src="https://i.postimg.cc/50SG5Vgr/cari-psikiater.png"
+            style={{ width: "20em" }}
+          ></img>
+          <header style={{ marginTop: "30px" }} className="inner">
+            <h1 style={{ color: "white" }}>
+              Prioritaskan Kesehatan Mental Anda
+            </h1>
+            <p style={{ color: "white" }}>
+              Karena tak hanya fisik, kesehatan mental pun perlu dijaga.
+            </p>
           </header>
           <InputGroup>
             <Form.Control
@@ -42,4 +50,4 @@ const Carousel = () => {
   );
 };
 
-export default Carousel;
+export default Corousel;

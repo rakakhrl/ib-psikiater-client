@@ -1,0 +1,70 @@
+/* JUMBOTRON */
+
+.jumbotron-checkout {
+  margin-top: 5%;
+  background-color: #70a1ff !important;
+  text-align: center;
+  color: white;
+}
+
+/* Image Pada Jumbotron */
+
+.checkout-image {
+  margin-top: 30px;
+  max-width: 250px;
+  max-height: 230px;
+}
+
+/* Column Didalam Row Jumbotron */
+
+.column-kiri,
+.column-kanan {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+/* FORM */
+
+.form-checkout-wrapper {
+  margin-top: 30px;
+}
+
+.form-psikiater,
+.form-patient,
+.form-schedule {
+  text-align: center;
+  background-color: white !important;
+}
+
+/* CARD */
+
+.card-checkout-wrapper {
+  background-color: white !important;
+  width: 17rem;
+  height: 10rem;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.header-card-payment,
+.text-card-payment {
+  color: #70a1ff !important;
+}
+
+/* BUTTON */
+
+.button-wrapper {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-checkout {
+  background-color: #70a1ff !important;
+}
+
+.button-checkout:hover {
+  background-color: #7bed9f !important;
+}

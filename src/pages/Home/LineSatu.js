@@ -1,10 +1,11 @@
 import React from "react";
 import { Row, Col, Image, Container, Carousel } from "react-bootstrap";
+import "../../css/Part.css";
 
 const LineSatu = () => {
   return (
     <>
-      <Carousel className="wrapper style1">
+      <Carousel style={{ marginTop: "100px" }} id="style1">
         <Carousel.Item>
           <Container>
             <Row>
@@ -14,8 +15,8 @@ const LineSatu = () => {
                   fluid
                 />
               </Col>
-              <Col style={{ textAlign: "justify" }} id="linesatu">
-                <h3>Konseling Keluarga</h3>
+              <Col>
+                <h3 style={{ color: "#ff6b81" }}>Konseling Keluarga</h3>
                 <p>
                   Apakah anda terjebak dengan berbagai persoalan konflik dalam
                   rumah tangga, anak, pasangan, mertua dan sejuta persoalan
@@ -36,14 +37,14 @@ const LineSatu = () => {
                   fluid
                 />
               </Col>
-              <Col style={{ textAlign: "justify" }} id="linesatu">
-                <h3>Konseling Pra Nikah</h3>
+              <Col>
+                <h3 style={{ color: "#ff6b81" }}>Konseling Pra Nikah</h3>
                 <p>
                   Pernikahan adalah menyatukan dua pribadi yang berbeda dengan
                   keunikan masing-masing. Setiap individu memiliki ekspektasi
                   yang berbeda terhadap pernikahan dan pasangannya. Kesamaan
                   persepsi mengenai pernikahan tentu harus ditemukan sebelum dua
-                  insan ini memutuskan untuk hidup bersama selamanya. 
+                  insan ini memutuskan untuk hidup bersama selamanya.
                 </p>
               </Col>
             </Row>
@@ -58,8 +59,8 @@ const LineSatu = () => {
                   fluid
                 />
               </Col>
-              <Col style={{ textAlign: "justify" }} id="linesatu">
-                <h3>Konseling Anak</h3>
+              <Col>
+                <h3 style={{ color: "#ff6b81" }}>Konseling Anak</h3>
                 <p>
                   Bimbingan konseling anak merupakan kegiatan yang sengaja
                   dilakukan dalam upaya pemberian bantuan kepada anak salah
