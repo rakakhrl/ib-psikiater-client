@@ -1,0 +1,22 @@
+.side-bar {
+  background-color: #ed51b1 !important;
+  height: 94%;
+  padding-left: 0;
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold !important;
+  color: yellow;
+}
+
+.side-bar .link {
+  color: yellow;
+}
+
+.side-bar .link:hover {
+  text-decoration: none !important;
+}
+
+.links:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
+/*# sourceMappingURL=index.css.map */
