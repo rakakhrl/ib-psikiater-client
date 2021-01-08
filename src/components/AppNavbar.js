@@ -46,7 +46,7 @@ const AppNavbar = () => {
           height="30"
           width="30"
           className="mr-3"
-          src={user.avatar_url}
+          src={user.avatar_url === "" ? "../images/pic04.jpg" : user.avatar_url}
           roundedCircle
           onClick={handleShow}
         />
@@ -102,10 +102,7 @@ const AppNavbar = () => {
         <Image
           height="30"
           width="30"
-          src={
-            user.avatar_url ??
-            "https://images.unsplash.com/photo-1580820267682-426da823b514?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cG9ydHJhaXQlMjBiYWNrZ3JvdW5kfGVufDB8fDB8&ixlib=rb-1.2.1&w=1000&q=80"
-          }
+          src={user.avatar_url === "" ? "../images/pic04.jpg" : user.avatar_url}
           roundedCircle
           onClick={handleShow}
         />
@@ -141,7 +138,9 @@ const AppNavbar = () => {
           </Navbar.Brand>
         </Link>
       ) : (
-        <Navbar.Brand>Navbar</Navbar.Brand>
+        <Navbar.Brand>
+          <b>CAPER | CARI PSIKIATER</b>
+        </Navbar.Brand>
       )}
       <NavbarActions />
     </Navbar>

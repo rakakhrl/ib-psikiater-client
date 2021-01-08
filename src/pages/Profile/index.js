@@ -36,7 +36,11 @@ const Index = () => {
         >
           <Col style={{ textAlign: "center" }}>
             <Image
-              src={profile.avatar_url}
+              src={
+                profile.avatar_url === ""
+                  ? "../images/pic04.jpg"
+                  : profile.avatar_url
+              }
               roundedCircle
               alt="images"
               height="300"

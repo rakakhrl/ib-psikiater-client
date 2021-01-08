@@ -118,7 +118,11 @@ const AppointmentCard = ({
                 <Image
                   height="100"
                   width="100"
-                  src={appointment.psikiater_id.avatar_url}
+                  src={
+                    appointment.psikiater_id.avatar_url === ""
+                      ? "../images/pic04.jpg"
+                      : appointment.psikiater_id.avatar_url
+                  }
                   roundedCircle
                 />
               </Col>
