@@ -141,7 +141,9 @@ const AppNavbar = () => {
           </Navbar.Brand>
         </Link>
       ) : (
-        <Navbar.Brand>Navbar</Navbar.Brand>
+        <Navbar.Brand>
+          <b>CAPER | CARI PSIKIATER</b>
+        </Navbar.Brand>
       )}
       <NavbarActions />
     </Navbar>
