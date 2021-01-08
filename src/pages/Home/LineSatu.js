@@ -5,18 +5,18 @@ import "../../css/Part.css";
 const LineSatu = () => {
   return (
     <>
-      <Carousel id="style1">
+      <Carousel style={{ marginTop: "100px" }} id="style1">
         <Carousel.Item>
           <Container>
-          <h3>Konseling Keluarga</h3>
             <Row>
               <Col>
                 <Image
                   src="https://scontent.fsub7-1.fna.fbcdn.net/v/t1.0-9/135604960_3854645761223085_2398874445404700536_n.jpg?_nc_cat=106&ccb=2&_nc_sid=730e14&_nc_eui2=AeGd1wFCmdo4yvvuAsb016Rghkoj8IS0f8KGSiPwhLR_wir5549QBF8cbUFFzc5qxOLhMLLgO1itgducXBtVcgMr&_nc_ohc=51hqTJGvAPUAX_gPASH&_nc_ht=scontent.fsub7-1.fna&oh=34e59394671ff2788c3f0641555681ba&oe=6015FD64"
                   fluid
                 />
-              </Col> 
+              </Col>
               <Col>
+                <h3 style={{ color: "#ff6b81" }}>Konseling Keluarga</h3>
                 <p>
                   Apakah anda terjebak dengan berbagai persoalan konflik dalam
                   rumah tangga, anak, pasangan, mertua dan sejuta persoalan
@@ -30,7 +30,6 @@ const LineSatu = () => {
         </Carousel.Item>
         <Carousel.Item>
           <Container>
-          <h3>Konseling Pra Nikah</h3>
             <Row>
               <Col>
                 <Image
@@ -39,12 +38,13 @@ const LineSatu = () => {
                 />
               </Col>
               <Col>
+                <h3 style={{ color: "#ff6b81" }}>Konseling Pra Nikah</h3>
                 <p>
                   Pernikahan adalah menyatukan dua pribadi yang berbeda dengan
                   keunikan masing-masing. Setiap individu memiliki ekspektasi
                   yang berbeda terhadap pernikahan dan pasangannya. Kesamaan
                   persepsi mengenai pernikahan tentu harus ditemukan sebelum dua
-                  insan ini memutuskan untuk hidup bersama selamanya. 
+                  insan ini memutuskan untuk hidup bersama selamanya.
                 </p>
               </Col>
             </Row>
@@ -52,7 +52,6 @@ const LineSatu = () => {
         </Carousel.Item>
         <Carousel.Item>
           <Container>
-          <h3>Konseling Anak</h3>
             <Row>
               <Col>
                 <Image
@@ -61,6 +60,7 @@ const LineSatu = () => {
                 />
               </Col>
               <Col>
+                <h3 style={{ color: "#ff6b81" }}>Konseling Anak</h3>
                 <p>
                   Bimbingan konseling anak merupakan kegiatan yang sengaja
                   dilakukan dalam upaya pemberian bantuan kepada anak salah

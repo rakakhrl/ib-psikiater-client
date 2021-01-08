@@ -17,9 +17,17 @@ const Corousel = () => {
     <>
       <section id="jumbotron">
         <div>
-          <header className="inner" >
-            <h1>Prioritaskan Kesehatan Mental Anda</h1>
-            <p>Karena tak hanya fisik, kesehatan mental pun perlu dijaga.</p>
+          <img
+            src="https://i.postimg.cc/50SG5Vgr/cari-psikiater.png"
+            style={{ width: "20em" }}
+          ></img>
+          <header style={{ marginTop: "30px" }} className="inner">
+            <h1 style={{ color: "white" }}>
+              Prioritaskan Kesehatan Mental Anda
+            </h1>
+            <p style={{ color: "white" }}>
+              Karena tak hanya fisik, kesehatan mental pun perlu dijaga.
+            </p>
           </header>
           <InputGroup>
             <Form.Control
@@ -36,7 +44,6 @@ const Corousel = () => {
               </InputGroup.Text>
             </InputGroup.Prepend>
           </InputGroup>
-   
         </div>
       </section>
     </>
