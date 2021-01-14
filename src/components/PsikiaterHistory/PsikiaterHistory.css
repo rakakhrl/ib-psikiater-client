@@ -1,0 +1,22 @@
+.card-wrapper {
+  float: left;
+  flex-wrap: wrap;
+  width: 18rem;
+  margin-left: 50px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.card-title,
+.card-text-1,
+.card-text-2 {
+  text-align: center;
+  font-weight: bold;
+  margin: 5px;
+}
+
+.button-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
