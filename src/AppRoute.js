@@ -3,15 +3,18 @@ import { Switch, Route } from "react-router-dom";
 import PrivateRoutePsikiater from "./components/PrivateRoutePsikiater";
 import PrivateRoutePasien from "./components/PrivateRoutePasien";
 
-import RegisterPsikiater from "./pages/RegisterPsikiater";
-import RegisterPasien from "./pages/RegisterPasien";
+import RegisterPage from "./pages/Register";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import PatientHistory from "./pages/PatientHistory/index";
 import Search from "./pages/Search";
 import Psikiater from "./pages/Psikiater";
-import Checkout from "./pages/Checkout/index";
-import Appointment from "./pages/Appointment/index";
+import Checkout from "./pages/Checkout";
+import Appointment from "./pages/Appointment";
+import PublicProfilePsychiatrist from "./pages/PublicPsychiatristProfile";
+import ProfilePatient from "./pages/ProfilePatient";
+import PatientDashboard from "./pages/PatientDashboard";
+import EmailVerificationSent from "./pages/EmailVerificationSent";
 
 const AppRoute = () => {
   return (
@@ -25,11 +28,8 @@ const AppRoute = () => {
       <Route path="/login" exact>
         <Login />
       </Route>
-      <Route path="/registerPsikiater" exact>
-        <RegisterPsikiater />
-      </Route>
-      <Route path="/registerPasien" exact>
-        <RegisterPasien />
+      <Route path="/register">
+        <RegisterPage />
       </Route>
       <PrivateRoutePasien path="/patient-history" exact>
         <PatientHistory />
@@ -37,11 +37,23 @@ const AppRoute = () => {
       <Route path="/search-result" exact>
         <Search />
       </Route>
-      <PrivateRoutePsikiater path="/psikiater-dashboard" exact>
+      <PrivateRoutePsikiater path="/psikiater-dashboard">
         <Psikiater />
       </PrivateRoutePsikiater>
       <Route path="/checkout-payment/:appointment_id" exact>
         <Checkout />
+      </Route>
+      <Route path="/profile/:psychiatrist_id" exact>
+        <PublicProfilePsychiatrist />
+      </Route>
+      <Route path="/profile/me" exact>
+        <ProfilePatient />
+      </Route>
+      <Route path="/patient-dashboard" exact>
+        <PatientDashboard />
+      </Route>
+      <Route path="/email-verification-sent" exact>
+        <EmailVerificationSent />
       </Route>
     </Switch>
   );
