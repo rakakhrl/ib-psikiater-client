@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./PsikiaterHistory.css";
-import PsikiaterHistoryModal from "./PsikiaterHistoryModal";
 import moment from "moment";
+import PsikiaterHistoryModal from "./PsikiaterHistoryModal";
 import { Card, Container, Button, Modal } from "react-bootstrap";
 
 const PsikiaterHistory = ({ appointment }) => {
-  console.log(appointment);
   const [modalShow, setModalShow] = useState(false);
 
   return (
@@ -19,7 +18,7 @@ const PsikiaterHistory = ({ appointment }) => {
               : appointment.patient_id.avatar_url
           }
         />
-        <Card.Body>
+        <Card.Body className="card-body">
           <Card.Title className="card-title">{`${appointment.patient_id.first_name} ${appointment.patient_id.last_name}`}</Card.Title>
           <Card.Text className="card-text-1">{` Date : ${moment(
             appointment.appointment_date

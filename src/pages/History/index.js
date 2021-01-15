@@ -10,7 +10,6 @@ const Index = () => {
   const [prescription, setPrescription] = useState({});
   const [listOfAppointment, setListOfAppointment] = useState([]);
 
-  console.log(listOfAppointment);
   useEffect(() => {
     const fetchAppointment = async () => {
       const res = await API({
@@ -18,7 +17,6 @@ const Index = () => {
         url: `/appointments/psikiater`,
         headers: { accesstoken: accesstoken },
       });
-      console.log(res.data);
       setListOfAppointment(res.data.data);
     };
     fetchAppointment();
@@ -46,7 +44,7 @@ const Index = () => {
   // });
 
   const listOfPatientHistory = listOfAppointment.map((appointment) => {
-    return <PsikiaterHistory appointment={appointment} />;
+    return <PsikiaterHistory key={appointment._id} appointment={appointment} />;
   });
 
   return (
