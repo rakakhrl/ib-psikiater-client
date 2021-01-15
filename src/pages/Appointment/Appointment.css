@@ -1,0 +1,103 @@
+/* Page Title Styling */
+
+.page-title {
+  text-align: center;
+  margin-top: 10px;
+  color: #7d9dec;
+}
+
+/* Card Wrapper Appointment */
+
+.psikiater-card-wrapper {
+  background-color: #7d9dec !important;
+  margin-bottom: 30px;
+}
+
+/* Page Wrapper (Container) Styling */
+
+.page-wrapper {
+  margin-top: 10px;
+}
+
+/* Row-1 Psikiater Information */
+
+.column-row-1-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.column-image,
+.column-psikiater-info,
+.column-calendar {
+  display: flex;
+  justify-content: center;
+}
+
+.psikiater-avatar {
+  width: 230px;
+  height: 230px;
+}
+
+.psikiater-info {
+  margin-top: 50px;
+  color: white;
+  margin-bottom: 30px;
+}
+
+.calendar {
+  display: flex;
+  justify-content: center;
+}
+
+/* Row-2 Form Psikiater Schedule & Session Type */
+
+.column-psikiater-schedule {
+  display: inline;
+  justify-content: center;
+}
+
+.psikiater-time-schedule-title {
+  color: white;
+}
+
+.psikiater-schedule-button {
+  margin-right: 5px;
+  margin-top: 5px;
+}
+
+.form-session-type {
+  margin-top: 37px;
+}
+
+/* Row-3 Form Allergy */
+
+.row-3 {
+  color: white;
+}
+
+/* Row-4 Button Cancel and Continue */
+
+.button-wrapper {
+  margin-bottom: 20px;
+}
+
+.cancel-button {
+  margin-right: 10px;
+}
+
+.continue-button {
+  margin-left: 10px;
+}
+
+/* All Row Styling */
+
+.row-2,
+.row-3 {
+  margin-top: 30px;
+}
+
+.row-1,
+.row-2,
+.row-3 {
+  padding: 20px;
+}

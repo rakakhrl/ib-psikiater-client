@@ -2,19 +2,27 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import API from "../../API/mainServer";
 import { useState, useEffect } from "react";
+import "./Appointment.css";
+
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+
 import {
   Container,
   Row,
   Col,
   Form,
   Button,
+  Image,
+  Card,
   InputGroup,
   FormControl,
 } from "react-bootstrap";
 import appointmentAction from "../../redux/actions/appointmentAction";
 import TimePicker from "react-time-picker";
+import StarRatings from "react-star-ratings";
 
-const Appointment = () => {
+const Appointment = ({ star }) => {
   const [psikiaterData, setPsikiaterData] = useState({});
   const [appointment_time, setAppointmentTime] = useState("");
   const [appointment_date, setAppointmentDate] = useState("");
@@ -25,6 +33,8 @@ const Appointment = () => {
   const dataUser = useSelector((state) => state.user.user_data);
   const patient_id = dataUser._id;
   const { psikiater_id } = useParams();
+  // const [value, onChange] = useState(new Date());
+  const [rating] = useState();
 
   useEffect(() => {
     const getData = async () => {
@@ -37,7 +47,7 @@ const Appointment = () => {
           },
         });
         setPsikiaterData(getData.data.data);
-        console.log(getData.data.data);
+        // console.log(getData.data.data);
       } catch (error) {
         console.log(error);
       }
@@ -85,7 +95,125 @@ const Appointment = () => {
   };
 
   return (
-    <div>
+    <>
+      <h2 className="page-title">Appointment</h2>
+
+      <Container className="page-wrapper">
+        <Card className="psikiater-card-wrapper">
+          <Row className="row-1">
+            <Col className="column-row-1-wrapper" md={12} lg={6}>
+              <Row>
+                <Col className="column-image" md={12} lg={6}>
+                  <Image
+                    className="psikiater-avatar"
+                    src={`${psikiaterData?.avatar_url}`}
+                    roundedCircle
+                  ></Image>
+                </Col>
+                <Col
+                  column-psikiater-info
+                  md={12}
+                  lg={6}
+                  className="psikiater-info"
+                >
+                  <h5>{`Name : ${psikiaterData?.first_name} ${psikiaterData?.last_name}`}</h5>
+                  <h5>{`Address : ${psikiaterData?.work_address}`}</h5>
+                  <h5>{`Specialized In : Anxiety`}</h5>
+                  <h5>{`Experience : ${psikiaterData?.info?.experience_year}`}</h5>
+                </Col>
+              </Row>
+            </Col>
+            <Col className="column-calendar" md={12} lg={6}>
+              <Calendar />
+            </Col>
+          </Row>
+
+          <Row className="row-2">
+            <Col className="column-psikiater-schedule">
+              <h5 className="psikiater-time-schedule-title">
+                <b>Psikiater Time Schedule</b>
+              </h5>
+              {psikiaterData?.schedule?.work_time.length === 0 ? (
+                <Button>Psikiater doesn't have schedule yet</Button>
+              ) : (
+                psikiaterData?.schedule?.work_time.map((item) => {
+                  return (
+                    <Button className="psikiater-schedule-button">
+                      {item}
+                    </Button>
+                  );
+                })
+              )}
+            </Col>
+            <Col>
+              <Form>
+                <Form.Group controlId="exampleForm.ControlSelect1">
+                  <Form.Control className="form-session-type" as="select">
+                    <option>Select Session Type</option>
+                    <option>Offline</option>
+                    <option>Online</option>
+                  </Form.Control>
+                </Form.Group>
+              </Form>
+            </Col>
+          </Row>
+
+          <Row className="row-3">
+            <Col lg={6}>
+              <Form.Group controlId="exampleForm.ControlTextarea1">
+                <Form.Label>
+                  <b>COMPLAINTS</b>
+                </Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  placeholder="How do you feel?"
+                  onChange={complaintHandler}
+                  value={complaint}
+                />
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group controlId="exampleForm.ControlInput1">
+                <Form.Label>
+                  <b>ALLERGIES</b>
+                </Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  type="text"
+                  placeholder="e.g Fish Oil"
+                  onChange={allergyHandler}
+                  value={allergy}
+                />
+              </Form.Group>
+            </Col>
+          </Row>
+
+          <Row className="row-4">
+            <Container className="button-wrapper">
+              <Button
+                variant="dark"
+                className="cancel-button"
+              >{`< Cancel`}</Button>
+              <Button
+                variant="success"
+                className="continue-button"
+              >{`Continue >`}</Button>
+            </Container>
+          </Row>
+        </Card>
+      </Container>
+    </>
+  );
+};
+
+export default Appointment;
+
+// Code Yang Lama Buat Contekan hehe
+
+{
+  /* <div>
       <h1
         style={{
           marginTop: "30px",
@@ -97,181 +225,138 @@ const Appointment = () => {
       >
         Appointment
       </h1>
-      <Container>
-        <Container style={{ backgroundColor: "#ff6b81", padding: "50px" }}>
-          <h5
-            style={{
-              fontWeight: "bold",
-              color: "white",
-              marginLeft: "70px",
-              textAlign: "center",
-            }}
-          >
-            PSIKIATER DATA
-          </h5>
-          <Row>
-            <Col xs={12} lg={6}>
-              <img
-                src={`${psikiaterData.avatar_url}`}
-                style={{ width: "300px", height: "300px", marginTop: "30px" }}
-              ></img>
-            </Col>
-            <Col>
-              <Form
+
+      <Container style={{ backgroundColor: "#ff6b81", padding: "50px" }}>
+        <h5
+          style={{
+            fontWeight: "bold",
+            color: "white",
+            marginLeft: "70px",
+            textAlign: "center",
+          }}
+        >
+          PSIKIATER DATA
+        </h5>
+        <Row>
+          <Col xs={12} lg={4}>
+            <Image
+              className="psikiater-image"
+              src={`${psikiaterData.avatar_url}`}
+              roundedCircle
+            ></Image>
+          </Col>
+          <Col lg={3}>
+            <h5>{`${psikiaterData.first_name} ${psikiaterData.last_name}`}</h5>
+            <h5>Ratings : 5/5</h5>
+            <h5>Specialized In : Relationship Counceling</h5>
+          </Col>
+          <Col lg={5}>
+            <Calendar />
+          </Col>
+        </Row>
+      </Container>
+
+      <Container
+        style={{
+          backgroundColor: "#70a1ff",
+          padding: "40px",
+        }}
+      >
+        <Row>
+          <Col>
+            <Form style={{ marginTop: "30px", textAlign: "center" }}>
+              <h5
                 style={{
-                  marginTop: "5px",
-                  textAlign: "center",
-                  marginTop: "40px",
+                  fontWeight: "bold",
+                  marginBottom: "40px",
+                  color: "white",
                 }}
               >
-                <Form.Group>
-                  <Form.Label
-                    style={{
-                      color: "white",
-                    }}
-                  >
-                    <b>Psikiater Name</b>
-                  </Form.Label>
-                  <Form.Control
-                    style={{
-                      textAlign: "center",
-                      marginBottom: "30px",
-                    }}
-                    type="text"
-                    value={`${psikiaterData.first_name} ${psikiaterData.last_name} `}
-                    readOnly
-                  ></Form.Control>
-                  <Form.Label style={{ color: "white" }}>
-                    <b>Address</b>
-                  </Form.Label>
-                  <Form.Control
-                    style={{ textAlign: "center", marginBottom: "30px" }}
-                    type="text"
-                    value={`${psikiaterData?.work_address}`}
-                    readOnly
-                  ></Form.Control>
-                  <Form.Label style={{ color: "white" }}>
-                    <b>Fees</b>
+                PATIENT DATA
+              </h5>
+              <Form.Row>
+                <Form.Group as={Col} controlId="formGridEmail">
+                  <Form.Label>
+                    <b style={{ color: "white" }}>First Name</b>
                   </Form.Label>
                   <Form.Control
                     style={{ textAlign: "center" }}
+                    value={dataUser.first_name}
                     type="text"
-                    value={`${psikiaterData?.fees}`}
-                    readOnly
+                    placeholder="Enter first name here"
+                  />
+                </Form.Group>
+                <Form.Group as={Col} controlId="formGridPassword">
+                  <Form.Label>
+                    <b style={{ color: "white" }}>Last Name</b>
+                  </Form.Label>
+                  <Form.Control
+                    style={{ textAlign: "center" }}
+                    value={dataUser.last_name}
+                    type="text"
+                    placeholder="Enter last name here"
+                  />
+                </Form.Group>
+              </Form.Row>
+              <Form.Row
+                style={{
+                  display: "inline-flex",
+                }}
+              >
+                <Form.Group style={{ marginRight: "20px", marginTop: "20px" }}>
+                  <Form.Label style={{ color: "white" }}>
+                    Appointment Date
+                  </Form.Label>
+                  <Form.Control
+                    type="date"
+                    onChange={appointmentDateHandler}
+                    value={appointment_date}
                   ></Form.Control>
                 </Form.Group>
-              </Form>
-            </Col>
-          </Row>
-        </Container>
 
-        <Container
+                <TimePicker
+                  onChange={(v) => {
+                    setAppointmentTime(v);
+                  }}
+                  value={appointment_time}
+                />
+              </Form.Row>
+
+              <Form.Group controlId="exampleForm.ControlTextarea1">
+                <Form.Label style={{ marginTop: "30px" }}>
+                  <b style={{ color: "white" }}>Complain</b>
+                </Form.Label>
+                <Form.Control
+                  onChange={complaintHandler}
+                  value={complaint}
+                  as="textarea"
+                  rows={3}
+                />
+              </Form.Group>
+              <Form.Group controlId="exampleForm.ControlTextarea1">
+                <Form.Label style={{ marginTop: "30px" }}>
+                  <b style={{ color: "white" }}>Allergy</b>
+                </Form.Label>
+                <Form.Control
+                  onChange={allergyHandler}
+                  value={allergy}
+                  as="textarea"
+                  rows={3}
+                />
+              </Form.Group>
+            </Form>
+          </Col>
+        </Row>
+        <Button
           style={{
-            backgroundColor: "#70a1ff",
-            padding: "40px",
+            backgroundColor: "#ff6b81",
+            marginTop: "40px",
           }}
+          onClick={createAppointmentHandler}
+          variant="dark"
         >
-          <Row>
-            <Col>
-              <Form style={{ marginTop: "30px", textAlign: "center" }}>
-                <h5
-                  style={{
-                    fontWeight: "bold",
-                    marginBottom: "40px",
-                    color: "white",
-                  }}
-                >
-                  PATIENT DATA
-                </h5>
-                <Form.Row>
-                  <Form.Group as={Col} controlId="formGridEmail">
-                    <Form.Label>
-                      <b style={{ color: "white" }}>First Name</b>
-                    </Form.Label>
-                    <Form.Control
-                      style={{ textAlign: "center" }}
-                      value={dataUser.first_name}
-                      type="text"
-                      placeholder="Enter first name here"
-                    />
-                  </Form.Group>
-                  <Form.Group as={Col} controlId="formGridPassword">
-                    <Form.Label>
-                      <b style={{ color: "white" }}>Last Name</b>
-                    </Form.Label>
-                    <Form.Control
-                      style={{ textAlign: "center" }}
-                      value={dataUser.last_name}
-                      type="text"
-                      placeholder="Enter last name here"
-                    />
-                  </Form.Group>
-                </Form.Row>
-                <Form.Row
-                  style={{
-                    display: "inline-flex",
-                  }}
-                >
-                  <Form.Group
-                    style={{ marginRight: "20px", marginTop: "20px" }}
-                  >
-                    <Form.Label style={{ color: "white" }}>
-                      Appointment Date
-                    </Form.Label>
-                    <Form.Control
-                      type="date"
-                      onChange={appointmentDateHandler}
-                      value={appointment_date}
-                    ></Form.Control>
-                  </Form.Group>
-
-                  <TimePicker
-                    onChange={(v) => {
-                      setAppointmentTime(v);
-                    }}
-                    value={appointment_time}
-                  />
-                </Form.Row>
-
-                <Form.Group controlId="exampleForm.ControlTextarea1">
-                  <Form.Label style={{ marginTop: "30px" }}>
-                    <b style={{ color: "white" }}>Complain</b>
-                  </Form.Label>
-                  <Form.Control
-                    onChange={complaintHandler}
-                    value={complaint}
-                    as="textarea"
-                    rows={3}
-                  />
-                </Form.Group>
-                <Form.Group controlId="exampleForm.ControlTextarea1">
-                  <Form.Label style={{ marginTop: "30px" }}>
-                    <b style={{ color: "white" }}>Allergy</b>
-                  </Form.Label>
-                  <Form.Control
-                    onChange={allergyHandler}
-                    value={allergy}
-                    as="textarea"
-                    rows={3}
-                  />
-                </Form.Group>
-              </Form>
-            </Col>
-          </Row>
-          <Button
-            style={{
-              backgroundColor: "#ff6b81",
-              marginTop: "40px",
-            }}
-            onClick={createAppointmentHandler}
-            variant="dark"
-          >
-            Make Appointment
-          </Button>
-        </Container>
-      </Container>
-    </div>
-  );
-};
-
-export default Appointment;
+          Make Appointment
+        </Button>
+      </Container> */
+}
+// </div>
