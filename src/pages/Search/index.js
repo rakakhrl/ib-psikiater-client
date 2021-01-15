@@ -86,6 +86,7 @@ const Index = () => {
                 <CardResult
                   onClick={() => handleClick(item._id)}
                   key={item._id}
+                  id={item._id}
                   first_name={item.first_name}
                   last_name={item.last_name}
                   work_address={item.work_address}
