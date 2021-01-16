@@ -9,7 +9,7 @@ const PsikiaterHistory = ({ appointment }) => {
 
   return (
     <>
-      <Card className="card-wrapper">
+      <Card onClick={() => setModalShow(true)} className="card-wrapper">
         <Card.Img
           variant="top"
           src={
@@ -24,15 +24,6 @@ const PsikiaterHistory = ({ appointment }) => {
             appointment.appointment_date
           ).format("DD MMM YYYY")}`}</Card.Text>
           <Card.Text className="card-text-2">{` Status : ${appointment.status}`}</Card.Text>
-          <Container className="button-wrapper">
-            <Button
-              onClick={() => setModalShow(true)}
-              className="button-detail"
-              variant="outline-primary"
-            >
-              Patient Detail
-            </Button>
-          </Container>
         </Card.Body>
       </Card>
       <PsikiaterHistoryModal
