@@ -1,3 +1,9 @@
+/* Loading Styling */
+
+.react-loading {
+  margin: 20% auto;
+}
+
 /* Page Title Styling */
 
 .page-title {
@@ -44,6 +50,9 @@
   margin-top: 50px;
   color: white;
   margin-bottom: 30px;
+  border: 1px solid black;
+  background-color: #e65b85;
+  box-shadow: 3px 3px 2px black;
 }
 
 .calendar-border {
@@ -100,8 +109,19 @@
   margin-right: 10px;
 }
 
+.cancel-button:hover {
+  background-color: white !important;
+  color: black !important;
+}
+
 .continue-button {
+  background-color: #e65b85 !important;
   margin-left: 10px;
+}
+
+.continue-button:hover {
+  background-color: white !important;
+  color: black !important;
 }
 
 .cancel-button,

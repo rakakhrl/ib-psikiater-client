@@ -1,12 +1,12 @@
+import "./Appointment.css";
+import Calendar from "react-calendar";
+import API from "../../API/mainServer";
+import ReactLoading from "react-loading";
+import "react-calendar/dist/Calendar.css";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
-import API from "../../API/mainServer";
-import { useState, useEffect } from "react";
-import "./Appointment.css";
-
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
-
+import appointmentAction from "../../redux/actions/appointmentAction";
 import {
   Container,
   Row,
@@ -18,7 +18,6 @@ import {
   Popover,
   OverlayTrigger,
 } from "react-bootstrap";
-import appointmentAction from "../../redux/actions/appointmentAction";
 
 const Appointment = () => {
   const [psikiaterData, setPsikiaterData] = useState({});
@@ -28,6 +27,7 @@ const Appointment = () => {
   const [allergy, setAllergy] = useState("");
   const [sessionType, setSessionType] = useState("");
   const [isButtonDisabled, setisButtonDisabled] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const history = useHistory();
   const dispatch = useDispatch();
   const dataUser = useSelector((state) => state.user.user_data);
@@ -47,6 +47,7 @@ const Appointment = () => {
             accesstoken: localStorage.getItem("accesstoken"),
           },
         });
+        setIsLoading(false);
         setPsikiaterData(getData.data.data);
       } catch (error) {
         console.log(error);
@@ -115,133 +116,145 @@ const Appointment = () => {
 
   return (
     <>
-      <h2 className="page-title">Appointment</h2>
+      {isLoading ? (
+        <div>
+          <ReactLoading
+            className="react-loading"
+            delay={1}
+            type={"balls"}
+            color={"grey"}
+          />
+        </div>
+      ) : (
+        <div>
+          <h2 className="page-title">Appointment</h2>
 
-      <Container className="page-wrapper">
-        <Card className="psikiater-card-wrapper">
-          <Row className="row-1">
-            <Col className="column-row-1-wrapper" md={12} lg={6}>
-              <Row>
-                <Col className="column-image" md={12} lg={6}>
-                  <Image
-                    className="psikiater-avatar"
-                    src={`${psikiaterData?.avatar_url}`}
-                    roundedCircle
-                  ></Image>
+          <Container className="page-wrapper">
+            <Card className="psikiater-card-wrapper">
+              <Row className="row-1">
+                <Col className="column-row-1-wrapper" md={12} lg={6}>
+                  <Row>
+                    <Col className="column-image" md={12} lg={6}>
+                      <Image
+                        className="psikiater-avatar"
+                        src={`${psikiaterData?.avatar_url}`}
+                        roundedCircle
+                      ></Image>
+                    </Col>
+                    <Col
+                      column-psikiater-info
+                      md={12}
+                      lg={6}
+                      className="psikiater-info"
+                    >
+                      <h5>{`Name : ${psikiaterData?.first_name} ${psikiaterData?.last_name}`}</h5>
+                      <h5>{`Address : ${psikiaterData?.work_address}`}</h5>
+                      <h5>{`Specialized In : Relationship`}</h5>
+                      <h5>{`Experience : ${psikiaterData?.info?.experience_year}`}</h5>
+                    </Col>
+                  </Row>
                 </Col>
-                <Col
-                  column-psikiater-info
-                  md={12}
-                  lg={6}
-                  className="psikiater-info"
-                >
-                  <h5>{`Name : ${psikiaterData?.first_name} ${psikiaterData?.last_name}`}</h5>
-                  <h5>{`Address : ${psikiaterData?.work_address}`}</h5>
-                  <h5>{`Specialized In : Anxiety`}</h5>
-                  <h5>{`Experience : ${psikiaterData?.info?.experience_year}`}</h5>
+                <Col className="column-calendar" md={12} lg={6}>
+                  <Calendar className="calendar-border" />
                 </Col>
               </Row>
-            </Col>
-            <Col className="column-calendar" md={12} lg={6}>
-              <Calendar className="calendar-border" />
-            </Col>
-          </Row>
 
-          <Row className="row-2">
-            <Col className="column-psikiater-schedule">
-              <h5 className="psikiater-time-schedule-title">
-                <b>Psikiater Time Schedule</b>
-              </h5>
-              {psikiaterData?.schedule?.work_time.length === 0 ? (
-                <Button>Psikiater doesn't have schedule yet</Button>
-              ) : (
-                psikiaterData?.schedule?.work_time.map((item) => {
-                  return (
-                    <OverlayTrigger
-                      trigger="click"
-                      placement="top"
-                      overlay={popover}
-                    >
-                      <Button
-                        onClick={() => appointmentTimeHandler(item)}
-                        onClick={() => disabledButtonHandler(true)}
-                        disabled={isButtonDisabled}
-                        className="psikiater-schedule-button"
+              <Row className="row-2">
+                <Col className="column-psikiater-schedule">
+                  <h5 className="psikiater-time-schedule-title">
+                    <b>Psikiater Time Schedule</b>
+                  </h5>
+                  {psikiaterData?.schedule?.work_time.length === 0 ? (
+                    <Button>Psikiater doesn't have schedule yet</Button>
+                  ) : (
+                    psikiaterData?.schedule?.work_time.map((item) => {
+                      return (
+                        <OverlayTrigger
+                          trigger="click"
+                          placement="top"
+                          overlay={popover}
+                        >
+                          <Button
+                            onClick={() => appointmentTimeHandler(item)}
+                            onClick={() => disabledButtonHandler(true)}
+                            disabled={isButtonDisabled}
+                            className="psikiater-schedule-button"
+                          >
+                            {item}
+                          </Button>
+                        </OverlayTrigger>
+                      );
+                    })
+                  )}
+                </Col>
+                <Col>
+                  <Form>
+                    <Form.Group controlId="exampleForm.ControlSelect1">
+                      <Form.Control
+                        onChange={(v) => sessionTypeHandler(v)}
+                        className="form-session-type"
+                        as="select"
                       >
-                        {item}
-                      </Button>
-                    </OverlayTrigger>
-                  );
-                })
-              )}
-            </Col>
-            <Col>
-              <Form>
-                <Form.Group controlId="exampleForm.ControlSelect1">
-                  <Form.Control
-                    onChange={(v) => sessionTypeHandler(v)}
-                    className="form-session-type"
-                    as="select"
-                  >
-                    <option>Select Session Type</option>
-                    <option>Offline</option>
-                    <option>Online</option>
-                  </Form.Control>
-                </Form.Group>
-              </Form>
-            </Col>
-          </Row>
+                        <option>Select Session Type</option>
+                        <option>Offline</option>
+                        <option>Online</option>
+                      </Form.Control>
+                    </Form.Group>
+                  </Form>
+                </Col>
+              </Row>
 
-          <Row className="row-3">
-            <Col lg={6}>
-              <Form.Group controlId="exampleForm.ControlTextarea1">
-                <Form.Label>
-                  <b>COMPLAINTS</b>
-                </Form.Label>
-                <Form.Control
-                  className="form-complaints"
-                  as="textarea"
-                  rows={3}
-                  placeholder="How do you feel?"
-                  onChange={complaintHandler}
-                  value={complaint}
-                />
-              </Form.Group>
-            </Col>
-            <Col>
-              <Form.Group controlId="exampleForm.ControlInput1">
-                <Form.Label>
-                  <b>ALLERGIES</b>
-                </Form.Label>
-                <Form.Control
-                  className="form-allergies"
-                  as="textarea"
-                  rows={3}
-                  type="text"
-                  placeholder="e.g Fish Oil"
-                  onChange={allergyHandler}
-                  value={allergy}
-                />
-              </Form.Group>
-            </Col>
-          </Row>
+              <Row className="row-3">
+                <Col lg={6}>
+                  <Form.Group controlId="exampleForm.ControlTextarea1">
+                    <Form.Label>
+                      <b>COMPLAINTS</b>
+                    </Form.Label>
+                    <Form.Control
+                      className="form-complaints"
+                      as="textarea"
+                      rows={3}
+                      placeholder="How do you feel?"
+                      onChange={complaintHandler}
+                      value={complaint}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group controlId="exampleForm.ControlInput1">
+                    <Form.Label>
+                      <b>ALLERGIES</b>
+                    </Form.Label>
+                    <Form.Control
+                      className="form-allergies"
+                      as="textarea"
+                      rows={3}
+                      type="text"
+                      placeholder="e.g Fish Oil"
+                      onChange={allergyHandler}
+                      value={allergy}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
 
-          <Row className="row-4">
-            <Container className="button-wrapper">
-              <Button
-                onClick={cancelButton}
-                variant="dark"
-                className="cancel-button"
-              >{`< Cancel`}</Button>
-              <Button
-                onClick={createAppointmentHandler}
-                variant="primary"
-                className="continue-button"
-              >{`Continue >`}</Button>
-            </Container>
-          </Row>
-        </Card>
-      </Container>
+              <Row className="row-4">
+                <Container className="button-wrapper">
+                  <Button
+                    onClick={cancelButton}
+                    variant="dark"
+                    className="cancel-button"
+                  >{`< Cancel`}</Button>
+                  <Button
+                    onClick={createAppointmentHandler}
+                    className="continue-button"
+                  >{`Continue >`}</Button>
+                </Container>
+              </Row>
+            </Card>
+          </Container>
+        </div>
+      )}
     </>
   );
 };
