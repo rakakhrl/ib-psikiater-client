@@ -11,6 +11,7 @@
 .psikiater-card-wrapper {
   background-color: #7d9dec !important;
   margin-bottom: 30px;
+  box-shadow: 10px 10px 7px grey;
 }
 
 /* Page Wrapper (Container) Styling */
@@ -36,6 +37,7 @@
 .psikiater-avatar {
   width: 230px;
   height: 230px;
+  box-shadow: 3px 3px 2px black;
 }
 
 .psikiater-info {
@@ -44,12 +46,16 @@
   margin-bottom: 30px;
 }
 
-.calendar {
-  display: flex;
-  justify-content: center;
+.calendar-border {
+  box-shadow: 3px 3px 2px black;
 }
 
 /* Row-2 Form Psikiater Schedule & Session Type */
+
+.pop-over {
+  text-align: center;
+  background-color: white !important;
+}
 
 .column-psikiater-schedule {
   display: inline;
@@ -63,16 +69,25 @@
 .psikiater-schedule-button {
   margin-right: 5px;
   margin-top: 5px;
+  background-color: white !important;
+  color: black !important;
+  box-shadow: 3px 3px 2px black;
 }
 
 .form-session-type {
   margin-top: 37px;
+  box-shadow: 3px 3px 2px black;
 }
 
 /* Row-3 Form Allergy */
 
 .row-3 {
   color: white;
+}
+
+.form-complaints,
+.form-allergies {
+  box-shadow: 3px 3px 2px black;
 }
 
 /* Row-4 Button Cancel and Continue */
@@ -87,6 +102,11 @@
 
 .continue-button {
   margin-left: 10px;
+}
+
+.cancel-button,
+.continue-button {
+  box-shadow: 3px 3px 2px black;
 }
 
 /* All Row Styling */

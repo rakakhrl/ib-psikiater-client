@@ -15,26 +15,27 @@ import {
   Button,
   Image,
   Card,
-  InputGroup,
-  FormControl,
+  Popover,
+  OverlayTrigger,
 } from "react-bootstrap";
 import appointmentAction from "../../redux/actions/appointmentAction";
-import TimePicker from "react-time-picker";
-import StarRatings from "react-star-ratings";
 
-const Appointment = ({ star }) => {
+const Appointment = () => {
   const [psikiaterData, setPsikiaterData] = useState({});
   const [appointment_time, setAppointmentTime] = useState("");
   const [appointment_date, setAppointmentDate] = useState("");
   const [complaint, setComplaint] = useState("");
   const [allergy, setAllergy] = useState("");
+  const [sessionType, setSessionType] = useState("");
+  const [isButtonDisabled, setisButtonDisabled] = useState("");
   const history = useHistory();
   const dispatch = useDispatch();
   const dataUser = useSelector((state) => state.user.user_data);
   const patient_id = dataUser._id;
   const { psikiater_id } = useParams();
   // const [value, onChange] = useState(new Date());
-  const [rating] = useState();
+
+  console.log(isButtonDisabled);
 
   useEffect(() => {
     const getData = async () => {
@@ -47,7 +48,6 @@ const Appointment = ({ star }) => {
           },
         });
         setPsikiaterData(getData.data.data);
-        // console.log(getData.data.data);
       } catch (error) {
         console.log(error);
       }
@@ -68,11 +68,12 @@ const Appointment = ({ star }) => {
       appointmentAction.createAppointment(
         complaint,
         allergy,
+        appointment_date,
+        appointment_time,
+        sessionType,
         accesstoken,
         psikiater_id,
         patient_id,
-        appointment_date,
-        appointment_time,
         getIdCallback
       )
     );
@@ -84,15 +85,33 @@ const Appointment = ({ star }) => {
   const appointmentDateHandler = (e) => {
     setAppointmentDate(e.target.value);
   };
-  const appointmentTimeHandler = (e) => {
-    console.log(e.target.value);
-    setAppointmentTime(e.target.value);
-    console.log(appointment_time);
+  const appointmentTimeHandler = (time) => {
+    setAppointmentTime(time);
   };
 
   const allergyHandler = (e) => {
     setAllergy(e.target.value);
   };
+
+  const cancelButton = () => {
+    history.push("/search-result");
+  };
+
+  const sessionTypeHandler = (e) => {
+    setSessionType(e.target.value);
+  };
+
+  const disabledButtonHandler = (isDisabled) => {
+    setisButtonDisabled(isDisabled);
+  };
+
+  const popover = (
+    <Popover id="popover-basic">
+      <Popover.Title className="pop-over" as="h3">
+        Nice! You've Choose Time Schedule For Your Appointment
+      </Popover.Title>
+    </Popover>
+  );
 
   return (
     <>
@@ -124,7 +143,7 @@ const Appointment = ({ star }) => {
               </Row>
             </Col>
             <Col className="column-calendar" md={12} lg={6}>
-              <Calendar />
+              <Calendar className="calendar-border" />
             </Col>
           </Row>
 
@@ -138,9 +157,20 @@ const Appointment = ({ star }) => {
               ) : (
                 psikiaterData?.schedule?.work_time.map((item) => {
                   return (
-                    <Button className="psikiater-schedule-button">
-                      {item}
-                    </Button>
+                    <OverlayTrigger
+                      trigger="click"
+                      placement="top"
+                      overlay={popover}
+                    >
+                      <Button
+                        onClick={() => appointmentTimeHandler(item)}
+                        onClick={() => disabledButtonHandler(true)}
+                        disabled={isButtonDisabled}
+                        className="psikiater-schedule-button"
+                      >
+                        {item}
+                      </Button>
+                    </OverlayTrigger>
                   );
                 })
               )}
@@ -148,7 +178,11 @@ const Appointment = ({ star }) => {
             <Col>
               <Form>
                 <Form.Group controlId="exampleForm.ControlSelect1">
-                  <Form.Control className="form-session-type" as="select">
+                  <Form.Control
+                    onChange={(v) => sessionTypeHandler(v)}
+                    className="form-session-type"
+                    as="select"
+                  >
                     <option>Select Session Type</option>
                     <option>Offline</option>
                     <option>Online</option>
@@ -165,6 +199,7 @@ const Appointment = ({ star }) => {
                   <b>COMPLAINTS</b>
                 </Form.Label>
                 <Form.Control
+                  className="form-complaints"
                   as="textarea"
                   rows={3}
                   placeholder="How do you feel?"
@@ -179,6 +214,7 @@ const Appointment = ({ star }) => {
                   <b>ALLERGIES</b>
                 </Form.Label>
                 <Form.Control
+                  className="form-allergies"
                   as="textarea"
                   rows={3}
                   type="text"
@@ -193,11 +229,13 @@ const Appointment = ({ star }) => {
           <Row className="row-4">
             <Container className="button-wrapper">
               <Button
+                onClick={cancelButton}
                 variant="dark"
                 className="cancel-button"
               >{`< Cancel`}</Button>
               <Button
-                variant="success"
+                onClick={createAppointmentHandler}
+                variant="primary"
                 className="continue-button"
               >{`Continue >`}</Button>
             </Container>
