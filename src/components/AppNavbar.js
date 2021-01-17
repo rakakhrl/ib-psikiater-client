@@ -115,14 +115,15 @@ const AppNavbar = () => {
       <RoleAction />
     ) : (
       <div className="ml-auto">
-        <Link to="/registerPasien" className="mr-3 ">
-          <Button variant="outline-light">Register as Patient</Button>
-        </Link>
-        <Link to="/registerPsikiater" className="mr-3 ">
-          <Button variant="outline-light">Register as Psikiater</Button>
+        <Link to="/register" className="mr-3">
+          <Button variant="outline-light" size="sm">
+            Register
+          </Button>
         </Link>
         <Link to="/login">
-          <Button variant="outline-light">Sign In</Button>
+          <Button variant="outline-light" size="sm">
+            Sign In
+          </Button>
         </Link>
       </div>
     );
@@ -130,16 +131,16 @@ const AppNavbar = () => {
 
   return (
     // <div className="container">
-    <Navbar className="navbar-color" sticky="top">
+    <Navbar className="navbar" sticky="top">
       {role !== "PSIKIATER" ? (
         <Link to="/">
           <Navbar.Brand style={{ color: "white" }}>
-            <b>CAPER | CARI PSIKIATER</b>
+            <b>CARI PSIKIATER</b>
           </Navbar.Brand>
         </Link>
       ) : (
         <Navbar.Brand>
-          <b>CAPER | CARI PSIKIATER</b>
+          <b> CARI PSIKIATER</b>
         </Navbar.Brand>
       )}
       <NavbarActions />

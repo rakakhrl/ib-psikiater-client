@@ -11,7 +11,7 @@ const Index = () => {
     <Router>
       <Row style={{ marginRight: "0px" }}>
         <Col lg="2" sm="12">
-          <SideBar url={url} />
+          <SideBar />
         </Col>
         <Col lg="9" sm="12">
           <PsikiaterDashboardRoute path={path} />
