@@ -1,7 +1,9 @@
 /* Loading Styling */
 
-.react-loading {
-  margin: 20% auto;
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  margin-top: 20%;
 }
 
 /* Page Title Styling */

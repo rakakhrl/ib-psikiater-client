@@ -1,7 +1,6 @@
 import "./Appointment.css";
 import Calendar from "react-calendar";
 import API from "../../API/mainServer";
-import ReactLoading from "react-loading";
 import "react-calendar/dist/Calendar.css";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,6 +16,7 @@ import {
   Card,
   Popover,
   OverlayTrigger,
+  Spinner,
 } from "react-bootstrap";
 
 const Appointment = () => {
@@ -117,13 +117,10 @@ const Appointment = () => {
   return (
     <>
       {isLoading ? (
-        <div>
-          <ReactLoading
-            className="react-loading"
-            delay={1}
-            type={"balls"}
-            color={"grey"}
-          />
+        <div className="loading-spinner">
+          <Spinner variant="primary" animation="border" role="status">
+            <span className="sr-only">Loading...</span>
+          </Spinner>
         </div>
       ) : (
         <div>
