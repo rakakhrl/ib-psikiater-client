@@ -1,10 +1,17 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Navbar, Button, Image, Modal, Form } from "react-bootstrap";
+import {
+  Navbar,
+  Button,
+  Image,
+  Modal,
+  OverlayTrigger,
+  Popover,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { logout } from "../redux/actions/authAction";
-import userAction from "../redux/actions/userAction";
+import { logout } from "../../redux/actions/authAction";
+import userAction from "../../redux/actions/userAction";
 import "./AppNavbar.css";
 
 const AppNavbar = () => {
@@ -42,14 +49,32 @@ const AppNavbar = () => {
         <Link className="mr-3 text-light" to="/patient-history">
           History
         </Link>
-        <Image
-          height="30"
-          width="30"
-          className="mr-3"
-          src={user.avatar_url === "" ? "../images/pic04.jpg" : user.avatar_url}
-          roundedCircle
-          onClick={handleShow}
-        />
+        <OverlayTrigger
+          trigger="click"
+          placement="bottom-start"
+          overlay={
+            <Popover id={`popover-positioned`}>
+              <Popover.Content>
+                <Link to="/profile/me">Profile</Link>
+                <br />
+                <Link to="/patient-dashboard">Dashboard</Link>
+                <br />
+                <Link to="#">Sign Out</Link>
+              </Popover.Content>
+            </Popover>
+          }
+        >
+          <Image
+            height="30"
+            width="30"
+            className="mr-3"
+            src={
+              user.avatar_url === " " ? "../images/pic04.jpg" : user.avatar_url
+            }
+            roundedCircle
+            // onClick={handleShow}
+          />
+        </OverlayTrigger>
         <Button onClick={() => dispatch(logout())} variant="outline-light">
           Sign Out
         </Button>
@@ -115,10 +140,8 @@ const AppNavbar = () => {
       <RoleAction />
     ) : (
       <div className="ml-auto">
-        <Link to="/register" className="mr-3">
-          <Button variant="outline-light" size="sm">
-            Register
-          </Button>
+        <Link to="/register" className="mr-3 ">
+          <Button variant="outline-light">Register</Button>
         </Link>
         <Link to="/login">
           <Button variant="outline-light" size="sm">

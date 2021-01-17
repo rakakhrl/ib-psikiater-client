@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import StarRatings from "react-star-ratings";
+import { Image } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
+import placeholderimg from "../../assets/images/fauzihaqmuslim.jpg";
 
 const Index = ({
+  id,
   first_name,
   last_name,
   work_address,
@@ -13,13 +17,16 @@ const Index = ({
   onClick,
 }) => {
   const [rating] = useState();
+  const history = useHistory();
+  console.log(JSON.stringify(avatar_url));
+
   return (
     <>
-      <div className="card" onClick={onClick}>
+      <div className="card">
         <div className="left-side">
           <div className="name">
             <h4>
-              {first_name} {""} {last_name}
+              {first_name} {last_name}
             </h4>
           </div>
           <div className="address">
@@ -39,17 +46,17 @@ const Index = ({
           <div className="price">
             <h2> Rp. {price} / hour</h2>
           </div>
+          <button onClick={onClick}>book appointment</button>
         </div>
         <div className="right-side">
-          <img
-            src={avatar_url}
-            alt="images"
-            style={{
-              width: "140px",
-              borderRadius: "50%",
-              float: "right",
-            }}
+          <Image
+            src={avatar_url === " " ? placeholderimg : avatar_url}
+            roundedCircle
+            style={{ width: "200px" }}
           />
+          <button onClick={() => history.push(`/profile/${id}`)}>
+            see profile
+          </button>
         </div>
       </div>
     </>

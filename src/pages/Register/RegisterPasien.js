@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { ArrowLeft } from "react-bootstrap-icons";
 import { Form, Row, Col, Container, Button, Image } from "react-bootstrap";
 
-const RegisterPasien = () => {
+const Register = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -20,17 +20,18 @@ const RegisterPasien = () => {
 
   const formHandle = (e) => {
     e.preventDefault();
-    dispatch(
-      userAction.registerPatient(
-        first_name,
-        last_name,
-        password,
-        email,
-        date_of_birth,
-        gender,
-        address
-      )
-    );
+    // dispatch(
+    //   userAction.registerPatient(
+    //     first_name,
+    //     last_name,
+    //     password,
+    //     email,
+    //     date_of_birth,
+    //     gender,
+    //     address
+    //   )
+    // );
+    history.push("/email-verification-sent");
   };
 
   const handleBack = () => {
@@ -45,6 +46,12 @@ const RegisterPasien = () => {
 
   return (
     <>
+      <p>
+        <b onClick={handleBack} style={{ cursor: "pointer" }}>
+          <ArrowLeft color="black" size={20} style={{ paddingRight: "5px" }} />
+          Back
+        </b>
+      </p>
       <h2>Register as Patient</h2>
       <Form onSubmit={formHandle}>
         <Form.Row>
@@ -130,4 +137,4 @@ const RegisterPasien = () => {
   );
 };
 
-export default RegisterPasien;
+export default Register;

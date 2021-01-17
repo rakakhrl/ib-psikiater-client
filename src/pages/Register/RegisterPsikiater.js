@@ -1,19 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import userAction from "../../redux/actions/userAction";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { ArrowLeft } from "react-bootstrap-icons";
-import {
-  Form,
-  Row,
-  Col,
-  Container,
-  Button,
-  Image,
-  InputGroup,
-} from "react-bootstrap";
+import { Form, Row, Col, Container, Button, Image } from "react-bootstrap";
 
-const RegisterPsikiater = () => {
+const Register = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector((state) => state.user);
@@ -31,20 +23,25 @@ const RegisterPsikiater = () => {
 
   const formHandle = (e) => {
     e.preventDefault();
-    dispatch(
-      userAction.registerPsikiater(
-        first_name,
-        last_name,
-        password,
-        email,
-        date_of_birth,
-        gender,
-        experience_year,
-        region,
-        fee,
-        work_address
-      )
-    );
+    // dispatch(
+    //   userAction.registerPsikiater(
+    //     first_name,
+    //     last_name,
+    //     password,
+    //     email,
+    //     date_of_birth,
+    //     gender,
+    //     experience_year,
+    //     region,
+    //     fee,
+    //     work_address
+    //   )
+    // );
+    history.push("/email-verification-sent");
+  };
+
+  const handleBack = () => {
+    history.goBack();
   };
 
   useEffect(() => {
@@ -53,15 +50,16 @@ const RegisterPsikiater = () => {
     }
   }, [user.isLogin]);
 
-  const login = () => {
-    history.push("/login");
-    console.log("test");
-  };
-
   return (
     <>
+      <p>
+        <b onClick={handleBack} style={{ cursor: "pointer" }}>
+          <ArrowLeft color="black" size={20} style={{ paddingRight: "5px" }} />
+          Back
+        </b>
+      </p>
       <h2>Register as Psikiater</h2>
-      <Form onSubmit={login}>
+      <Form onSubmit={formHandle}>
         <Form.Row>
           <Col>
             <Form.Group>
@@ -175,10 +173,12 @@ const RegisterPsikiater = () => {
             </Form.Group>
           </Col>
         </Row>
-        <Button type="submit">Register</Button>
+        <Button type="submit" value="Register">
+          Register
+        </Button>
       </Form>
     </>
   );
 };
 
-export default RegisterPsikiater;
+export default Register;
