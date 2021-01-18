@@ -1,3 +1,4 @@
+import React from "react";
 import "./Appointment.css";
 import Calendar from "react-calendar";
 import API from "../../API/mainServer";
@@ -19,6 +20,10 @@ import {
   Spinner,
 } from "react-bootstrap";
 
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
 const Appointment = () => {
   const [psikiaterData, setPsikiaterData] = useState({});
   const [appointment_time, setAppointmentTime] = useState("");
@@ -26,7 +31,7 @@ const Appointment = () => {
   const [complaint, setComplaint] = useState("");
   const [allergy, setAllergy] = useState("");
   const [sessionType, setSessionType] = useState("");
-  const [isButtonDisabled, setisButtonDisabled] = useState("");
+  const [isButtonDisabled, setisButtonDisabled] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -35,7 +40,39 @@ const Appointment = () => {
   const { psikiater_id } = useParams();
   // const [value, onChange] = useState(new Date());
 
-  console.log(isButtonDisabled);
+  console.log(appointment_time);
+  console.log(complaint);
+  console.log(allergy);
+  console.log(sessionType);
+
+  const schema = yup.object().shape({
+    timeSchedule: yup.string().required("Required!"),
+    sessionType: yup.string().required("Required!"),
+    complaint: yup.string().required("Required!"),
+  });
+
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = (data, e) => {
+    e.preventDefault();
+    const accesstoken = localStorage.getItem("accesstoken");
+    dispatch(
+      appointmentAction.createAppointment(
+        complaint,
+        allergy,
+        appointment_date,
+        appointment_time,
+        sessionType,
+        accesstoken,
+        psikiater_id,
+        patient_id,
+        getIdCallback
+      )
+    );
+    history.push("/");
+  };
 
   useEffect(() => {
     const getData = async () => {
@@ -62,23 +99,23 @@ const Appointment = () => {
     history.push(`/checkout-payment/${id}`);
   };
 
-  const createAppointmentHandler = (e) => {
-    e.preventDefault();
-    const accesstoken = localStorage.getItem("accesstoken");
-    dispatch(
-      appointmentAction.createAppointment(
-        complaint,
-        allergy,
-        appointment_date,
-        appointment_time,
-        sessionType,
-        accesstoken,
-        psikiater_id,
-        patient_id,
-        getIdCallback
-      )
-    );
-  };
+  // const createAppointmentHandler = (e) => {
+  //   e.preventDefault();
+  //   const accesstoken = localStorage.getItem("accesstoken");
+  //   dispatch(
+  //     appointmentAction.createAppointment(
+  //       complaint,
+  //       allergy,
+  //       appointment_date,
+  //       appointment_time,
+  //       sessionType,
+  //       accesstoken,
+  //       psikiater_id,
+  //       patient_id,
+  //       getIdCallback
+  //     )
+  //   );
+  // };
 
   const complaintHandler = (e) => {
     setComplaint(e.target.value);
@@ -172,6 +209,8 @@ const Appointment = () => {
                           overlay={popover}
                         >
                           <Button
+                            name="timeSchedule"
+                            ref={register}
                             onClick={() => appointmentTimeHandler(item)}
                             onClick={() => disabledButtonHandler(true)}
                             disabled={isButtonDisabled}
@@ -183,11 +222,16 @@ const Appointment = () => {
                       );
                     })
                   )}
+                  {isButtonDisabled ? null : (
+                    <p>{errors.timeSchedule?.message}</p>
+                  )}
                 </Col>
                 <Col>
                   <Form>
                     <Form.Group controlId="exampleForm.ControlSelect1">
                       <Form.Control
+                        name="sessionType"
+                        ref={() => register(register)}
                         onChange={(v) => sessionTypeHandler(v)}
                         className="form-session-type"
                         as="select"
@@ -197,6 +241,11 @@ const Appointment = () => {
                         <option>Online</option>
                       </Form.Control>
                     </Form.Group>
+                    {sessionType.length === 0 ? (
+                      (register.sessionType = "")
+                    ) : (
+                      <p>{errors.sessionType?.message}</p>
+                    )}
                   </Form>
                 </Col>
               </Row>
@@ -208,6 +257,8 @@ const Appointment = () => {
                       <b>COMPLAINTS</b>
                     </Form.Label>
                     <Form.Control
+                      name="complaint"
+                      ref={register}
                       className="form-complaints"
                       as="textarea"
                       rows={3}
@@ -215,6 +266,7 @@ const Appointment = () => {
                       onChange={complaintHandler}
                       value={complaint}
                     />
+                    {errors.complaint?.message}
                   </Form.Group>
                 </Col>
                 <Col>
@@ -243,7 +295,7 @@ const Appointment = () => {
                     className="cancel-button"
                   >{`< Cancel`}</Button>
                   <Button
-                    onClick={createAppointmentHandler}
+                    onClick={handleSubmit(onSubmit)}
                     className="continue-button"
                   >{`Continue >`}</Button>
                 </Container>
