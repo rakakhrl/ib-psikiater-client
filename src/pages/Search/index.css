@@ -1,29 +1,11 @@
-.link {
-  font-family: "Montserrat", sans-serif;
+.search-container {
+  height: 91vh;
+  max-height: 91vh;
+  overflow: hidden;
 }
 
-.link:hover {
-  text-decoration: none;
+.result-section {
+  height: 62vh;
+  max-height: 62vh;
+  overflow-y: scroll;
 }
-
-.link .card {
-  display: -ms-grid !important;
-  display: grid !important;
-  -ms-grid-columns: (auto)[12];
-      grid-template-columns: repeat(12, auto);
-  border-radius: 5px;
-  border: 2px solid #0a0a0a;
-  color: black;
-  padding: 12px;
-  margin-top: 30px;
-}
-
-.link .card:hover {
-  -webkit-box-shadow: 7px 9px 12px #1d1d1d;
-          box-shadow: 7px 9px 12px #1d1d1d;
-}
-
-.link .card .left-side .name h4 {
-  font-weight: bold;
-}
-/*# sourceMappingURL=index.css.map */
