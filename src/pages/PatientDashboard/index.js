@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Jumbotron,
@@ -9,12 +9,36 @@ import {
   Button,
   Image,
 } from "react-bootstrap";
+import API from "../../API/mainServer";
 import StarRatings from "react-star-ratings";
 import ImagePasien from "../../assets/images/fauzihaqmuslim.jpg";
 import "./index.css";
 const PatientDashboard = () => {
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
+  const [appointment, setAppointment] = useState();
+
+  const fetchDataAppointment = async () => {
+    try {
+      const token = localStorage.getItem("accesstoken");
+      const response = await API({
+        method: "GET",
+        url: `/appointments/patient`,
+        headers: {
+          accesstoken: token,
+        },
+      });
+      console.log(response);
+      setAppointment(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchDataAppointment();
+  }, []);
+
   return (
     <>
       {/* Your Next appointment */}

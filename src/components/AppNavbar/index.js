@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../redux/actions/authAction";
 import userAction from "../../redux/actions/userAction";
+import ImagePasien from "../../assets/images/avatar-1577909_1280.png";
 import "./AppNavbar.css";
 
 const AppNavbar = () => {
@@ -46,9 +47,6 @@ const AppNavbar = () => {
   const RoleAction = () => {
     return role === "PATIENT" ? (
       <div className="ml-auto ">
-        <Link className="mr-3 text-light" to="/patient-history">
-          History
-        </Link>
         <OverlayTrigger
           trigger="click"
           placement="bottom-start"
@@ -68,16 +66,11 @@ const AppNavbar = () => {
             height="30"
             width="30"
             className="mr-3"
-            src={
-              user.avatar_url === " " ? "../images/pic04.jpg" : user.avatar_url
-            }
+            src={user.avatar_url === "" ? ImagePasien : user.avatar_url}
             roundedCircle
             // onClick={handleShow}
           />
         </OverlayTrigger>
-        <Button onClick={() => dispatch(logout())} variant="outline-light">
-          Sign Out
-        </Button>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Upload Foto Profile Patient</Modal.Title>
