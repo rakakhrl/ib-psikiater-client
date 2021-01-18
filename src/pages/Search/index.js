@@ -5,17 +5,19 @@ import { Container, Form, Button, Card, Col, Row } from "react-bootstrap";
 import CardResult from "../../components/CardResult/index";
 import API from "../../API/mainServer";
 import swal from "sweetalert";
+import _ from "lodash";
 import "./index.css";
 
 const Index = () => {
   const isLogin = useSelector((store) => store.user.isLogin);
   const [filter, setFilter] = useState({
-    specialties: "all",
-    gender: "all",
-    price: "all",
+    specialties: "",
+    gender: "",
+    price: "",
   });
   const [searchInput, setSearchInput] = useState("");
   const [searchRegion, setSearchRegion] = useState("");
+  const [filteredResult, setFilteredResult] = useState();
   const [searchResult, setSearchResult] = useState([
     {
       fees: 600000,
@@ -30,7 +32,7 @@ const Index = () => {
       },
       is_active: true,
       avatar_url: "",
-      _id: "5fe5a1efdf84fa2ae85c7861",
+      _id: "asdasddasd",
       first_name: "Psikiater",
       last_name: "Handal",
       password: "$2b$10$PRx0VgUKDWZoduM9uT7BvuvyI3vHKMIdO51sFNDvegcKOPl5TF1hW",
@@ -80,7 +82,7 @@ const Index = () => {
     {
       label: "Specialties",
       option: [
-        { label: "All", value: "all" },
+        { label: "All", value: "" },
         { label: "Child", value: "child" },
         { label: "Relationship", value: "relationship" },
         { label: "Mental Health", value: "mental" },
@@ -90,7 +92,7 @@ const Index = () => {
     {
       label: "Gender",
       option: [
-        { label: "All", value: "all" },
+        { label: "All", value: "" },
         { label: "Female", value: "female" },
         { label: "Male", value: "male" },
         { label: "Other", value: "other" },
@@ -100,12 +102,36 @@ const Index = () => {
     {
       label: "Price",
       option: [
-        { label: "All", value: "all" },
+        { label: "All", value: "" },
         { label: "500k - 1mill", value: "1" },
         { label: "1mill - 3mill", value: "2" },
         { label: "3mill - 5mill", value: "3" },
       ],
-      onChange: (v) => setFilter({ ...filter, price: v }),
+      onChange: (v) => {
+        switch (v) {
+          case "1":
+            setFilter({
+              ...filter,
+              price: { id: "1", min: 500000, max: 1000000 },
+            });
+            break;
+          case "2":
+            setFilter({
+              ...filter,
+              price: { id: "2", min: 1000000, max: 3000000 },
+            });
+            break;
+          case "3":
+            setFilter({
+              ...filter,
+              price: { id: "3", min: 3000000, max: 5000000 },
+            });
+            break;
+          default:
+            setFilter({ ...filter, price: "" });
+            break;
+        }
+      },
     },
   ];
 
@@ -124,7 +150,6 @@ const Index = () => {
         },
       });
 
-      console.log(response.data.data);
       setSearchResult(response.data.data);
     } catch (error) {
       console.log(error);
@@ -140,10 +165,32 @@ const Index = () => {
     []
   );
 
+  const filterResult = () => {
+    const result = _.filter(
+      searchResult,
+      (s) =>
+        s.gender === filter.gender ||
+        s.info.specialties === filter.specialties ||
+        (s.fees >= filter.price.min && s.fees <= filter.price.max)
+    );
+
+    setFilteredResult(result);
+  };
+
   useEffect(() => {
-    // TODO: Implement filter psychiatrist
-    console.log(filter);
-  }, [filter]);
+    if (
+      filter.specialties !== "" ||
+      filter.gender !== "" ||
+      filter.price !== ""
+    ) {
+      console.log("hit");
+      filterResult();
+    } else {
+      setFilteredResult();
+      console.log("not hit");
+      console.log(filter);
+    }
+  }, [filter.specialties, filter.gender, filter.price]);
 
   const handleClick = (psikiater_id) => {
     if (!isLogin) {
@@ -209,23 +256,41 @@ const Index = () => {
           </Form>
         </Col>
         <Col md={10} className="result-section">
-          {searchResult.map((item) => {
-            return (
-              <CardResult
-                onClick={() => handleClick(item._id)}
-                key={item._id}
-                id={item._id}
-                first_name={item.first_name}
-                last_name={item.last_name}
-                work_address={item.work_address}
-                experience_year={item.info.experience_year}
-                avatar_url={item.avatar_url}
-                price={item.fees}
-                region={item.info.region}
-                star={item.star}
-              />
-            );
-          })}
+          {!filteredResult
+            ? searchResult.map((item) => {
+                return (
+                  <CardResult
+                    onClick={() => handleClick(item._id)}
+                    key={item._id}
+                    id={item._id}
+                    first_name={item.first_name}
+                    last_name={item.last_name}
+                    work_address={item.work_address}
+                    experience_year={item.info.experience_year}
+                    avatar_url={item.avatar_url}
+                    price={item.fees}
+                    region={item.info.region}
+                    star={item.star}
+                  />
+                );
+              })
+            : filteredResult.map((item) => {
+                return (
+                  <CardResult
+                    onClick={() => handleClick(item._id)}
+                    key={item._id}
+                    id={item._id}
+                    first_name={item.first_name}
+                    last_name={item.last_name}
+                    work_address={item.work_address}
+                    experience_year={item.info.experience_year}
+                    avatar_url={item.avatar_url}
+                    price={item.fees}
+                    region={item.info.region}
+                    star={item.star}
+                  />
+                );
+              })}
         </Col>
       </Row>
     </Container>
