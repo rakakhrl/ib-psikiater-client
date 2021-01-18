@@ -99,24 +99,6 @@ const Appointment = () => {
     history.push(`/checkout-payment/${id}`);
   };
 
-  // const createAppointmentHandler = (e) => {
-  //   e.preventDefault();
-  //   const accesstoken = localStorage.getItem("accesstoken");
-  //   dispatch(
-  //     appointmentAction.createAppointment(
-  //       complaint,
-  //       allergy,
-  //       appointment_date,
-  //       appointment_time,
-  //       sessionType,
-  //       accesstoken,
-  //       psikiater_id,
-  //       patient_id,
-  //       getIdCallback
-  //     )
-  //   );
-  // };
-
   const complaintHandler = (e) => {
     setComplaint(e.target.value);
   };
@@ -125,6 +107,7 @@ const Appointment = () => {
   };
   const appointmentTimeHandler = (time) => {
     setAppointmentTime(time);
+    setisButtonDisabled(true);
   };
 
   const allergyHandler = (e) => {
@@ -137,10 +120,6 @@ const Appointment = () => {
 
   const sessionTypeHandler = (e) => {
     setSessionType(e.target.value);
-  };
-
-  const disabledButtonHandler = (isDisabled) => {
-    setisButtonDisabled(isDisabled);
   };
 
   const popover = (
@@ -196,7 +175,7 @@ const Appointment = () => {
               <Row className="row-2">
                 <Col className="column-psikiater-schedule">
                   <h5 className="psikiater-time-schedule-title">
-                    <b>Psikiater Time Schedule</b>
+                    <b>Psychiatrist Time Schedule</b>
                   </h5>
                   {psikiaterData?.schedule?.work_time.length === 0 ? (
                     <Button>Psikiater doesn't have schedule yet</Button>
@@ -212,7 +191,6 @@ const Appointment = () => {
                             name="timeSchedule"
                             ref={register}
                             onClick={() => appointmentTimeHandler(item)}
-                            onClick={() => disabledButtonHandler(true)}
                             disabled={isButtonDisabled}
                             className="psikiater-schedule-button"
                           >
@@ -223,12 +201,17 @@ const Appointment = () => {
                     })
                   )}
                   {isButtonDisabled ? null : (
-                    <p>{errors.timeSchedule?.message}</p>
+                    <p className="error-message">
+                      {errors.timeSchedule?.message}
+                    </p>
                   )}
                 </Col>
                 <Col>
                   <Form>
                     <Form.Group controlId="exampleForm.ControlSelect1">
+                      <h5 className="session-type-title">
+                        <b>Session Type</b>
+                      </h5>
                       <Form.Control
                         name="sessionType"
                         ref={() => register(register)}
@@ -236,15 +219,15 @@ const Appointment = () => {
                         className="form-session-type"
                         as="select"
                       >
-                        <option>Select Session Type</option>
+                        <option></option>
                         <option>Offline</option>
                         <option>Online</option>
                       </Form.Control>
                     </Form.Group>
-                    {sessionType.length === 0 ? (
-                      (register.sessionType = "")
-                    ) : (
-                      <p>{errors.sessionType?.message}</p>
+                    {sessionType.includes("Online" || "Offline") ? null : (
+                      <p className="error-message">
+                        {errors.sessionType?.message}
+                      </p>
                     )}
                   </Form>
                 </Col>
@@ -266,7 +249,7 @@ const Appointment = () => {
                       onChange={complaintHandler}
                       value={complaint}
                     />
-                    {errors.complaint?.message}
+                    <p className="error-message">{errors.complaint?.message}</p>
                   </Form.Group>
                 </Col>
                 <Col>

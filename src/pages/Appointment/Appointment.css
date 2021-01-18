@@ -1,3 +1,9 @@
+.error-message {
+  text-align: center;
+  color: white;
+  margin-top: 5px;
+}
+
 /* Loading Styling */
 
 .loading-spinner {
@@ -85,8 +91,12 @@
   box-shadow: 3px 3px 2px black;
 }
 
+.session-type-title {
+  color: white;
+}
+
 .form-session-type {
-  margin-top: 37px;
+  margin-top: 15px;
   box-shadow: 3px 3px 2px black;
 }
 
