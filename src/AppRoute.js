@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-// import PrivateRoutePsikiater from "./components/PrivateRoutePsikiater";
-// import PrivateRoutePasien from "./components/PrivateRoutePasien";
+import PrivateRoutePsikiater from "./components/PrivateRoutePsikiater";
+import PrivateRoutePasien from "./components/PrivateRoutePasien";
 
 import RegisterPage from "./pages/Register";
 import Login from "./pages/Login";
@@ -14,6 +14,7 @@ import Appointment from "./pages/Appointment";
 import PublicProfilePsychiatrist from "./pages/PublicPsychiatristProfile";
 import ProfilePatient from "./pages/ProfilePatient";
 import PatientDashboard from "./pages/PatientDashboard";
+import Chatbox from "./pages/Chatbox/index";
 import EmailVerificationSent from "./pages/EmailVerificationSent";
 
 const AppRoute = () => {
@@ -45,7 +46,7 @@ const AppRoute = () => {
       </Route>
       <PrivateRoutePsikiater path="/psikiater-dashboard">
         <Psikiater />
-      </Route>
+      </PrivateRoutePsikiater>
       <Route path="/checkout-payment/:appointment_id" exact>
         <Checkout />
       </Route>
