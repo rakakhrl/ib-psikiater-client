@@ -1,0 +1,22 @@
+.modal-body {
+  text-align: center;
+  color: #7d9dec;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: center;
+}
+
+#button {
+  width: 80px;
+}
+
+#button:hover {
+  background-color: white !important;
+  color: black;
+}
+
+.close-button {
+  background-color: #e65b85 !important;
+}
