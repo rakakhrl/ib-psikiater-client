@@ -9,6 +9,7 @@ import {
   Button,
   Image,
 } from "react-bootstrap";
+import Countdown from "react-countdown";
 import API from "../../API/mainServer";
 import StarRatings from "react-star-ratings";
 import ImagePasien from "../../assets/images/fauzihaqmuslim.jpg";
@@ -34,10 +35,11 @@ const PatientDashboard = () => {
       console.log(error);
     }
   };
-
   useEffect(() => {
     fetchDataAppointment();
   }, []);
+
+  const TimeCountdown = () => <span>00:00:00:00</span>;
 
   return (
     <>
@@ -51,7 +53,11 @@ const PatientDashboard = () => {
           <Card.Body>
             <Row>
               <Col className={"col-8"}>
-                <Card.Text style={{ fontSize: "2em" }}>00:00:00</Card.Text>
+                <Card.Text style={{ fontSize: "2em" }}>
+                  <Countdown date={Date.now() + 10000}>
+                    <TimeCountdown />
+                  </Countdown>
+                </Card.Text>
                 <Card.Text>Online Appointment</Card.Text>
               </Col>
               <Col className={"col-4"}>
