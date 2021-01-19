@@ -1,0 +1,157 @@
+/* Error Message From React Hook Form */
+
+.error-message {
+  text-align: center;
+  color: white;
+  margin-top: 5px;
+}
+
+/* Loading Styling */
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  margin-top: 20%;
+}
+
+/* Page Title Styling */
+
+.page-title {
+  text-align: center;
+  margin-top: 10px;
+  color: #7d9dec;
+}
+
+/* Card Wrapper Appointment */
+
+.psikiater-card-wrapper {
+  background-color: #7d9dec !important;
+  margin-bottom: 30px;
+  box-shadow: 20px 20px 10px grey;
+}
+
+/* Page Wrapper (Container) Styling */
+
+.page-wrapper {
+  margin-top: 10px;
+}
+
+/* Row-1 Psikiater Information */
+
+.column-row-1-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.column-image,
+.column-psikiater-info,
+.column-calendar {
+  display: flex;
+  justify-content: center;
+}
+
+.psikiater-avatar {
+  width: 230px;
+  height: 230px;
+  box-shadow: 5px 5px 8px black;
+}
+
+.psikiater-info {
+  margin-top: 50px;
+  color: white;
+  margin-bottom: 30px;
+  border: 1px solid black;
+  background-color: #e65b85;
+  box-shadow: 3px 3px 8px black;
+}
+
+/* Row-2 Form Psikiater Schedule & Session Type */
+
+.column-psikiater-schedule {
+  display: inline;
+  justify-content: center;
+}
+
+.psikiater-time-schedule-title {
+  color: white;
+}
+
+.psikiater-time-schedule {
+  color: white;
+  font-weight: bold;
+}
+
+.session-type-title {
+  color: white;
+}
+
+.form-session-type {
+  margin-top: 15px;
+  box-shadow: 5px 5px 8px black;
+}
+
+.date-picker-title {
+  margin-top: 40px;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+}
+
+.date-picker {
+  display: flex;
+  justify-content: center;
+}
+
+/* Row-3 Form Complaints & Allergy */
+
+.row-3 {
+  color: white;
+}
+
+.form-complaints,
+.form-allergies {
+  box-shadow: 5px 5px 8px black;
+}
+
+/* Row-4 Button Cancel and Continue */
+
+.button-wrapper {
+  margin-bottom: 20px;
+}
+
+.cancel-button {
+  margin-right: 10px;
+}
+
+.cancel-button:hover {
+  background-color: white !important;
+  color: black !important;
+}
+
+.continue-button {
+  background-color: #e65b85 !important;
+  margin-left: 10px;
+}
+
+.continue-button:hover {
+  background-color: white !important;
+  color: black !important;
+}
+
+.cancel-button,
+.continue-button {
+  box-shadow: 5px 5px 8px black;
+}
+
+/* All Row Styling */
+
+.row-2,
+.row-3 {
+  margin-top: 30px;
+}
+
+.row-1,
+.row-2,
+.row-3 {
+  padding: 20px;
+}

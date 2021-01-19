@@ -4,12 +4,35 @@ import { login } from "../redux/actions/authAction";
 import { useHistory } from "react-router-dom";
 import { Button, Form, Container, Row, Col } from "react-bootstrap";
 
+// Form Validation Package
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
 const Login = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
+
+  // Yup Validation Schema
+
+  const schema = yup.object().shape({
+    email: yup.string().required("email required").email(),
+    password: yup.string().required("password required"),
+  });
+
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = (data, e) => {
+    setEmail("");
+    setPassword("");
+    e.preventDefault();
+    dispatch(login(email, password));
+  };
 
   useEffect(() => {
     if (user.role === "PSIKIATER") {
@@ -51,19 +74,25 @@ const Login = () => {
             <Form>
               <Form.Group controlId="formBasicEmail">
                 <Form.Control
+                  name="email"
+                  ref={register}
                   type="text"
                   placeholder="email"
                   onChange={(e) => setEmail(e.target.value)}
                   value={email}
                 ></Form.Control>
+                <p>{errors.email?.message}</p>
               </Form.Group>
               <Form.Group controlId="formBasicEmail">
                 <Form.Control
+                  name="password"
+                  ref={register}
                   type="password"
                   placeholder="password"
                   onChange={(e) => setPassword(e.target.value)}
                   value={password}
                 ></Form.Control>
+                <p>{errors.password?.message}</p>
               </Form.Group>
               <Button
                 variant="secondary"
@@ -72,7 +101,7 @@ const Login = () => {
               >
                 Home
               </Button>
-              <Button variant="primary" onClick={formHandle}>
+              <Button variant="primary" onClick={handleSubmit(onSubmit)}>
                 Sign In
               </Button>
             </Form>
