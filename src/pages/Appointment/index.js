@@ -1,8 +1,6 @@
 import React from "react";
 import "./Appointment.css";
-import Calendar from "react-calendar";
 import API from "../../API/mainServer";
-import "react-calendar/dist/Calendar.css";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
@@ -18,7 +16,6 @@ import {
   Image,
   Card,
   Spinner,
-  Modal,
 } from "react-bootstrap";
 
 import { useForm } from "react-hook-form";
@@ -39,7 +36,6 @@ const Appointment = () => {
   const [sessionType, setSessionType] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [modalShow, setModalShow] = useState(false);
-  const [yesButtonCancel, setYesButtonCancel] = useState(true);
   const history = useHistory();
   const dispatch = useDispatch();
   const dataUser = useSelector((state) => state.user.user_data);

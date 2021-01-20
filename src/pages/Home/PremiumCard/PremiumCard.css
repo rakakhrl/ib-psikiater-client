@@ -1,0 +1,101 @@
+/* Page Title Styling */
+
+#page-title {
+  margin-top: 5%;
+  margin-bottom: 4%;
+  text-align: center;
+  font-family: Open Sans, sans-serif;
+  font-weight: bolder;
+  text-transform: uppercase;
+}
+
+/* Page Wrapper Styling */
+
+#page-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5%;
+}
+
+/* Card Styling */
+
+#premium-card,
+#reguler-card {
+  text-align: center;
+}
+
+/* Premium Card Styling */
+
+#premium-card {
+  width: 22rem;
+  height: 22em;
+  background-color: #5073c9;
+  color: white;
+  box-shadow: 7px 7px 7px black;
+  transition: 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#premium-card:hover {
+  width: 24rem;
+}
+
+.premium-card-title {
+  font-weight: bolder;
+  text-transform: uppercase;
+}
+
+.premium-card-text {
+  font-weight: 600;
+  font-size: large;
+  margin-top: 3rem;
+}
+
+.premium-card-text-price {
+  margin-top: 5rem;
+  text-transform: uppercase;
+  font-weight: bolder;
+  font-size: x-large;
+  font-family: "Coda Caption", sans-serif;
+}
+
+/* Reguler Card Styling */
+
+#reguler-card {
+  margin-top: 16px;
+  margin-left: 12px;
+  width: 20rem;
+  height: 20em;
+  background-color: #37393a;
+  color: white;
+  box-shadow: 7px 7px 7px black;
+  transition: 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#reguler-card:hover {
+  width: 22rem;
+}
+
+.reguler-card-title {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.reguler-card-text {
+  font-weight: 600;
+  font-size: large;
+  margin-top: 3rem;
+}
+
+/* Card Button Styling */
+
+#card-button {
+  width: 80%;
+  color: black;
+  background-color: white !important;
+}
+
+/* Horizontal Rule Styling */
+
+#hr-premium {
+  margin-top: 10%;
+}
