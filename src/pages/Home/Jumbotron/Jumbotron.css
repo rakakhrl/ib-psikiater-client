@@ -37,6 +37,15 @@
   font-family: Open Sans, sans-serif;
 }
 
+/* Media Query For Jumbotron-Title */
+
+@media screen and (max-width: 992px) {
+  .jumbotron-title {
+    text-align: center;
+    margin-top: 50px;
+  }
+}
+
 .jumbotron-paragraf {
   margin-top: 30px;
   font-weight: 400;
@@ -45,12 +54,11 @@
   font-family: "Quicksand", sans-serif;
 }
 
-/* Media Query For Jumbotron-Title */
+/* Media Query For Jumbotron-Paragraf */
 
 @media screen and (max-width: 992px) {
-  .jumbotron-title {
-    text-align: center;
-    margin-top: 50px;
+  .jumbotron-paragraf {
+    text-align: justify;
   }
 }
 
@@ -109,12 +117,12 @@
 @media screen and (max-width: 992px) {
   #button-wrapper {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
   }
 }
 
 /* Horizontal Rule */
 
 #horizontal-rule-jumbotron {
-  margin-top: 15%;
+  margin-top: 10%;
 }

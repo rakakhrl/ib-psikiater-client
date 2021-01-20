@@ -35,11 +35,11 @@ function PremiumCard() {
 
   return (
     <div className="scroll-to-top">
-      <h2 id="page-title">Our Plan</h2>
+      <h2 id="page-title">Our Package</h2>
       <Container id="page-wrapper">
         <Card id="premium-card">
           <Card.Header>
-            <Card.Title className="premium-card-title">Premium Card</Card.Title>
+            <Card.Title className="premium-card-title">Premium</Card.Title>
           </Card.Header>
           <Card.Body>
             <Card.Text className="premium-card-text">
@@ -54,9 +54,7 @@ function PremiumCard() {
         {isVisible && (
           <Card onClick={regulerCard} id="reguler-card">
             <Card.Header>
-              <Card.Title className="reguler-card-title">
-                Reguler Card
-              </Card.Title>
+              <Card.Title className="reguler-card-title">Reguler</Card.Title>
             </Card.Header>
             <Card.Body>
               <Card.Text className="reguler-card-text">

@@ -6,7 +6,7 @@ import MapLogo from "./MapLogo.svg";
 function MapArea() {
   return (
     <div>
-      <Container>
+      <Container id="map-area-wrapper">
         <Row>
           <Col lg={6} md={12} id="map-column">
             <h1 id="text-map-area">Find Psychiatrist At Jabodetabok</h1>

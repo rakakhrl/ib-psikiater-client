@@ -1,11 +1,16 @@
+#map-area-wrapper {
+  margin-top: 5%;
+}
+
 .map-column {
   display: flex;
   justify-content: flex-start;
 }
 
 #text-map-area {
-  margin-top: 20%;
+  margin-top: 25%;
   text-align: center;
+  text-transform: uppercase;
   font-weight: bolder;
   color: #7d9dec;
 }

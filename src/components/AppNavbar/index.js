@@ -7,6 +7,7 @@ import {
   Modal,
   OverlayTrigger,
   Popover,
+  Container,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -153,21 +154,23 @@ const AppNavbar = () => {
   return (
     // <div className="container">
     <Navbar collapseOnSelect expand="md" className="navbar-color" sticky="top">
-      {role !== "PSIKIATER" ? (
-        <Link to="/">
-          <Navbar.Brand style={{ color: "white" }}>
-            <b>CAPER | CARI PSIKIATER</b>
+      <Container>
+        {role !== "PSIKIATER" ? (
+          <Link to="/">
+            <Navbar.Brand style={{ color: "white" }}>
+              <b id="navbar-brand-name">FILINGS</b>
+            </Navbar.Brand>
+          </Link>
+        ) : (
+          <Navbar.Brand>
+            <b id="navbar-brand-name">FILINGS</b>
           </Navbar.Brand>
-        </Link>
-      ) : (
-        <Navbar.Brand>
-          <b>CAPER | CARI PSIKIATER</b>
-        </Navbar.Brand>
-      )}
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-      <Navbar.Collapse id="responsive-navbar-nav">
-        <NavbarActions />
-      </Navbar.Collapse>
+        )}
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <NavbarActions />
+        </Navbar.Collapse>
+      </Container>
     </Navbar>
     // </div>
   );

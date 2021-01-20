@@ -24,7 +24,12 @@ function ReviewPsikiater({ id }) {
   return (
     <div>
       {!ratingPsikiater ? (
-        <StarRatings rating={0} numberOfStars={5} />
+        <StarRatings
+          starSpacing="8px"
+          starDimension="25px"
+          rating={0}
+          numberOfStars={5}
+        />
       ) : (
         <StarRatings
           rating={Number(
@@ -32,6 +37,7 @@ function ReviewPsikiater({ id }) {
           )}
           numberOfStars={5}
           starRatedColor="gold"
+          starDimension="20px"
         />
       )}
     </div>

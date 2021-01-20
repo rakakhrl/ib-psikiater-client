@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import "./PsikiaterDetail.css";
 import { Card, Button, Container } from "react-bootstrap";
 import API from "../../../API/mainServer";
@@ -28,17 +29,20 @@ function PsikiaterDetail() {
     return getData;
   }, []);
 
+  const history = useHistory();
+
+  const cardClickHandler = () => {
+    history.push("/profile/:psychiatrist_id");
+  };
+
   return (
     <div>
-      {psikiater.map((item) => {
-        return (
-          <div>
-            <h3 className="psikiater-detail-page-title">Our Personel</h3>
-            <Container className="psikiater-detail-wrapper">
-              <Card
-                className="psikiater-detail-card"
-                style={{ width: "18rem" }}
-              >
+      <h1 className="psikiater-detail-page-title">Our Personel</h1>
+      <Container className="psikiater-detail-wrapper">
+        {psikiater.map((item) => {
+          return (
+            <>
+              <Card onClick={cardClickHandler} id="psikiater-detail-card">
                 <Card.Img
                   className="psikiater-detail-image-card"
                   variant="top"
@@ -53,14 +57,13 @@ function PsikiaterDetail() {
                   <Card.Text>
                     <ReviewPsikiater id={item._id} />
                   </Card.Text>
-
-                  <Button variant="primary">Go somewhere</Button>
                 </Card.Body>
               </Card>
-            </Container>
-          </div>
-        );
-      })}
+            </>
+          );
+        })}
+      </Container>
+      <Container></Container>
     </div>
   );
 }
