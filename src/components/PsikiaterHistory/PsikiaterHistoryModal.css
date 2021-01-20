@@ -1,0 +1,14 @@
+.modal-header {
+  background-color: #7d9dec;
+  color: white;
+  margin-bottom: 30px;
+}
+
+#modal-title {
+  margin-left: 40%;
+}
+
+.modal-body {
+  color: #37393a;
+  margin-bottom: 30px;
+}

@@ -1,0 +1,30 @@
+/* Card Styling */
+
+.card-wrapper {
+  float: left;
+  flex-wrap: wrap;
+  width: 18rem;
+  margin-left: 50px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  box-shadow: 7px 7px 4px grey;
+  transition: width 1s ease;
+}
+
+.card-wrapper:hover {
+  width: 19rem;
+}
+
+.card-title,
+.card-text-1,
+.card-text-2 {
+  text-align: center;
+  font-weight: bold;
+  margin: 5px;
+}
+
+.button-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
