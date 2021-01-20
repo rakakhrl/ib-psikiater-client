@@ -9,7 +9,7 @@ function MapArea() {
       <Container id="map-area-wrapper">
         <Row>
           <Col lg={6} md={12} id="map-column">
-            <h1 id="text-map-area">Find Psychiatrist At Jabodetabok</h1>
+            <h1 id="text-map-area">Find Psychiatrist At Jabodetabek</h1>
           </Col>
           <Col lg={6} md={12} id="map-column">
             <img className="map-image" src={MapLogo}></img>
