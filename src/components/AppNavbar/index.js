@@ -140,12 +140,16 @@ const AppNavbar = () => {
     return isLogin ? (
       <RoleAction />
     ) : (
-      <Navbar className="ml-auto">
+      <Navbar id="navbar" className="ml-auto">
         <Link to="/register" className="mr-3 ">
-          <Button variant="outline-light">Register</Button>
+          <Button id="navbar-button" variant="outline-light">
+            Register
+          </Button>
         </Link>
         <Link to="/login">
-          <Button variant="outline-light">Sign In</Button>
+          <Button id="navbar-button" variant="outline-light">
+            Sign In
+          </Button>
         </Link>
       </Navbar>
     );
@@ -153,7 +157,7 @@ const AppNavbar = () => {
 
   return (
     // <div className="container">
-    <Navbar collapseOnSelect expand="md" className="navbar-color" sticky="top">
+    <Navbar collapseOnSelect expand="md" id="navbar" sticky="top">
       <Container>
         {role !== "PSIKIATER" ? (
           <Link to="/">
