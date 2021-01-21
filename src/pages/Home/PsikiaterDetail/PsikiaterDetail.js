@@ -32,7 +32,7 @@ function PsikiaterDetail() {
   const history = useHistory();
 
   const cardClickHandler = () => {
-    history.push("/profile/:psychiatrist_id");
+    history.push(`/profile/${psikiater._id}`);
   };
 
   return (

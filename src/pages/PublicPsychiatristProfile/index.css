@@ -1,0 +1,95 @@
+.psikiater-profile-title {
+  text-align: center;
+  margin-top: 1%;
+  text-transform: uppercase;
+  color: #7d9dec;
+}
+
+#profile-psikiater-wrapper {
+  border: 2px solid #7d9dec;
+  margin-top: 2%;
+  padding: 30px;
+  background-color: #7d9dec;
+  box-shadow: 10px 10px 10px grey;
+}
+
+#profile-psikiater-row-1 {
+  margin-top: 8%;
+  background-color: #5073c9;
+  border: 2px solid #5073c9;
+  box-shadow: 8px 8px 8px black;
+}
+
+/* Column 1 */
+
+.psikiater-profile-column-1 {
+  display: flex;
+  justify-content: center;
+}
+
+.photo-profile-psikiater {
+  width: 250px;
+}
+
+/* Column 2 */
+
+.psikiater-profile-column-2 {
+  margin-top: 60px;
+  color: white;
+}
+
+/* Column 3 */
+
+.psikiater-profile-column-3 {
+  margin-top: 60px;
+  color: white;
+}
+
+/* Column 2 & 3 */
+
+@media screen and (max-width: 992px) {
+  .psikiater-profile-column-2,
+  .psikiater-profile-column-3 {
+    text-align: center;
+  }
+}
+
+#profile-psikiater-row-2 {
+  margin-top: 40px;
+}
+
+@media screen and (max-width: 992px) {
+  #profile-psikiater-row-2 {
+    text-align: center;
+  }
+}
+
+#profile-psikiater-row-3 {
+  margin-top: 30px;
+}
+
+#psikiater-review-card-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 5%;
+  width: 45%;
+}
+
+@media screen and (max-width: 767px) {
+  #psikiater-review-card-wrapper {
+    width: 100%;
+    text-align: justify;
+  }
+}
+
+.profile-psikiater-button {
+  background-color: white !important;
+  border-color: white !important;
+  color: #7d9dec !important;
+  margin-bottom: 20px;
+}
+
+.profile-psikiater-button:hover {
+  background-color: #e65b85 !important;
+  color: white !important;
+}
