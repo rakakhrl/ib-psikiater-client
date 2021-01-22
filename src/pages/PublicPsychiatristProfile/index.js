@@ -52,9 +52,9 @@ const PublicPsychiatristProfile = () => {
           </Spinner>
         </div>
       ) : (
-        <Card>
+        <div>
           <h1 className="psikiater-profile-page-title">Psychiatrist Profile</h1>
-          <div className="psikiater-profile-page-wrapper">
+          <Container className="psikiater-profile-page-wrapper">
             <Row className="psikiater-profile-row-1">
               <Col lg={4} md={12} className="psikiater-profile-col-1">
                 <img
@@ -63,18 +63,16 @@ const PublicPsychiatristProfile = () => {
                   alt="psikiater-profile-avatar"
                 ></img>
               </Col>
-              <Col lg={4} md={12} className="psikiater-profile-col-2">
-                <h4>{`Name : ${psikiater?.first_name} ${psikiater?.last_name}`}</h4>
-                <h4>{`Gender : ${psikiater?.gender}`}</h4>
+              <Col lg={7} md={12} className="psikiater-profile-col-2">
+                <h4>{`Name : ${psikiater?.first_name} ${psikiater?.last_name} (${psikiater.gender})`}</h4>
                 <h4>
-                  Date of Birth :
+                  Date of Birth :{" "}
                   {moment(`${psikiater?.date_of_birth}`).format("DD MMM yyyy")}
                 </h4>
-                <h4>{`Work Address : ${psikiater?.work_address}`}</h4>
-              </Col>
-              <Col lg={4} md={12} className="psikiater-profile-col-3">
                 <h4>{`Specialized In : ${psikiater?.specialize} `}</h4>
                 <h4>{`Experience : ${psikiater?.info?.experience_year}`}</h4>
+                <h4>Work Address :</h4>
+                <h4>{psikiater.work_address}</h4>
                 <h4>
                   <RatingPsikiater id={psychiatrist_id} />
                 </h4>
@@ -86,17 +84,17 @@ const PublicPsychiatristProfile = () => {
                 className="profile-psikiater-back-button"
                 onClick={backButtonHandler}
               >
-                Back
+                {`< Back`}
               </Button>
               <Button
                 onClick={() => buttonBookAppointment(`${psikiater._id}`)}
                 className="profile-psikiater-button-appointment"
               >
-                Book Appointment
+                {`Book Appointment >`}
               </Button>
             </Container>
-          </div>
-        </Card>
+          </Container>
+        </div>
       )}
     </>
   );
