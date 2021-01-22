@@ -1,72 +1,103 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Container, Row, Col, Button, Card } from "react-bootstrap";
+import { useParams, useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Container, Row, Col, Button, Card, Spinner } from "react-bootstrap";
 import API from "../../API/mainServer";
 import "./index.css";
+import RatingPsikiater from "../Home/PsikiaterDetail/RatingPsikiater";
+import moment from "moment";
+import swal from "sweetalert";
 
 const PublicPsychiatristProfile = () => {
-  const { psikiater_id } = useParams();
+  const isLogin = useSelector((store) => store.user.isLogin);
+  const [psikiater, setPsikiater] = useState();
+  const { psychiatrist_id } = useParams();
+  const history = useHistory();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getPsikiaterData = async () => {
       const response = await API({
-        url: `/psikiater/${psikiater_id}`,
+        url: `/psikiater/${psychiatrist_id}`,
         method: "GET",
         headers: {
           accesstoken: localStorage.getItem("accesstoken"),
         },
       });
-      console.log(response);
+      setPsikiater(response.data.data);
+      setIsLoading(false);
     };
     getPsikiaterData();
     return getPsikiaterData;
   }, []);
+
+  const backButtonHandler = () => {
+    history.goBack();
+  };
+
+  const buttonBookAppointment = (psikiater_id) => {
+    if (!isLogin) {
+      swal("Login First");
+    } else {
+      history.push(`/appointment/${psikiater_id}`);
+    }
+  };
+
   return (
     <>
-      <h1 className="psikiater-profile-title">Psychiatrist Profile</h1>
-      <Container id="profile-psikiater-wrapper">
-        <Row id="profile-psikiater-row-1">
-          <Col className="psikiater-profile-column-1" sm={12} lg={4}>
-            <img
-              className="photo-profile-psikiater"
-              src="https://greatmind.id/uploads/contributor-detail/739a579afaa6613b12930f1a7d90769df8107735.jpg"
-              alt="dr-boyke-photo"
-            ></img>
-          </Col>
-          <Col sm={12} lg={4} className="psikiater-profile-column-2">
-            <h4>Dr. Boyke</h4>
-            <h4>Gender : Male</h4>
-            <h4>
-              Work Address : <br />
-              Jl. Percetakan Negara
-            </h4>
-          </Col>
-          <Col sm={12} lg={4} className="psikiater-profile-column-3">
-            <h4>
-              Specialized In : <br />
-              Relationship Counceling
-            </h4>
-            <h4>ratings : 5 Bintang</h4>
-            <h4>Experience : 5 Year</h4>
-            <Button className="profile-psikiater-button">
-              Book Appointment
-            </Button>
-          </Col>
-        </Row>
-        <Row id="profile-psikiater-row-3">
-          <Card id="psikiater-review-card-wrapper">
-            <Card.Body>
-              <Card.Title>
-                <b>Naufal Al-Fachri</b>
-              </Card.Title>
-              <Card.Text>
-                Setelah konsultasi dengan dr boyke, hubungan saya dengan istri
-                menjadi lebih harmonis
-              </Card.Text>
-            </Card.Body>
-          </Card>
-        </Row>
-      </Container>
+      {isLoading ? (
+        <div className="loading-spinner">
+          <Spinner variant="primary" animation="border" role="status">
+            <span className="sr-only">Loading...</span>
+          </Spinner>
+        </div>
+      ) : (
+        <Card>
+          <h1 className="psikiater-profile-page-title">Psychiatrist Profile</h1>
+          <div className="psikiater-profile-page-wrapper">
+            <Row className="psikiater-profile-row-1">
+              <Col lg={4} md={12} className="psikiater-profile-col-1">
+                <img
+                  className="psikiater-profile-avatar"
+                  src={psikiater?.avatar_url}
+                  alt="psikiater-profile-avatar"
+                ></img>
+              </Col>
+              <Col lg={4} md={12} className="psikiater-profile-col-2">
+                <h4>{`Name : ${psikiater?.first_name} ${psikiater?.last_name}`}</h4>
+                <h4>{`Gender : ${psikiater?.gender}`}</h4>
+                <h4>
+                  Date of Birth :
+                  {moment(`${psikiater?.date_of_birth}`).format("DD MMM yyyy")}
+                </h4>
+                <h4>{`Work Address : ${psikiater?.work_address}`}</h4>
+              </Col>
+              <Col lg={4} md={12} className="psikiater-profile-col-3">
+                <h4>{`Specialized In : ${psikiater?.specialize} `}</h4>
+                <h4>{`Experience : ${psikiater?.info?.experience_year}`}</h4>
+                <h4>
+                  <RatingPsikiater id={psychiatrist_id} />
+                </h4>
+              </Col>
+            </Row>
+            <Container className="psikiater-profile-button-wrapper">
+              <Button
+                variant="dark"
+                className="profile-psikiater-back-button"
+                onClick={backButtonHandler}
+              >
+                Back
+              </Button>
+              <Button
+                onClick={() => buttonBookAppointment(`${psikiater._id}`)}
+                className="profile-psikiater-button-appointment"
+              >
+                Book Appointment
+              </Button>
+            </Container>
+          </div>
+        </Card>
+      )}
     </>
   );
 };

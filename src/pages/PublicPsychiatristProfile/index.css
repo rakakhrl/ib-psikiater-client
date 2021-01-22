@@ -1,95 +1,78 @@
-.psikiater-profile-title {
+.psikiater-profile-page-wrapper {
+  margin: 4em;
+  padding: 8em 1em;
+  background-color: #7d9dec !important;
+  border-radius: 20px;
+}
+
+.psikiater-profile-page-title {
   text-align: center;
-  margin-top: 1%;
+  color: black;
   text-transform: uppercase;
-  color: #7d9dec;
 }
 
-#profile-psikiater-wrapper {
-  border: 2px solid #7d9dec;
-  margin-top: 2%;
-  padding: 30px;
-  background-color: #7d9dec;
-  box-shadow: 10px 10px 10px grey;
-}
-
-#profile-psikiater-row-1 {
-  margin-top: 8%;
-  background-color: #5073c9;
-  border: 2px solid #5073c9;
-  box-shadow: 8px 8px 8px black;
-}
-
-/* Column 1 */
-
-.psikiater-profile-column-1 {
-  display: flex;
-  justify-content: center;
-}
-
-.photo-profile-psikiater {
-  width: 250px;
-}
-
-/* Column 2 */
-
-.psikiater-profile-column-2 {
-  margin-top: 60px;
-  color: white;
-}
-
-/* Column 3 */
-
-.psikiater-profile-column-3 {
-  margin-top: 60px;
-  color: white;
-}
-
-/* Column 2 & 3 */
-
-@media screen and (max-width: 992px) {
-  .psikiater-profile-column-2,
-  .psikiater-profile-column-3 {
-    text-align: center;
-  }
-}
-
-#profile-psikiater-row-2 {
-  margin-top: 40px;
-}
-
-@media screen and (max-width: 992px) {
-  #profile-psikiater-row-2 {
-    text-align: center;
-  }
-}
-
-#profile-psikiater-row-3 {
+.psikiater-profile-row-1 {
   margin-top: 30px;
+  color: white;
 }
 
-#psikiater-review-card-wrapper {
+.psikiater-profile-col-1 {
   display: flex;
   justify-content: center;
-  margin-top: 5%;
-  width: 45%;
 }
 
-@media screen and (max-width: 767px) {
-  #psikiater-review-card-wrapper {
-    width: 100%;
-    text-align: justify;
+.psikiater-profile-avatar {
+  height: 280px;
+}
+
+.psikiater-profile-col-2 {
+  margin-top: 50px;
+}
+
+@media screen and (max-width: 992px) {
+  .psikiater-profile-col-2 {
+    text-align: center;
   }
 }
 
-.profile-psikiater-button {
+.psikiater-profile-col-3 {
+  margin-top: 50px;
+}
+
+@media screen and (max-width: 992px) {
+  .psikiater-profile-col-3 {
+    text-align: center;
+  }
+}
+
+.psikiater-profile-button-wrapper {
+  margin-top: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-psikiater-back-button {
+  width: 150px;
+  margin-right: 10px;
+}
+
+.profile-psikiater-back-button:hover {
   background-color: white !important;
   border-color: white !important;
-  color: #7d9dec !important;
-  margin-bottom: 20px;
+  color: #e65b85 !important;
+  width: 150px;
+  margin-right: 10px;
 }
 
-.profile-psikiater-button:hover {
+.profile-psikiater-button-appointment {
+  background-color: white !important;
+  color: #7d9dec !important;
+  border-color: white !important;
+}
+
+.profile-psikiater-button-appointment:hover {
   background-color: #e65b85 !important;
+  border-color: #e65b85 !important;
   color: white !important;
 }

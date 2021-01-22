@@ -2,21 +2,16 @@ import React, { useEffect, useState } from "react";
 import API from "../../../API/mainServer";
 import StarRatings from "react-star-ratings";
 
-function ReviewPsikiater({ id }) {
+function RatingPsikiater({ id }) {
   const [ratingPsikiater, setRatingPsikiater] = useState(null);
 
   useEffect(() => {
-    const accesstoken = localStorage.getItem("accesstoken");
     const getReviewPsikiater = async () => {
       const response = await API({
         method: "GET",
         url: `/psikiater/rating/${id}`,
-        headers: {
-          accesstoken: accesstoken,
-        },
       });
       setRatingPsikiater(response.data.data);
-      console.log(response.data);
     };
     getReviewPsikiater();
     return getReviewPsikiater;
@@ -43,4 +38,4 @@ function ReviewPsikiater({ id }) {
     </div>
   );
 }
-export default ReviewPsikiater;
+export default RatingPsikiater;
