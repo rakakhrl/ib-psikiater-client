@@ -14,6 +14,7 @@ const PublicPsychiatristProfile = () => {
   const { psychiatrist_id } = useParams();
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(true);
+  const currencyFormatter = require("currency-formatter");
 
   useEffect(() => {
     const getPsikiaterData = async () => {
@@ -73,6 +74,9 @@ const PublicPsychiatristProfile = () => {
                 <h4>{`Experience : ${psikiater?.info?.experience_year}`}</h4>
                 <h4>Work Address :</h4>
                 <h4>{psikiater.work_address}</h4>
+                <h4>
+                  {currencyFormatter.format(psikiater.fees, { code: "IDR" })}
+                </h4>
                 <h4>
                   <RatingPsikiater id={psychiatrist_id} />
                 </h4>
