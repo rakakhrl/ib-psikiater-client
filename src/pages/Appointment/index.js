@@ -43,10 +43,10 @@ const Appointment = () => {
   const { psikiater_id } = useParams();
   const [startDate, setStartDate] = useState(new Date());
 
-  useEffect(() => {
-    moment.locale("id");
-    setAppointmentDate(moment(startDate).format("dddd"));
-  }, [startDate]);
+  // useEffect(() => {
+  //   moment.locale("id");
+  //   setAppointmentDate(moment(startDate).format("dddd"));
+  // }, [startDate]);
 
   const schema = yup.object().shape({
     timeSchedule: yup.string().required("Required!"),
@@ -63,29 +63,29 @@ const Appointment = () => {
   };
 
   const onSubmit = (data) => {
+    const accesstoken = localStorage.getItem("accesstoken");
     if (appointment_time !== "") {
-      console.log(appointment_date);
+      dispatch(
+        appointmentAction.createAppointment(
+          complaint,
+          allergy,
+          accesstoken,
+          psikiater_id,
+          patient_id,
+          appointment_date,
+          appointment_time,
+          sessionType,
+          getIdCallback
+        )
+      );
       console.log(appointment_time);
-      console.log(sessionType);
+      console.log(appointment_date);
       console.log(complaint);
       console.log(allergy);
+      console.log(sessionType);
     } else {
       trigger("timeSchedule");
     }
-    const accesstoken = localStorage.getItem("accesstoken");
-    dispatch(
-      appointmentAction.createAppointment(
-        complaint,
-        allergy,
-        appointment_date,
-        appointment_time,
-        sessionType,
-        accesstoken,
-        psikiater_id,
-        patient_id,
-        getIdCallback
-      )
-    );
   };
 
   useEffect(() => {
@@ -122,7 +122,11 @@ const Appointment = () => {
   };
 
   const sessionTypeHandler = (e) => {
-    setSessionType(e.target.value);
+    if (e.target.value === "Online") {
+      setSessionType(true);
+    } else {
+      setSessionType(false);
+    }
   };
 
   const onHandler = (e) => {
@@ -168,7 +172,9 @@ const Appointment = () => {
                         selected={startDate}
                         onChange={(date) => {
                           setStartDate(date);
-                          setAppointmentDate(moment(date).format("dddd"));
+                          setAppointmentDate(
+                            moment(date).format("DD MMM YYYY")
+                          );
                           setAppointmentTime("");
                         }}
                       />
@@ -224,7 +230,7 @@ const Appointment = () => {
                         <option>Offline</option>
                         <option>Online</option>
                       </Form.Control>
-                      {sessionType.includes("Online" || "Offline") ? null : (
+                      {sessionType.length !== 0 ? null : (
                         <p className="error-message">
                           {errors.sessionType?.message}
                         </p>
