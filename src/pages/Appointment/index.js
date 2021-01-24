@@ -33,7 +33,8 @@ const Appointment = () => {
   const [appointment_date, setAppointmentDate] = useState("");
   const [complaint, setComplaint] = useState("");
   const [allergy, setAllergy] = useState("");
-  const [sessionType, setSessionType] = useState("");
+  const [product_type, setProductType] = useState("");
+  const [isOnline, setIsOnline] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [modalShow, setModalShow] = useState(false);
   const [checkAppointmentTime, setCheckAppointmentTime] = useState();
@@ -46,7 +47,7 @@ const Appointment = () => {
 
   const schema = yup.object().shape({
     timeSchedule: yup.string().required("Required!"),
-    sessionType: yup.string().required("Required!"),
+    productType: yup.string().required("Required!"),
     complaint: yup.string().required("Required!"),
   });
 
@@ -62,7 +63,9 @@ const Appointment = () => {
     const accesstoken = localStorage.getItem("accesstoken");
     if (appointment_time !== "") {
       dispatch(
-        appointmentAction.createAppointment(
+        appointmentAction.createPayment(
+          patient_id,
+          product_type,
           complaint,
           allergy,
           accesstoken,
@@ -70,7 +73,7 @@ const Appointment = () => {
           patient_id,
           appointment_date,
           appointment_time,
-          sessionType,
+          isOnline,
           getIdCallback
         )
       );
@@ -131,11 +134,13 @@ const Appointment = () => {
     setModalShow(true);
   };
 
-  const sessionTypeHandler = (e) => {
+  const productTypeHandler = (e) => {
     if (e.target.value === "Online") {
-      setSessionType(true);
+      setProductType(e.target.value);
+      setIsOnline(true);
     } else {
-      setSessionType(false);
+      setProductType(e.target.value);
+      setIsOnline(false);
     }
   };
 
@@ -235,7 +240,7 @@ const Appointment = () => {
                       <Form.Control
                         name="sessionType"
                         ref={() => register(register)}
-                        onChange={(v) => sessionTypeHandler(v)}
+                        onChange={(v) => productTypeHandler(v)}
                         className="form-session-type"
                         as="select"
                       >
@@ -243,9 +248,9 @@ const Appointment = () => {
                         <option>Offline</option>
                         <option>Online</option>
                       </Form.Control>
-                      {sessionType.length !== 0 ? null : (
+                      {product_type.length !== 0 ? null : (
                         <p className="error-message">
-                          {errors.sessionType?.message}
+                          {errors.productType?.message}
                         </p>
                       )}
                     </Form.Group>

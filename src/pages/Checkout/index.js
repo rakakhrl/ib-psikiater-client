@@ -63,10 +63,12 @@ function Checkout() {
         <Jumbotron className="jumbotron-checkout">
           <Row>
             <Col className="column-kiri">
-              <img
-                className="checkout-image"
-                src={appointment?.psikiater_id?.avatar_url}
-              ></img>
+              <Card>
+                <Card.Header>Online Appointment</Card.Header>
+                <Card.Body>
+                  <Card.Title>Dr Boyke</Card.Title>
+                </Card.Body>
+              </Card>
             </Col>
             <Col className="column-kanan" sm={12} lg={6}>
               <Container>

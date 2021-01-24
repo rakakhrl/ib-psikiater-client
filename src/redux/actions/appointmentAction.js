@@ -102,6 +102,47 @@ const createPrescription = (
   }
 };
 
+const createPayment = (
+  patient,
+  product_type,
+  complaint,
+  allergy,
+  accesstoken,
+  psikiater_id,
+  patient_id,
+  appointment_date,
+  appointment_time,
+  isOnline,
+  getIdCallback
+) => async (dispatch) => {
+  try {
+    const createPayment = await API({
+      url: `/payments/checkout`,
+      method: "POST",
+      headers: {
+        accesstoken: accesstoken,
+      },
+      data: {
+        patient: patient,
+        product_type: product_type,
+        product_detail: {
+          complaint: complaint,
+          allergy: [allergy],
+          psikiater_id: psikiater_id,
+          patient_id: patient_id,
+          appointment_date: appointment_date,
+          appointment_time: appointment_time,
+          isOnline: isOnline,
+        },
+      },
+    });
+    console.log(createPayment.data.data);
+    getIdCallback(createPayment.data.data._id);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const createAppointment = (
   complaint,
   allergy,
@@ -160,6 +201,7 @@ const appointmentAction = {
   changeStatusAppointment,
   addDiagnosePatient,
   createRating,
+  createPayment,
   createAppointment,
   createPrescription,
   fetchPsikiaterAppointment,
