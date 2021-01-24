@@ -13,11 +13,17 @@ import Countdown from "react-countdown";
 import API from "../../API/mainServer";
 import StarRatings from "react-star-ratings";
 import ImagePasien from "../../assets/images/fauzihaqmuslim.jpg";
+import CardUpcoming from "./cardUpcoming";
+import CardNextAppointment from "./cardNextAppointment";
+import CardRecentAppointment from "./cardRecentAppointment";
+
 import "./index.css";
 const PatientDashboard = () => {
-  const [rating, setRating] = useState(0);
-  const [review, setReview] = useState("");
-  const [appointment, setAppointment] = useState();
+  const [appointmentDone, setAppointmentDone] = useState([]);
+  const [appointmentPaid, setAppointmentPaid] = useState([]);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const fetchDataAppointment = async () => {
     try {
@@ -26,11 +32,20 @@ const PatientDashboard = () => {
         method: "GET",
         url: `/appointments/patient`,
         headers: {
-          accesstoken: token,
+          accesstoken:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWZlNDBiZmY4Y2IzZmEyMmY0MTRmZjk3Iiwicm9sZSI6IlBBVElFTlQiLCJpYXQiOjE2MTEwNjI0NTF9.qOPkCYGApfxSfg8Cf1MN1BMwd3Kfiy_56cpXiMBG8ss",
         },
       });
+
+      const statusDone = response.data.data.filter(
+        (el) => el.status === "Done"
+      );
+      const statusPaid = response.data.data.filter(
+        (el) => el.status === "Paid"
+      );
+      setAppointmentDone(statusDone);
+      setAppointmentPaid(statusPaid);
       console.log(response);
-      setAppointment(response.data.data);
     } catch (error) {
       console.log(error);
     }
@@ -38,8 +53,6 @@ const PatientDashboard = () => {
   useEffect(() => {
     fetchDataAppointment();
   }, []);
-
-  const TimeCountdown = () => <span>00:00:00:00</span>;
 
   return (
     <>
@@ -49,106 +62,37 @@ const PatientDashboard = () => {
         style={{ height: "150px", width: "350px", paddingTop: "10" }}
       >
         <h5 className={"Judul"}>Your Next Appointment Starts In</h5>
-        <Card>
-          <Card.Body>
-            <Row>
-              <Col className={"col-8"}>
-                <Card.Text style={{ fontSize: "2em" }}>
-                  <Countdown date={Date.now() + 10000}>
-                    <TimeCountdown />
-                  </Countdown>
-                </Card.Text>
-                <Card.Text>Online Appointment</Card.Text>
-              </Col>
-              <Col className={"col-4"}>
-                <Image
-                  className={"PhotoPsikiater"}
-                  src={ImagePasien}
-                  style={{ width: "75px", height: "75px" }}
-                  alt="pasienPicture.jpg"
-                  roundedCircle
-                />
-                <Card.Text style={{ marginLeft: "10px" }}>Dr.Fauzi</Card.Text>
-              </Col>
-            </Row>
-          </Card.Body>
-        </Card>
+        {!appointmentPaid[0] ? (
+          <h3>You Dont Have Any Appointment Schedule</h3>
+        ) : (
+          <CardNextAppointment appointmentPaid={appointmentPaid[0]} />
+        )}
       </Container>
+
       {/* Your Next appointment */}
-
       {/* Upcoming appointment */}
-      <div>
-        <Container className="flex-container mt-5">
-          <div>
-            <h5>Upcoming Appointment</h5>
-            <Card className="">
-              <Card.Body>
-                <Row>
-                  <Col className="col-4">
-                    <Image
-                      className={"PhotoPsikiater"}
-                      src={ImagePasien}
-                      style={{ width: "50px", height: "50px" }}
-                      alt="pasienPicture.jpg"
-                      roundedCircle
-                    />
-                  </Col>
-                  <Col className="col-8">
-                    <Card.Text>Dr.Fauzi</Card.Text>
-                    <Card.Text className="">10-08-2021</Card.Text>
-                  </Col>
-                </Row>
-                <Row>
-                  <Card.Text className="mt-3">
-                    Jl. Klender Barat II/2 Jakarta Timur
-                  </Card.Text>
-                </Row>
-              </Card.Body>
-            </Card>
-          </div>
-        </Container>
-
-        <hr></hr>
-
-        {/* RECENT APPOINTMENT */}
-        <Container className="flex-container">
-          <div>
-            <h5>Recent Appointment</h5>
-            <Card>
-              <Card.Body>
-                <Row>
-                  <Col>
-                    <Image
-                      className={"PhotoPsikiater"}
-                      src={ImagePasien}
-                      style={{ width: "50px", height: "50px" }}
-                      alt="pasienPicture.jpg"
-                      roundedCircle
-                    />
-                  </Col>
-                  <Col>
-                    <Card.Text>Dr.Fauzi</Card.Text>
-                    <Card.Text className="">10-08-2021</Card.Text>
-                  </Col>
-                </Row>
-                <Row>
-                  <Card.Text className="mt-3">
-                    Jl. Klender Barat II/2 Jakarta Timur
-                  </Card.Text>
-                </Row>
-              </Card.Body>
-              <Card.Text>Not Rated Yet</Card.Text>
-              <StarRatings
-                rating={rating}
-                changeRating={(newRating, name) => setRating(newRating)}
-                starRatedColor="gold"
-                starDimension="30px"
-              />
-              <Button>Create Review</Button>
-            </Card>
-          </div>
-        </Container>
-      </div>
+      <Container className="flex-container mt-5">
+        <div>
+          <h5>Upcoming Appointment</h5>
+          {appointmentPaid.map((item) => (
+            <CardUpcoming key={item._id} appointmentPaid={item} />
+          ))}
+        </div>
+      </Container>
+      <hr></hr>
+      {/* RECENT APPOINTMENT */}
+      <Container className="flex-container">
+        <div>
+          <h5>Recent Appointment</h5>
+          {appointmentDone.map((item) => (
+            <CardRecentAppointment
+              key={item._id}
+              appointmentDone={item}
+              appointmentFetch={fetchDataAppointment}
+            />
+          ))}
+        </div>
+      </Container>
     </>
   );
 };
