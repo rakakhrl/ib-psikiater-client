@@ -59,7 +59,7 @@ function Consultation() {
         </Row>
       </Container>
       <Container>
-        <hr id="hr-premium" />
+        <hr id="hr-consultation" />
       </Container>
     </div>
   );
