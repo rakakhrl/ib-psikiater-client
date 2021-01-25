@@ -7,7 +7,15 @@ import PsikiaterDetail from "./PsikiaterDetail/PsikiaterDetail";
 import Footer from "./Footer/Footer";
 import CompanyNameFooter from "./CompanyNameFooter.js/CompanyNameFooter";
 
+import { useSelector } from "react-redux";
+
 const Home = () => {
+  const store = useSelector((state) => state.user);
+
+  useEffect(() => {
+    console.log(store);
+  }, [store]);
+
   return (
     <div>
       <Jumbotron />
