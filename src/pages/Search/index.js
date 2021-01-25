@@ -140,7 +140,7 @@ const Index = () => {
       const token = localStorage.getItem("accesstoken");
       const url = !routeArgs
         ? "/psikiater" // TODO: Get all psychiatrist
-        : `/psikiater/search?name=${routeArgs.name}&region=${routeArgs.region}`;
+        : `/psikiater/search?first_name=${routeArgs.name}&region=${routeArgs.region}`;
 
       const response = await API({
         method: "GET",
