@@ -1,0 +1,128 @@
+/* Jumobtron Styling */
+
+.row-jumbotron {
+  margin-top: 13%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.right-column {
+  display: flex;
+  justify-content: center;
+}
+
+.left-column {
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* Undraw.io Logo */
+
+.jumbotron-logo {
+  width: 100%;
+  margin-top: 30px;
+}
+
+@media screen and (max-width: 992px) {
+  .jumbotron-logo {
+    margin-top: 20px;
+  }
+}
+
+/* Text */
+
+.jumbotron-title {
+  margin-top: 10%;
+  font-weight: 700;
+  font-family: Open Sans, sans-serif;
+}
+
+/* Media Query For Jumbotron-Title */
+
+@media screen and (max-width: 992px) {
+  .jumbotron-title {
+    text-align: center;
+    margin-top: 50px;
+  }
+}
+
+.jumbotron-paragraf {
+  margin-top: 30px;
+  font-weight: 400;
+  font-size: 1.25rem;
+  line-height: 34px;
+  font-family: "Quicksand", sans-serif;
+}
+
+/* Media Query For Jumbotron-Paragraf */
+
+@media screen and (max-width: 992px) {
+  .jumbotron-paragraf {
+    text-align: justify;
+  }
+}
+
+/* Button Styling */
+
+#button-wrapper {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* Button Animation */
+
+.button-search {
+  width: 10em;
+  background: linear-gradient(#e66465, #9198e5) !important;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+
+.button-search span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button-search span:after {
+  content: "\00bb";
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button-search:hover span {
+  padding-right: 25px;
+}
+
+.button-search:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.button-search:hover {
+  background: rgb(166, 124, 124);
+  background: linear-gradient(
+    90deg,
+    rgba(166, 124, 124, 1) 0%,
+    rgba(240, 95, 191, 1) 45%,
+    rgba(75, 144, 158, 1) 100%
+  ) !important;
+}
+
+@media screen and (max-width: 992px) {
+  #button-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+/* Horizontal Rule */
+
+#horizontal-rule-jumbotron {
+  margin-top: 10%;
+}

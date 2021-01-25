@@ -1,0 +1,72 @@
+.psikiater-profile-page-wrapper {
+  border: 2px solid #7d9dec;
+  box-shadow: 10px 10px 8px gray;
+  border-radius: 20px;
+  padding: 30px;
+  margin-top: 4%;
+}
+
+.psikiater-profile-page-title {
+  margin-top: 30px;
+  text-align: center;
+  color: #7d9dec;
+  text-transform: uppercase;
+}
+
+.psikiater-profile-row-1 {
+  text-align: justify;
+  margin-top: 30px;
+  color: black;
+}
+
+.psikiater-profile-col-1 {
+  display: flex;
+  justify-content: center;
+}
+
+.psikiater-profile-avatar {
+  height: 280px;
+}
+
+.psikiater-profile-col-2 {
+  margin-top: 10px;
+}
+
+@media screen and (max-width: 992px) {
+  .psikiater-profile-col-2 {
+    margin-top: 30px;
+    text-align: center;
+  }
+}
+
+.psikiater-profile-button-wrapper {
+  margin-top: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-psikiater-back-button {
+  width: 140px;
+  margin-right: 10px;
+}
+
+.profile-psikiater-back-button:hover {
+  background-color: #e65b85 !important;
+  border-color: #e65b85 !important;
+  color: white !important;
+  margin-right: 10px;
+}
+
+.profile-psikiater-button-appointment {
+  width: 180px;
+  background-color: #7d9dec !important;
+  color: white !important;
+  border-color: white !important;
+}
+
+.profile-psikiater-button-appointment:hover {
+  background-color: #e65b85 !important;
+  border-color: #e65b85 !important;
+  color: white !important;
+}

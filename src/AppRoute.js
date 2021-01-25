@@ -16,6 +16,8 @@ import ProfilePatient from "./pages/ProfilePatient";
 import PatientDashboard from "./pages/PatientDashboard";
 import Chatbox from "./pages/Chatbox/index";
 import EmailVerificationSent from "./pages/EmailVerificationSent";
+import PaymentSlipUpload from "./pages/PaymentSlipUpload";
+import AdminDashboard from "./pages/AdminDashboard";
 
 const AppRoute = () => {
   return (
@@ -61,6 +63,12 @@ const AppRoute = () => {
       </Route>
       <Route path="/email-verification-sent" exact>
         <EmailVerificationSent />
+      </Route>
+      <Route path="/upload-payment-slip/:payment_id" exact>
+        <PaymentSlipUpload />
+      </Route>
+      <Route path="/admin-dashboard">
+        <AdminDashboard />
       </Route>
     </Switch>
   );
