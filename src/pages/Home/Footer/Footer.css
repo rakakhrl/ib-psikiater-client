@@ -1,0 +1,25 @@
+#footer-wrapper {
+  background-color: #fcfcfc;
+  padding: 8%;
+}
+
+#footer-content-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+#footer-text {
+  display: flex;
+  justify-content: center;
+  text-transform: uppercase;
+}
+
+#footer-icons-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+#footer-icons {
+  margin-top: 20px;
+  margin-left: 20px;
+}

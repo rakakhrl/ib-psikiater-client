@@ -1,0 +1,10 @@
+#company-text-footer-wrapper {
+  padding: 10px;
+  background: #eaeae9;
+}
+
+.company-text-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

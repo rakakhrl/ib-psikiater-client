@@ -110,7 +110,7 @@ const createAppointment = (
   patient_id,
   appointment_date,
   appointment_time,
-  sessionType,
+  isOnline,
   getIdCallback
 ) => async (dispatch) => {
   try {
@@ -127,7 +127,7 @@ const createAppointment = (
         appointment_time: appointment_time,
         complaint: complaint,
         allergy: [allergy],
-        sessionType: sessionType,
+        isOnline: isOnline,
       },
     });
     console.log(createAppointment.data.data._id);
