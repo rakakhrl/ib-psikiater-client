@@ -113,7 +113,8 @@ const createPayment = (
   appointment_date,
   appointment_time,
   isOnline,
-  getIdCallback
+  getIdCallback,
+  fees
 ) => async (dispatch) => {
   try {
     const createPayment = await API({
@@ -127,17 +128,37 @@ const createPayment = (
         product_type: product_type,
         product_detail: {
           complaint: complaint,
-          allergy: [allergy],
+          allergy: allergy,
           psikiater_id: psikiater_id,
           patient_id: patient_id,
           appointment_date: appointment_date,
           appointment_time: appointment_time,
           isOnline: isOnline,
         },
+        product_price: fees,
       },
     });
     console.log(createPayment.data.data);
     getIdCallback(createPayment.data.data._id);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const fetchPsikiaterAppointment = () => async (dispatch) => {
+  try {
+    const res = await API({
+      method: "GET",
+      url: `/appointments/psikiater`,
+      headers: {
+        accesstoken: localStorage.getItem("accesstoken"),
+      },
+    });
+
+    dispatch({
+      type: "FETCH_PSIKIATER_APPOINTMENT",
+      payload: { appointments: res.data.data },
+    });
   } catch (error) {
     console.log(error);
   }
@@ -171,26 +192,25 @@ const createAppointment = (
         isOnline: isOnline,
       },
     });
-    console.log(createAppointment.data.data._id);
     getIdCallback(createAppointment.data.data._id);
   } catch (error) {
     console.log(error);
   }
 };
 
-const fetchPsikiaterAppointment = () => async (dispatch) => {
+const updatePaymentMethod = (paymentMethod, accesstoken) => async (
+  dispatch
+) => {
   try {
-    const res = await API({
-      method: "GET",
-      url: `/appointments/psikiater`,
+    const updatePaymentMethod = await API({
+      url: "/payments/payment_method",
+      method: "PATCH",
       headers: {
-        accesstoken: localStorage.getItem("accesstoken"),
+        accesstoken: accesstoken,
       },
-    });
-
-    dispatch({
-      type: "FETCH_PSIKIATER_APPOINTMENT",
-      payload: { appointments: res.data.data },
+      data: {
+        payment_method: paymentMethod,
+      },
     });
   } catch (error) {
     console.log(error);
@@ -201,10 +221,11 @@ const appointmentAction = {
   changeStatusAppointment,
   addDiagnosePatient,
   createRating,
-  createPayment,
   createAppointment,
   createPrescription,
   fetchPsikiaterAppointment,
+  createPayment,
+  updatePaymentMethod,
 };
 
 export default appointmentAction;

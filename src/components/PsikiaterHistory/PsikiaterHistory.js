@@ -19,7 +19,7 @@ const PsikiaterHistory = ({ appointment }) => {
           }
         />
         <Card.Body className="card-body">
-          <Card.Title className="card-title">{`${appointment.patient_id.first_name} ${appointment.patient_id.last_name}`}</Card.Title>
+          <Card.Title className="psikiater-history-card-title">{`${appointment.patient_id.first_name} ${appointment.patient_id.last_name}`}</Card.Title>
           <Card.Text className="card-text-1">{` Date : ${moment(
             appointment.appointment_date
           ).format("DD MMM YYYY")}`}</Card.Text>

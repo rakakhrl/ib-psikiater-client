@@ -15,8 +15,7 @@
   width: 19rem;
 }
 
-.card-title,
-.card-text-1,
+.psikiater-history-card-title .card-text-1,
 .card-text-2 {
   text-align: center;
   font-weight: bold;

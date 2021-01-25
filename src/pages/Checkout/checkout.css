@@ -1,70 +1,87 @@
-/* JUMBOTRON */
+/* Title Checkout */
 
-.jumbotron-checkout {
-  margin-top: 5%;
-  background-color: #70a1ff !important;
+.checkout-page-title {
   text-align: center;
-  color: white;
+  text-transform: uppercase;
+  margin-top: 10px;
+  color: #7d9dec;
 }
 
-/* Image Pada Jumbotron */
+/* Row Card */
 
-.checkout-image {
-  margin-top: 30px;
-  max-width: 250px;
-  max-height: 230px;
+.checkout-page-row {
+  margin-top: 6%;
 }
 
-/* Column Didalam Row Jumbotron */
-
-.column-kiri,
-.column-kanan {
-  display: flex;
-  justify-content: space-evenly;
+@media screen and (max-width: 992px) {
+  .checkout-page-row {
+    margin-top: 5em;
+  }
 }
 
-/* FORM */
+/* Card Product */
 
-.form-checkout-wrapper {
-  margin-top: 30px;
+#card-product {
+  box-shadow: 5px 5px 5px #7d9dec;
+  border-radius: 9px;
+  border-color: #7d9dec;
 }
 
-.form-psikiater,
-.form-patient,
-.form-schedule {
+@media screen and (max-width: 992px) {
+  .checkout-payment-method {
+    margin-top: 2em;
+  }
+}
+
+.card-product-header {
+  border-radius: 8px !important;
+}
+
+#card-product-info {
   text-align: center;
-  background-color: white !important;
 }
 
-/* CARD */
+/* Payment Method Styling */
 
-.card-checkout-wrapper {
-  background-color: white !important;
-  width: 17rem;
-  height: 10rem;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.header-card-payment,
-.text-card-payment {
-  color: #70a1ff !important;
-}
-
-/* BUTTON */
-
-.button-wrapper {
+#checkout-payment-method-selection {
   margin-top: 30px;
+}
+
+.checkout-select-option {
+  box-shadow: 5px 5px 5px #7d9dec;
+}
+
+/* Card Payment Detail */
+
+#payment-detail-card {
+  box-shadow: 5px 5px 5px #7d9dec;
+  border-color: #7d9dec;
+  border-radius: 20px;
+  margin-bottom: 30px;
+}
+
+#checkout-price {
+  text-align: center;
+  padding: 30px;
+}
+
+.checkout-button-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.button-checkout {
-  background-color: #70a1ff !important;
+.checkout-cancel-button:hover {
+  background-color: #e65b85 !important;
+  border-color: #e65b85 !important;
+}
+.checkout-checkout-button {
+  margin-left: 10px;
+  background-color: #7d9dec !important;
+  border-color: #7d9dec !important;
 }
 
-.button-checkout:hover {
-  background-color: #7bed9f !important;
+.checkout-checkout-button:hover {
+  background-color: #70dba9 !important;
+  border-color: #70dba9 !important;
 }

@@ -74,7 +74,8 @@ const Appointment = () => {
           appointment_date,
           appointment_time,
           isOnline,
-          getIdCallback
+          getIdCallback,
+          psikiaterData.fees
         )
       );
     } else {
@@ -94,6 +95,7 @@ const Appointment = () => {
         });
         setIsLoading(false);
         setPsikiaterData(getData.data.data);
+        console.log(getData.data);
       } catch (error) {
         console.log(error);
       }
