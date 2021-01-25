@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import PrivateRoutePsikiater from "../../components/PrivateRoutePsikiater";
 
 import Table from "../../components/Table";
@@ -9,15 +9,15 @@ import Profile from "../Profile/index";
 const PsikiaterDashboardRoute = ({ path }) => {
   return (
     <Switch>
-      <PrivateRoutePsikiater path={`${path}`} exact>
+      <Route path={`${path}`} exact>
         <Table />
-      </PrivateRoutePsikiater>
-      <PrivateRoutePsikiater path={`${path}/history`} exact>
+      </Route>
+      <Route path={`${path}/history`} exact>
         <PsikiaterHistory />
-      </PrivateRoutePsikiater>
-      <PrivateRoutePsikiater path={`${path}/profile`} exact>
+      </Route>
+      <Route path={`${path}/profile`} exact>
         <Profile />
-      </PrivateRoutePsikiater>
+      </Route>
     </Switch>
   );
 };
