@@ -47,6 +47,11 @@ function Checkout() {
     setIsDisabled(true);
   };
 
+  const checkoutButtonHandler = () => {
+    const accesstoken = localStorage.getItem("accesstoken");
+    dispatch(appointmentAction.updatePaymentMethod(paymentMethod, accesstoken));
+    // history.push()
+  };
   return (
     <Container>
       <h3 className="checkout-page-title">Checkout</h3>

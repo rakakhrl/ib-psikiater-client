@@ -203,7 +203,7 @@ const updatePaymentMethod = (paymentMethod, accesstoken) => async (
 ) => {
   try {
     const updatePaymentMethod = await API({
-      url: "/payments/payment_method",
+      url: "/payments/payment-method",
       method: "PATCH",
       headers: {
         accesstoken: accesstoken,
