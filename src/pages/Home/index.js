@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
 import Jumbotron from "./Jumbotron/Jumbotron";
 import AboutCompany from "./AboutCompany/AboutCompany";
-import PremiumCard from "./PremiumCard/PremiumCard";
+import Consultation from "./Consultation/Consultation";
 import MapArea from "./MapArea/MapArea";
 import PsikiaterDetail from "./PsikiaterDetail/PsikiaterDetail";
 import Footer from "./Footer/Footer";
@@ -13,7 +12,7 @@ const Home = () => {
     <div>
       <Jumbotron />
       <AboutCompany />
-      <PremiumCard />
+      <Consultation />
       <MapArea />
       <PsikiaterDetail />
       <Footer />
