@@ -7,6 +7,8 @@ import moment from "moment";
 import "./checkout.css";
 import { Container, Row, Col, Form, Card, Button } from "react-bootstrap";
 import appointmentAction from "../../redux/actions/appointmentAction";
+import ModalCheckout from "./ModalCheckout";
+import ModalCancelCheckout from './ModalCancelCheckout'
 
 function Checkout() {
   const [payment, setPayment] = useState();
@@ -16,6 +18,10 @@ function Checkout() {
   const currencyFormatter = require("currency-formatter");
   const [isDisabled, setIsDisabled] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("");
+
+  const [modalShow, setModalShow] = useState(false);
+  const [cancelModalShow, setCancelModalShow] = useState(false)
+  
 
   useEffect(() => {
     console.log(paymentMethod);
@@ -49,9 +55,25 @@ function Checkout() {
 
   const checkoutButtonHandler = () => {
     const accesstoken = localStorage.getItem("accesstoken");
-    dispatch(appointmentAction.updatePaymentMethod(paymentMethod, accesstoken));
-    // history.push()
+    if (paymentMethod === "") {
+      setModalShow(true);
+    } else if (paymentMethod !== "") {
+      dispatch(
+        appointmentAction.updatePaymentMethod(
+          paymentMethod,
+          accesstoken,
+          payment_id
+        )
+      );
+      setModalShow(false);
+      history.push(`/upload-payment-slip/${payment_id}`);
+    }
   };
+
+  const cancelButtonHandler = () => {
+    setCancelModalShow(true);
+  };
+
   return (
     <Container>
       <h3 className="checkout-page-title">Checkout</h3>
@@ -133,10 +155,26 @@ function Checkout() {
                 })}
               </h1>
               <Container className="checkout-button-wrapper">
-                <Button variant="dark" className="checkout-cancel-button">
+                <Button
+                  onClick={cancelButtonHandler}
+                  variant="dark"
+                  className="checkout-cancel-button"
+                >
                   Cancel
                 </Button>
-                <Button className="checkout-checkout-button">Checkout</Button>
+                <Button
+                  onClick={checkoutButtonHandler}
+                  className="checkout-checkout-button"
+                >
+                  Checkout
+                </Button>
+                <ModalCheckout
+                  show={modalShow}
+                  onHide={() => setModalShow(false)}
+                />
+                <ModalCancelCheckout 
+                  show={cancelModalShow}
+                  onHide={() => setCancelModalShow(false)}/>
               </Container>
             </Card.Body>
           </Card>

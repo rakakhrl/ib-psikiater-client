@@ -1,0 +1,21 @@
+.cancel-button-checkout-modal {
+    background-color: white !important;
+    border-color: #e65b85 !important;
+    color: #e65b85 !important;
+    width : 100px;
+}
+
+.cancel-button-checkout-modal:hover {
+    background-color: #e65b85 !important;
+    border-color: #e65b85 !important;
+    color: white !important;
+}
+
+.close-button-checkout-modal{
+    width: 100px
+}
+
+.close-button-checkout-modal:hover{
+    background-color:  #7d9dec !important;
+    border-color: white !important;
+}

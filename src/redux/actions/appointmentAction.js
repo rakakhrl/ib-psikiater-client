@@ -164,41 +164,7 @@ const fetchPsikiaterAppointment = () => async (dispatch) => {
   }
 };
 
-const createAppointment = (
-  complaint,
-  allergy,
-  accesstoken,
-  psikiater_id,
-  patient_id,
-  appointment_date,
-  appointment_time,
-  isOnline,
-  getIdCallback
-) => async (dispatch) => {
-  try {
-    const createAppointment = await API({
-      method: "POST",
-      url: "/appointments",
-      headers: {
-        accesstoken: accesstoken,
-      },
-      data: {
-        psikiater_id: psikiater_id,
-        patient_id: patient_id,
-        appointment_date: appointment_date,
-        appointment_time: appointment_time,
-        complaint: complaint,
-        allergy: [allergy],
-        isOnline: isOnline,
-      },
-    });
-    getIdCallback(createAppointment.data.data._id);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-const updatePaymentMethod = (paymentMethod, accesstoken) => async (
+const updatePaymentMethod = (paymentMethod, accesstoken, payment_id) => async (
   dispatch
 ) => {
   try {
@@ -209,6 +175,7 @@ const updatePaymentMethod = (paymentMethod, accesstoken) => async (
         accesstoken: accesstoken,
       },
       data: {
+        payment_id: payment_id,
         payment_method: paymentMethod,
       },
     });
@@ -221,7 +188,6 @@ const appointmentAction = {
   changeStatusAppointment,
   addDiagnosePatient,
   createRating,
-  createAppointment,
   createPrescription,
   fetchPsikiaterAppointment,
   createPayment,

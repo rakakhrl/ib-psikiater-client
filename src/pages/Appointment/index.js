@@ -30,7 +30,8 @@ import "moment/locale/id";
 const Appointment = () => {
   const [psikiaterData, setPsikiaterData] = useState({});
   const [appointment_time, setAppointmentTime] = useState("");
-  const [appointment_date, setAppointmentDate] = useState("");
+  const date = new Date(Date.now());
+  const [appointment_date, setAppointmentDate] = useState(date.toISOString());
   const [complaint, setComplaint] = useState("");
   const [allergy, setAllergy] = useState("");
   const [product_type, setProductType] = useState("");
@@ -78,6 +79,7 @@ const Appointment = () => {
           psikiaterData.fees
         )
       );
+      console.log(accesstoken);
     } else {
       trigger("timeSchedule");
     }
@@ -138,10 +140,10 @@ const Appointment = () => {
 
   const productTypeHandler = (e) => {
     if (e.target.value === "Online") {
-      setProductType(e.target.value);
+      setProductType("apt-ol");
       setIsOnline(true);
     } else {
-      setProductType(e.target.value);
+      setProductType("apt-of");
       setIsOnline(false);
     }
   };
@@ -211,7 +213,6 @@ const Appointment = () => {
                       <Button>Psikiater doesn't have schedule yet</Button>
                     ) : (
                       psikiaterData?.schedule?.work_time.map((item) => {
-                        // console.log(checkAppointmentTime);
                         return (
                           <Form.Check
                             className="psikiater-time-schedule"
