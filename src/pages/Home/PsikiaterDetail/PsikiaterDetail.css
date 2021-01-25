@@ -1,0 +1,40 @@
+.psikiater-detail-page-title {
+  margin-top: 5%;
+  text-align: center;
+  font-family: Open Sans, sans-serif;
+  font-weight: bolder;
+  text-transform: uppercase;
+}
+
+.psikiater-detail-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 8%;
+}
+
+#psikiater-detail-card {
+  width: 20rem;
+  height: 500px;
+  margin-right: 3%;
+  text-align: center;
+  color: white;
+  background-color: #7d9dec !important;
+  box-shadow: 10px 10px 7px gray;
+  margin-bottom: 10%;
+  transition: 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#psikiater-detail-card:hover {
+  width: 21rem;
+  height: 502px;
+}
+
+.psikiater-detail-image-card {
+  padding: 5px;
+  height: 280px;
+}
+
+#psikiater-detail-horizontal-rule {
+  margin-top: 10%;
+}

@@ -16,7 +16,6 @@ import {
   Image,
   Card,
   Spinner,
-  Modal,
 } from "react-bootstrap";
 
 import { useForm } from "react-hook-form";
@@ -37,18 +36,13 @@ const Appointment = () => {
   const [sessionType, setSessionType] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [modalShow, setModalShow] = useState(false);
-  const [yesButtonCancel, setYesButtonCancel] = useState(true);
+  const [checkAppointmentTime, setCheckAppointmentTime] = useState();
   const history = useHistory();
   const dispatch = useDispatch();
   const dataUser = useSelector((state) => state.user.user_data);
   const patient_id = dataUser._id;
   const { psikiater_id } = useParams();
   const [startDate, setStartDate] = useState(new Date());
-
-  useEffect(() => {
-    moment.locale("id");
-    setAppointmentDate(moment(startDate).format("dddd"));
-  }, [startDate]);
 
   const schema = yup.object().shape({
     timeSchedule: yup.string().required("Required!"),
@@ -65,29 +59,24 @@ const Appointment = () => {
   };
 
   const onSubmit = (data) => {
+    const accesstoken = localStorage.getItem("accesstoken");
     if (appointment_time !== "") {
-      console.log(appointment_date);
-      console.log(appointment_time);
-      console.log(sessionType);
-      console.log(complaint);
-      console.log(allergy);
+      dispatch(
+        appointmentAction.createAppointment(
+          complaint,
+          allergy,
+          accesstoken,
+          psikiater_id,
+          patient_id,
+          appointment_date,
+          appointment_time,
+          sessionType,
+          getIdCallback
+        )
+      );
     } else {
       trigger("timeSchedule");
     }
-    const accesstoken = localStorage.getItem("accesstoken");
-    dispatch(
-      appointmentAction.createAppointment(
-        complaint,
-        allergy,
-        appointment_date,
-        appointment_time,
-        sessionType,
-        accesstoken,
-        psikiater_id,
-        patient_id,
-        getIdCallback
-      )
-    );
   };
 
   useEffect(() => {
@@ -111,6 +100,25 @@ const Appointment = () => {
     return getData;
   }, []);
 
+  useEffect(() => {
+    const getAppointmentPsikiaterSchedule = async () => {
+      try {
+        const response = await API({
+          url: `/appointments/time-schedule?psikiater_id=${psikiater_id}&appointment_date=${appointment_date}`,
+          method: "GET",
+          headers: {
+            accesstoken: localStorage.getItem("accesstoken"),
+          },
+        });
+        setCheckAppointmentTime(response.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getAppointmentPsikiaterSchedule();
+    return getAppointmentPsikiaterSchedule;
+  }, [appointment_date]);
+
   const complaintHandler = (e) => {
     setComplaint(e.target.value);
   };
@@ -124,12 +132,17 @@ const Appointment = () => {
   };
 
   const sessionTypeHandler = (e) => {
-    setSessionType(e.target.value);
+    if (e.target.value === "Online") {
+      setSessionType(true);
+    } else {
+      setSessionType(false);
+    }
   };
 
   const onHandler = (e) => {
     setAppointmentTime(e.target.value);
   };
+
   return (
     <>
       {isLoading ? (
@@ -170,7 +183,9 @@ const Appointment = () => {
                         selected={startDate}
                         onChange={(date) => {
                           setStartDate(date);
-                          setAppointmentDate(moment(date).format("dddd"));
+                          setAppointmentDate(
+                            moment(date).format("DD MMM YYYY")
+                          );
                           setAppointmentTime("");
                         }}
                       />
@@ -189,6 +204,7 @@ const Appointment = () => {
                       <Button>Psikiater doesn't have schedule yet</Button>
                     ) : (
                       psikiaterData?.schedule?.work_time.map((item) => {
+                        // console.log(checkAppointmentTime);
                         return (
                           <Form.Check
                             className="psikiater-time-schedule"
@@ -200,6 +216,7 @@ const Appointment = () => {
                             label={item}
                             id={`disabled-default-radio`}
                             onChange={onHandler}
+                            disabled={checkAppointmentTime?.includes(item)}
                           />
                         );
                       })
@@ -226,7 +243,7 @@ const Appointment = () => {
                         <option>Offline</option>
                         <option>Online</option>
                       </Form.Control>
-                      {sessionType.includes("Online" || "Offline") ? null : (
+                      {sessionType.length !== 0 ? null : (
                         <p className="error-message">
                           {errors.sessionType?.message}
                         </p>

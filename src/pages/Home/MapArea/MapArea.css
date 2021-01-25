@@ -1,0 +1,44 @@
+#map-area-wrapper {
+  margin-top: 5%;
+}
+
+.map-column {
+  display: flex;
+  justify-content: flex-start;
+}
+
+#text-map-area {
+  margin-top: 25%;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bolder;
+  color: #7d9dec;
+}
+
+@media screen and (max-width: 992px) {
+  #text-map-area {
+    margin-top: 10px;
+    text-align: center;
+  }
+}
+
+#map-column {
+  display: flex;
+  justify-content: center;
+}
+
+.map-image {
+  width: 80%;
+}
+
+@media screen and (max-width: 992px) {
+  .map-image {
+    margin-top: 50px;
+    text-align: center;
+    width: 70%;
+  }
+}
+
+.hr-map-area {
+  margin-top: 10%;
+}

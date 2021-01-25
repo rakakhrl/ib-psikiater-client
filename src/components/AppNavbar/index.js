@@ -7,6 +7,7 @@ import {
   Modal,
   OverlayTrigger,
   Popover,
+  Container,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -139,32 +140,41 @@ const AppNavbar = () => {
     return isLogin ? (
       <RoleAction />
     ) : (
-      <div className="ml-auto">
+      <Navbar id="navbar" className="ml-auto">
         <Link to="/register" className="mr-3 ">
-          <Button variant="outline-light">Register</Button>
+          <Button id="navbar-button" variant="outline-light">
+            Register
+          </Button>
         </Link>
         <Link to="/login">
-          <Button variant="outline-light">Sign In</Button>
+          <Button id="navbar-button" variant="outline-light">
+            Sign In
+          </Button>
         </Link>
-      </div>
+      </Navbar>
     );
   };
 
   return (
     // <div className="container">
-    <Navbar className="navbar-color" sticky="top">
-      {role !== "PSIKIATER" ? (
-        <Link to="/">
-          <Navbar.Brand style={{ color: "white" }}>
-            <b>CAPER | CARI PSIKIATER</b>
+    <Navbar collapseOnSelect expand="md" id="navbar" sticky="top">
+      <Container>
+        {role !== "PSIKIATER" ? (
+          <Link to="/">
+            <Navbar.Brand style={{ color: "white" }}>
+              <b id="navbar-brand-name">FILINGS</b>
+            </Navbar.Brand>
+          </Link>
+        ) : (
+          <Navbar.Brand>
+            <b id="navbar-brand-name">FILINGS</b>
           </Navbar.Brand>
-        </Link>
-      ) : (
-        <Navbar.Brand>
-          <b>CAPER | CARI PSIKIATER</b>
-        </Navbar.Brand>
-      )}
-      <NavbarActions />
+        )}
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <NavbarActions />
+        </Navbar.Collapse>
+      </Container>
     </Navbar>
     // </div>
   );

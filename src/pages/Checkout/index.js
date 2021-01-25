@@ -21,8 +21,8 @@ function Checkout() {
   const { appointment_id } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
-  console.log(appointment_id);
-  console.log(process.env.REACT_APP_BASE_URL);
+  const currencyFormatter = require("currency-formatter");
+
   useEffect(() => {
     const getData = async () => {
       try {
@@ -101,7 +101,7 @@ function Checkout() {
                       className="form-schedule"
                       type="text"
                       value={`${moment(appointment?.appointment_date).format(
-                        "YYYY MMM DD"
+                        "DD MMM YYYY"
                       )} - ${appointment?.appointment_time}`}
                       readOnly
                     ></Form.Control>
@@ -117,7 +117,9 @@ function Checkout() {
           </Card.Header>
           <Card.Body>
             <Card.Text className="text-card-payment">
-              {appointment?.psikiater_id?.fees}
+              {currencyFormatter.format(appointment?.psikiater_id?.fees, {
+                code: "IDR",
+              })}
             </Card.Text>
           </Card.Body>
         </Card>
