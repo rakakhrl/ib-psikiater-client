@@ -1,8 +1,6 @@
 import React from "react";
 import "./Appointment.css";
-import Calendar from "react-calendar";
 import API from "../../API/mainServer";
-import "react-calendar/dist/Calendar.css";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
