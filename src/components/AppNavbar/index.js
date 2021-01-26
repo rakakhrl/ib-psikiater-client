@@ -141,7 +141,7 @@ const AppNavbar = () => {
     return isLogin ? (
       <RoleAction />
     ) : (
-      <Navbar id="navbar" className="ml-auto">
+      <Navbar id="navbar-global" className="ml-auto">
         <Link to="/register" className="mr-3 ">
           <Button id="navbar-button" variant="outline-light">
             Register
@@ -158,7 +158,7 @@ const AppNavbar = () => {
 
   return (
     // <div className="container">
-    <Navbar collapseOnSelect expand="md" id="navbar" sticky="top">
+    <Navbar collapseOnSelect expand="md" id="navbar-global" sticky="top">
       <Container>
         {role !== "PSIKIATER" ? (
           <Link to="/">

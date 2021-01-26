@@ -1,15 +1,15 @@
-.navbar {
+/* .navbar {
   background-color: #5073c9 !important;
   height: 50px;
   padding: 0.5rem;
   z-index: 10;
-}
+} */
 
 .btn-1 {
   font-size: medium;
   border-radius: 10px;
 }
-#navbar {
+#navbar-global {
   transition: 500ms ease;
   background-color: #7d9dec !important;
 }
