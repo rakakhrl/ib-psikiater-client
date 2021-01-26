@@ -157,7 +157,6 @@ const AppNavbar = () => {
   };
 
   return (
-    // <div className="container">
     <Navbar collapseOnSelect expand="md" id="navbar-global" sticky="top">
       <Container>
         {role !== "PSIKIATER" ? (
