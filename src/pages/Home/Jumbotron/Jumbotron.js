@@ -15,8 +15,6 @@ function Jumbo() {
       region: regionInput,
       psikiater: psikiaterInput,
     });
-    console.log(regionInput);
-    console.log(psikiaterInput);
     setRegionInput("");
     setPsikiaterInput("");
   };

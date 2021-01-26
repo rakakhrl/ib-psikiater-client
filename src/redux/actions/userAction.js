@@ -102,7 +102,8 @@ const registerPatient = (
   email,
   date_of_birth,
   gender,
-  address
+  address,
+  callback
 ) => async (dispatch) => {
   try {
     const patient = await API({
@@ -118,20 +119,7 @@ const registerPatient = (
         address: address,
       },
     });
-
-    localStorage.setItem("isLogin", true);
-    localStorage.setItem("accesstoken", patient.data.token);
-    localStorage.setItem("userId", patient.data.data._id);
-    localStorage.setItem("role", patient.data.role);
-
-    dispatch({
-      type: LOGIN,
-      payload: {
-        isLogin: true,
-        role: patient.data.role,
-        user_data: patient.data.data,
-      },
-    });
+    callback();
   } catch (error) {
     swal("Register Gagal!", error.response.data.message, "error");
   }

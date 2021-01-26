@@ -102,7 +102,9 @@ const createPrescription = (
   }
 };
 
-const createAppointment = (
+const createPayment = (
+  patient,
+  product_type,
   complaint,
   allergy,
   accesstoken,
@@ -111,27 +113,33 @@ const createAppointment = (
   appointment_date,
   appointment_time,
   isOnline,
-  getIdCallback
+  getIdCallback,
+  fees
 ) => async (dispatch) => {
   try {
-    const createAppointment = await API({
+    const createPayment = await API({
+      url: `/payments/checkout`,
       method: "POST",
-      url: "/appointments",
       headers: {
         accesstoken: accesstoken,
       },
       data: {
-        psikiater_id: psikiater_id,
-        patient_id: patient_id,
-        appointment_date: appointment_date,
-        appointment_time: appointment_time,
-        complaint: complaint,
-        allergy: [allergy],
-        isOnline: isOnline,
+        patient: patient,
+        product_type: product_type,
+        product_detail: {
+          complaint: complaint,
+          allergy: allergy,
+          psikiater_id: psikiater_id,
+          patient_id: patient_id,
+          appointment_date: appointment_date,
+          appointment_time: appointment_time,
+          isOnline: isOnline,
+        },
+        product_price: fees,
       },
     });
-    console.log(createAppointment.data.data._id);
-    getIdCallback(createAppointment.data.data._id);
+    console.log(createPayment.data.data);
+    getIdCallback(createPayment.data.data._id);
   } catch (error) {
     console.log(error);
   }
@@ -156,13 +164,34 @@ const fetchPsikiaterAppointment = () => async (dispatch) => {
   }
 };
 
+const updatePaymentMethod = (paymentMethod, accesstoken, payment_id) => async (
+  dispatch
+) => {
+  try {
+    const updatePaymentMethod = await API({
+      url: "/payments/payment-method",
+      method: "PATCH",
+      headers: {
+        accesstoken: accesstoken,
+      },
+      data: {
+        payment_id: payment_id,
+        payment_method: paymentMethod,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const appointmentAction = {
   changeStatusAppointment,
   addDiagnosePatient,
   createRating,
-  createAppointment,
   createPrescription,
   fetchPsikiaterAppointment,
+  createPayment,
+  updatePaymentMethod,
 };
 
 export default appointmentAction;

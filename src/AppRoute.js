@@ -49,7 +49,7 @@ const AppRoute = () => {
       <PrivateRoutePsikiater path="/psikiater-dashboard">
         <Psikiater />
       </PrivateRoutePsikiater>
-      <Route path="/checkout-payment/:appointment_id" exact>
+      <Route path="/checkout-payment/:payment_id" exact>
         <Checkout />
       </Route>
       <Route path="/profile/:psychiatrist_id" exact>
