@@ -1,0 +1,37 @@
+#footer-wrapper {
+  margin: 0px;
+  background-color: #fcfcfc;
+  padding: 2%;
+}
+
+.filings-logo-footer {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 150px;
+}
+
+#footer-text {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  text-transform: uppercase;
+  color: black;
+}
+
+#footer-icons-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+#footer-icons {
+  color: black !important;
+  margin-top: 20px;
+  margin-left: 20px;
+  transition: 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#footer-icons:hover {
+  width: 40px;
+}

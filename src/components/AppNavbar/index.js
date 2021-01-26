@@ -7,11 +7,13 @@ import {
   Modal,
   OverlayTrigger,
   Popover,
+  Container,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../redux/actions/authAction";
 import userAction from "../../redux/actions/userAction";
+import ImagePasien from "../../assets/images/avatar-1577909_1280.png";
 import "./AppNavbar.css";
 
 const AppNavbar = () => {
@@ -46,9 +48,6 @@ const AppNavbar = () => {
   const RoleAction = () => {
     return role === "PATIENT" ? (
       <div className="ml-auto ">
-        <Link className="mr-3 text-light" to="/patient-history">
-          History
-        </Link>
         <OverlayTrigger
           trigger="click"
           placement="bottom-start"
@@ -59,7 +58,9 @@ const AppNavbar = () => {
                 <br />
                 <Link to="/patient-dashboard">Dashboard</Link>
                 <br />
-                <Link to="#">Sign Out</Link>
+                <Link to="#" onClick={() => dispatch(logout())}>
+                  Sign Out
+                </Link>
               </Popover.Content>
             </Popover>
           }
@@ -68,16 +69,11 @@ const AppNavbar = () => {
             height="30"
             width="30"
             className="mr-3"
-            src={
-              user.avatar_url === " " ? "../images/pic04.jpg" : user.avatar_url
-            }
+            src={user.avatar_url === "" ? ImagePasien : user.avatar_url}
             roundedCircle
             // onClick={handleShow}
           />
         </OverlayTrigger>
-        <Button onClick={() => dispatch(logout())} variant="outline-light">
-          Sign Out
-        </Button>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Upload Foto Profile Patient</Modal.Title>
@@ -139,32 +135,40 @@ const AppNavbar = () => {
     return isLogin ? (
       <RoleAction />
     ) : (
-      <div className="ml-auto">
+      <Navbar id="navbar-global" className="ml-auto">
         <Link to="/register" className="mr-3 ">
-          <Button variant="outline-light">Register</Button>
+          <Button id="navbar-button" variant="outline-light">
+            Register
+          </Button>
         </Link>
         <Link to="/login">
-          <Button variant="outline-light">Sign In</Button>
+          <Button id="navbar-button" variant="outline-light">
+            Sign In
+          </Button>
         </Link>
-      </div>
+      </Navbar>
     );
   };
 
   return (
-    // <div className="container">
-    <Navbar className="navbar-color" sticky="top">
-      {role !== "PSIKIATER" ? (
-        <Link to="/">
-          <Navbar.Brand style={{ color: "white" }}>
-            <b>CAPER | CARI PSIKIATER</b>
+    <Navbar collapseOnSelect expand="md" id="navbar-global" sticky="top">
+      <Container>
+        {role !== "PSIKIATER" ? (
+          <Link to="/">
+            <Navbar.Brand style={{ color: "white" }}>
+              <b id="navbar-brand-name">FILINGS</b>
+            </Navbar.Brand>
+          </Link>
+        ) : (
+          <Navbar.Brand>
+            <b id="navbar-brand-name">FILINGS</b>
           </Navbar.Brand>
-        </Link>
-      ) : (
-        <Navbar.Brand>
-          <b>CAPER | CARI PSIKIATER</b>
-        </Navbar.Brand>
-      )}
-      <NavbarActions />
+        )}
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <NavbarActions />
+        </Navbar.Collapse>
+      </Container>
     </Navbar>
     // </div>
   );

@@ -1,0 +1,9 @@
+.button-checkout-modal{
+    width: 100px;
+}
+
+.button-checkout-modal:hover{
+    background-color: #7d9dec !important;
+    color: white !important;
+    border-color: white;
+}

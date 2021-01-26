@@ -35,9 +35,25 @@ const Register = () => {
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
+
+  const callback = () => {
+    history.push("/email-verification-sent");
+  };
+
   const onSubmit = (data, e) => {
     e.preventDefault();
-    history.push("/email-verification-sent");
+    dispatch(
+      userAction.registerPatient(
+        first_name,
+        last_name,
+        password,
+        email,
+        date_of_birth,
+        gender,
+        address,
+        callback
+      )
+    );
   };
 
   const user = useSelector((state) => state.user);

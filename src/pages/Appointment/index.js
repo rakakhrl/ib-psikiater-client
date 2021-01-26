@@ -16,7 +16,6 @@ import {
   Image,
   Card,
   Spinner,
-  Modal,
 } from "react-bootstrap";
 
 import { useForm } from "react-hook-form";
@@ -31,13 +30,15 @@ import "moment/locale/id";
 const Appointment = () => {
   const [psikiaterData, setPsikiaterData] = useState({});
   const [appointment_time, setAppointmentTime] = useState("");
-  const [appointment_date, setAppointmentDate] = useState("");
+  const date = new Date(Date.now());
+  const [appointment_date, setAppointmentDate] = useState(date.toISOString());
   const [complaint, setComplaint] = useState("");
   const [allergy, setAllergy] = useState("");
-  const [sessionType, setSessionType] = useState("");
+  const [product_type, setProductType] = useState("");
+  const [isOnline, setIsOnline] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [modalShow, setModalShow] = useState(false);
-  const [yesButtonCancel, setYesButtonCancel] = useState(true);
+  const [checkAppointmentTime, setCheckAppointmentTime] = useState();
   const history = useHistory();
   const dispatch = useDispatch();
   const dataUser = useSelector((state) => state.user.user_data);
@@ -45,14 +46,9 @@ const Appointment = () => {
   const { psikiater_id } = useParams();
   const [startDate, setStartDate] = useState(new Date());
 
-  useEffect(() => {
-    moment.locale("id");
-    setAppointmentDate(moment(startDate).format("dddd"));
-  }, [startDate]);
-
   const schema = yup.object().shape({
     timeSchedule: yup.string().required("Required!"),
-    sessionType: yup.string().required("Required!"),
+    productType: yup.string().required("Required!"),
     complaint: yup.string().required("Required!"),
   });
 
@@ -65,29 +61,28 @@ const Appointment = () => {
   };
 
   const onSubmit = (data) => {
+    const accesstoken = localStorage.getItem("accesstoken");
     if (appointment_time !== "") {
-      console.log(appointment_date);
-      console.log(appointment_time);
-      console.log(sessionType);
-      console.log(complaint);
-      console.log(allergy);
+      dispatch(
+        appointmentAction.createPayment(
+          patient_id,
+          product_type,
+          complaint,
+          allergy,
+          accesstoken,
+          psikiater_id,
+          patient_id,
+          appointment_date,
+          appointment_time,
+          isOnline,
+          getIdCallback,
+          psikiaterData.fees
+        )
+      );
+      console.log(accesstoken);
     } else {
       trigger("timeSchedule");
     }
-    const accesstoken = localStorage.getItem("accesstoken");
-    dispatch(
-      appointmentAction.createAppointment(
-        complaint,
-        allergy,
-        appointment_date,
-        appointment_time,
-        sessionType,
-        accesstoken,
-        psikiater_id,
-        patient_id,
-        getIdCallback
-      )
-    );
   };
 
   useEffect(() => {
@@ -102,6 +97,7 @@ const Appointment = () => {
         });
         setIsLoading(false);
         setPsikiaterData(getData.data.data);
+        console.log(getData.data);
       } catch (error) {
         console.log(error);
       }
@@ -110,6 +106,25 @@ const Appointment = () => {
 
     return getData;
   }, []);
+
+  useEffect(() => {
+    const getAppointmentPsikiaterSchedule = async () => {
+      try {
+        const response = await API({
+          url: `/appointments/time-schedule?psikiater_id=${psikiater_id}&appointment_date=${appointment_date}`,
+          method: "GET",
+          headers: {
+            accesstoken: localStorage.getItem("accesstoken"),
+          },
+        });
+        setCheckAppointmentTime(response.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getAppointmentPsikiaterSchedule();
+    return getAppointmentPsikiaterSchedule;
+  }, [appointment_date]);
 
   const complaintHandler = (e) => {
     setComplaint(e.target.value);
@@ -123,13 +138,20 @@ const Appointment = () => {
     setModalShow(true);
   };
 
-  const sessionTypeHandler = (e) => {
-    setSessionType(e.target.value);
+  const productTypeHandler = (e) => {
+    if (e.target.value === "Online") {
+      setProductType("apt-ol");
+      setIsOnline(true);
+    } else {
+      setProductType("apt-of");
+      setIsOnline(false);
+    }
   };
 
   const onHandler = (e) => {
     setAppointmentTime(e.target.value);
   };
+
   return (
     <>
       {isLoading ? (
@@ -170,7 +192,9 @@ const Appointment = () => {
                         selected={startDate}
                         onChange={(date) => {
                           setStartDate(date);
-                          setAppointmentDate(moment(date).format("dddd"));
+                          setAppointmentDate(
+                            moment(date).format("DD MMM YYYY")
+                          );
                           setAppointmentTime("");
                         }}
                       />
@@ -200,6 +224,7 @@ const Appointment = () => {
                             label={item}
                             id={`disabled-default-radio`}
                             onChange={onHandler}
+                            disabled={checkAppointmentTime?.includes(item)}
                           />
                         );
                       })
@@ -218,7 +243,7 @@ const Appointment = () => {
                       <Form.Control
                         name="sessionType"
                         ref={() => register(register)}
-                        onChange={(v) => sessionTypeHandler(v)}
+                        onChange={(v) => productTypeHandler(v)}
                         className="form-session-type"
                         as="select"
                       >
@@ -226,9 +251,9 @@ const Appointment = () => {
                         <option>Offline</option>
                         <option>Online</option>
                       </Form.Control>
-                      {sessionType.includes("Online" || "Offline") ? null : (
+                      {product_type.length !== 0 ? null : (
                         <p className="error-message">
-                          {errors.sessionType?.message}
+                          {errors.productType?.message}
                         </p>
                       )}
                     </Form.Group>

@@ -10,6 +10,7 @@ const registerPsikiater = (
   email,
   date_of_birth,
   gender,
+  specialize,
   experience_year,
   region,
   fee,
@@ -26,6 +27,7 @@ const registerPsikiater = (
         email: email,
         date_of_birth,
         gender: gender,
+        specialize: specialize,
         experience_year: experience_year,
         region: region,
         fees: fee,
@@ -51,46 +53,42 @@ const registerPsikiater = (
   }
 };
 
-const uploadFotoPasien = (
-  avatar,
-) => async (dispatch) => {
+const uploadFotoPasien = (avatar) => async (dispatch) => {
   try {
     const role = localStorage.getItem("role");
     const user_id = localStorage.getItem("userId");
     const accesstoken = localStorage.getItem("accesstoken");
 
-    const data = new FormData()
-    data.append("profile_photo", avatar)
+    const data = new FormData();
+    data.append("profile_photo", avatar);
     const uploadFotoPasien = await API({
       method: "POST",
       url: `/patients/upload/${user_id}`,
       data: data,
-      headers:{
+      headers: {
         accesstoken: accesstoken,
-      }
+      },
     });
   } catch (error) {
     console.log(error);
   }
 };
 
-const uploadFotoPsikiater = (
-  avatar,
-) => async (dispatch) => {
+const uploadFotoPsikiater = (avatar) => async (dispatch) => {
   try {
     const role = localStorage.getItem("role");
     const user_id = localStorage.getItem("userId");
     const accesstoken = localStorage.getItem("accesstoken");
 
-    const data = new FormData()
-    data.append("profile_photo", avatar)
+    const data = new FormData();
+    data.append("profile_photo", avatar);
     const uploadFotoPsikiater = await API({
       method: "POST",
       url: `/psikiater/upload/${user_id}`,
       data: data,
-      headers:{
+      headers: {
         accesstoken: accesstoken,
-      }
+      },
     });
   } catch (error) {
     console.log(error);
@@ -104,7 +102,8 @@ const registerPatient = (
   email,
   date_of_birth,
   gender,
-  address
+  address,
+  callback
 ) => async (dispatch) => {
   try {
     const patient = await API({
@@ -120,28 +119,11 @@ const registerPatient = (
         address: address,
       },
     });
-
-    localStorage.setItem("isLogin", true);
-    localStorage.setItem("accesstoken", patient.data.token);
-    localStorage.setItem("userId", patient.data.data._id);
-    localStorage.setItem("role", patient.data.role);
-
-    dispatch({
-      type: LOGIN,
-      payload: {
-        isLogin: true,
-        role: patient.data.role,
-        user_data: patient.data.data,
-      },
-    });
+    callback();
   } catch (error) {
     swal("Register Gagal!", error.response.data.message, "error");
   }
 };
-
-
-
-
 
 const fetchUserData = () => async (dispatch) => {
   try {
@@ -206,7 +188,7 @@ const checkAccessToken = (accessToken) => async (dispatch) => {
       },
     });
 
-    console.log(getUserProfile)
+    console.log(getUserProfile);
 
     dispatch({
       type: "LOGIN",
