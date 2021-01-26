@@ -15,6 +15,7 @@ import { logout } from "../../redux/actions/authAction";
 import userAction from "../../redux/actions/userAction";
 import ImagePasien from "../../assets/images/avatar-1577909_1280.png";
 import "./AppNavbar.css";
+import { LOGOUT } from "../../redux/actions/actionTypes";
 
 const AppNavbar = () => {
   const isLogin = useSelector((store) => store.user.isLogin);
@@ -45,6 +46,11 @@ const AppNavbar = () => {
     handleClose();
   };
 
+  const handlerSignOut = () => {
+    localStorage.clear();
+    dispatch({ type: LOGOUT });
+  };
+
   const RoleAction = () => {
     return role === "PATIENT" ? (
       <div className="ml-auto ">
@@ -58,7 +64,9 @@ const AppNavbar = () => {
                 <br />
                 <Link to="/patient-dashboard">Dashboard</Link>
                 <br />
-                <Link to="#">Sign Out</Link>
+                <Link to="#" onClick={handlerSignOut}>
+                  Sign Out
+                </Link>
               </Popover.Content>
             </Popover>
           }
