@@ -16,8 +16,7 @@ const PsychiatristApproval = () => {
         method: "GET",
         url: "/psikiater/all/inactive",
         headers: {
-          accesstoken:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjAwZTQ4ODA4ZDdkMWIzMGM4Zjc5MjAxIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjExNjQzMjI2fQ.WJElPqP0QHkpqcP-24EizGSxfLvZTpLQvCnH6UlNJPU",
+          accesstoken: token,
         },
       });
 
