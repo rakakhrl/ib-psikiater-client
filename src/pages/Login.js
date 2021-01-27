@@ -1,20 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/actions/authAction";
-import { useHistory } from "react-router-dom";
-import { Button, Form, Container, Row, Col } from "react-bootstrap";
+import { useHistory, useLocation } from "react-router-dom";
+import { Alert, Button, Form, Container, Row, Col } from "react-bootstrap";
 
 // Form Validation Package
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
 const Login = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [alertShow, setAlertShow] = useState(false);
   const history = useHistory();
+  const query = useQuery();
 
   // Yup Validation Schema
 
@@ -35,6 +41,12 @@ const Login = () => {
   };
 
   useEffect(() => {
+    if (query.get("verify") === "true") {
+      setAlertShow(true);
+    }
+  }, []);
+
+  useEffect(() => {
     if (user.role === "PSIKIATER") {
       // TODO: change the route to psikiater dashboard
       history.push("/psikiater");
@@ -52,14 +64,6 @@ const Login = () => {
     dispatch(login(email, password));
   };
 
-  const registerPsikiater = () => {
-    history.push("/registerPsikiater");
-  };
-
-  const registerPasien = () => {
-    history.push("/registerPasien");
-  };
-
   return (
     <div>
       <Container style={{ marginLeft: "0%" }}>
@@ -70,6 +74,14 @@ const Login = () => {
             }}
           ></Col>
           <Col style={{ padding: "18%" }}>
+            <Alert
+              show={alertShow}
+              variant="success"
+              dismissible
+              onClose={() => setAlertShow(false)}
+            >
+              Your email successfully verified! Please login to continue.
+            </Alert>
             <h1>Login</h1>
             <Form>
               <Form.Group controlId="formBasicEmail">
@@ -108,38 +120,19 @@ const Login = () => {
             <Form.Group
               style={{ textAlign: "center", color: "red", marginTop: "10%" }}
             >
-              <a>Don't have an account?</a>
-            </Form.Group>
-            <Form.Group style={{ textAlign: "center", color: "blue" }}>
-              <a style={{ cursor: "pointer" }} onClick={registerPsikiater}>
-                Sign Up Psikiater
-              </a>{" "}
-              ||{" "}
-              <a style={{ cursor: "pointer" }} onClick={registerPasien}>
-                Sign Up Pasien
-              </a>
+              <p>
+                Don't have an account?{" "}
+                <a
+                  style={{ color: "blue", cursor: "pointer" }}
+                  onClick={() => history.push("/register")}
+                >
+                  Register here
+                </a>
+              </p>
             </Form.Group>
           </Col>
         </Row>
       </Container>
-      {/* <span>{JSON.stringify(user)}</span> */}
-      {/* <form onSubmit={formHandle}>
-        <input
-          type="text"
-          placeholder="email"
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
-        />
-        <input
-          type="password"
-          placeholder="password"
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
-        />
-        <input type="submit" value="Login" />
-        <button onClick={registerPsikiater}>Register Psikiater</button>
-        <button onClick={registerPasien}>Register Pasien</button>
-      </form> */}
     </div>
   );
 };
