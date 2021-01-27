@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Button, Form, Container, Row, Spinner } from "react-bootstrap";
 import { useParams, useHistory } from "react-router-dom";
 import API from "../../API/mainServer";
-import { useCollection } from "react-firebase-hooks/firestore";
+import { useCollection, useCollectionData, useDocument } from "react-firebase-hooks/firestore";
 import firebase from "../../config/firebaseConfig";
 import ChatMessage from "./ChatMessage";
 
@@ -16,7 +16,7 @@ const ChatRoom = () => {
 
   const bottomListRef = useRef();
 
-  // const { appointment_id } = useParams();
+  const { roomChat_id } = useParams();
 
   useEffect(() => {
     const getUserData = async () => {
@@ -36,20 +36,21 @@ const ChatRoom = () => {
     getUserData();
     return getUserData;
   }, []);
+  // console.log(dataAppointment)
   // const patientName = dataAppointment.patient_id.first_name;
   // const psikiaterName = dataAppointment.psikiater_id.first_name;
-
+const messageRef = firestore.collection("Message/baMxQGNYocZNx9khpFsp/Chat");
   const [value, loading, error] = useCollection(
-    firestore.collection("Message"),
+   messageRef,
     {
       snapshotListenOptions: { includeMetadataChanges: true },
     }
   );
 
-  const messageRef = firestore.collection("Message");
+  
   const query = messageRef.orderBy("createdAt").limit(25);
 
-  const [messages] = useCollection(query, { idField: "id" });
+  const [messages] = useCollectionData(query, { idField: "id" });
 
   const userRoleDisplayName = (role) => {
     if (role === "PATIENT") {
@@ -62,12 +63,15 @@ const ChatRoom = () => {
   const sendMessageHandler = async (e) => {
     e.preventDefault();
     await messageRef.add({
-      appointment_id: "",
-      from:
-        role === "PATIENT"
+      // appointment_id: "",
+      // from:
+      //   role === "PATIENT"
+      //     ? `${dataAppointment.patient_id.first_name} ${dataAppointment.patient_id.last_name}`
+      //     : `${dataAppointment.psikiater_id.first_name} ${dataAppointment.psikiater_id.last_name}`,
+      text: formValue,
+      sender : role === "PATIENT"
           ? `${dataAppointment.patient_id.first_name} ${dataAppointment.patient_id.last_name}`
           : `${dataAppointment.psikiater_id.first_name} ${dataAppointment.psikiater_id.last_name}`,
-      text: formValue,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     });
 
@@ -82,12 +86,12 @@ const ChatRoom = () => {
       <div>
         {error && <strong>Error: {JSON.stringify(error)}</strong>}
         {loading && <Spinner variant="primary" animation="border"></Spinner>}
-        {value &&
-          value.docs.map((doc) => {
+        {messages &&  
+          messages.map((doc) => {
             return (
-              <div key={doc.data().id}>
-                <p>{doc.data().from} :</p>
-                <p>{doc.data().text}</p>
+              <div key={doc.id}>
+                <p>{doc.sender} :</p>
+                <p>{doc.text}</p>
                 <hr />
               </div>
             );
@@ -105,7 +109,7 @@ const ChatRoom = () => {
               type="input"
               placeholder="type something here"
             />
-            <Button type="submit">submit</Button>
+            <Button type="submit" disabled={!formValue}>💬</Button>
           </Form.Group>
         </Form>
       </div>

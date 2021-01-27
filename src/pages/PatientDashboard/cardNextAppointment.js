@@ -58,11 +58,11 @@ const CardNextAppointment = ({ appointmentPaid }) => {
   const now = new Date().getTime();
   const newDate = convertDateToSecond - now;
 
-  // const handleButtonChatbox = () => {
-  //   history.push("/chatbox");
-  // };
+  const handleButtonChatbox = () => {
+    history.push("/chatbox/baMxQGNYocZNx9khpFsp");
+  };
 
-  const TimeCountdown = () => <Button>Start Now</Button>;
+  const TimeCountdown = () => <Button onClick={handleButtonChatbox}>Start Now</Button>;
 
   return (
     <>
