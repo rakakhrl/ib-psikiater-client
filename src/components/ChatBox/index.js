@@ -1,19 +1,43 @@
-import React, { useState, useRef } from "react";
-import { Button, Form, Container, Row } from "react-bootstrap";
-
+import React, { useState, useRef, useEffect } from "react";
+import { Button, Form, Container, Row, Spinner } from "react-bootstrap";
+import { useParams, useHistory } from "react-router-dom";
+import API from "../../API/mainServer";
 import { useCollection } from "react-firebase-hooks/firestore";
-import firebase from "firebase";
-import "firebase/firestore";
-import FirebaseConfig from "../../pages/firebaseConfig";
-
+import firebase from "../../config/firebaseConfig";
 import ChatMessage from "./ChatMessage";
-
-const firebaseApp = firebase.initializeApp(FirebaseConfig);
 
 const firestore = firebase.firestore();
 
 const ChatRoom = () => {
   const [formValue, setFormValue] = useState("");
+  const [dataAppointment, setDataAppointment] = useState([]);
+
+  const role = localStorage.getItem("role");
+
+  const bottomListRef = useRef();
+
+  // const { appointment_id } = useParams();
+
+  useEffect(() => {
+    const getUserData = async () => {
+      try {
+        const response = await API({
+          method: "GET",
+          url: `/appointments/6006dccbb3e0a3610841acc7`,
+          headers: {
+            accesstoken: localStorage.getItem("accesstoken"),
+          },
+        });
+        setDataAppointment(response.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getUserData();
+    return getUserData;
+  }, []);
+  // const patientName = dataAppointment.patient_id.first_name;
+  // const psikiaterName = dataAppointment.psikiater_id.first_name;
 
   const [value, loading, error] = useCollection(
     firestore.collection("Message"),
@@ -27,16 +51,29 @@ const ChatRoom = () => {
 
   const [messages] = useCollection(query, { idField: "id" });
 
+  const userRoleDisplayName = (role) => {
+    if (role === "PATIENT") {
+      console.log(`${dataAppointment.patient_id.last_name}`);
+    } else {
+      console.log(` ${dataAppointment.psikiater_id.last_name}`);
+    }
+  };
+
   const sendMessageHandler = async (e) => {
     e.preventDefault();
     await messageRef.add({
-      appointment_id: "1241241214",
-      from: "Oktado",
+      appointment_id: "",
+      from:
+        role === "PATIENT"
+          ? `${dataAppointment.patient_id.first_name} ${dataAppointment.patient_id.last_name}`
+          : `${dataAppointment.psikiater_id.first_name} ${dataAppointment.psikiater_id.last_name}`,
       text: formValue,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     });
 
     setFormValue("");
+
+    bottomListRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -44,19 +81,19 @@ const ChatRoom = () => {
       {/* SHOW INPUT RESULT  */}
       <div>
         {error && <strong>Error: {JSON.stringify(error)}</strong>}
-        {loading && <span>Collection: Loading...</span>}
+        {loading && <Spinner variant="primary" animation="border"></Spinner>}
         {value &&
           value.docs.map((doc) => {
             return (
               <div key={doc.data().id}>
-                <>{doc.data().from} :</>
+                <p>{doc.data().from} :</p>
                 <p>{doc.data().text}</p>
-                {/* <p>Timestamp: {JSON.stringify(doc.data().timestamp)}</p> */}
                 <hr />
               </div>
             );
           })}
       </div>
+      <div ref={bottomListRef} />
 
       {/* BUTTON & FORM INPUT */}
       <div>

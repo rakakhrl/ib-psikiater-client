@@ -60,7 +60,7 @@ function PsikiaterDetail() {
                       <Card.Title>
                         {item.first_name} {item.last_name}
                       </Card.Title>
-                      <Card.Text>{`Experience : ${item.info.experience_year}`}</Card.Text>
+                      <Card.Text>{`Experience : ${item.info?.experience_year}`}</Card.Text>
                       <Card.Text>{`Specialize : ${item.specialize}`}</Card.Text>
                       <Card.Text>
                         <ReviewPsikiater id={item._id} />
