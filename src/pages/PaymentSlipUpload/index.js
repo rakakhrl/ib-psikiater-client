@@ -8,7 +8,7 @@ import {
   Button,
   Spinner,
 } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import swal from "sweetalert";
 import API from "../../API/mainServer";
 import moment from "moment";
@@ -16,9 +16,9 @@ import moment from "moment";
 const PaymentSlipUpload = () => {
   const [file, setFile] = useState({});
   const [paymentObject, setPaymentObject] = useState({});
-  const [psychiatristName, setPsychiatristName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { payment_id } = useParams();
+  const history = useHistory();
 
   const fetchPaymentById = async () => {
     try {
@@ -33,6 +33,7 @@ const PaymentSlipUpload = () => {
         },
       });
 
+      console.log(response.data.data);
       setPaymentObject(response.data.data);
     } catch (error) {
       console.log(error);
@@ -48,31 +49,6 @@ const PaymentSlipUpload = () => {
     // eslint-disable-next-line
     []
   );
-
-  const getPsychiatristName = async (psychiatrist_id) => {
-    try {
-      const token = localStorage.getItem("accesstoken");
-
-      const response = await API({
-        method: "GET",
-        url: `/psikiater/${psychiatrist_id}`,
-        headers: {
-          accesstoken: token,
-        },
-      });
-
-      setPsychiatristName(
-        `${response.data.data.first_name} ${response.data.data.last_name}`
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    console.log(paymentObject);
-    getPsychiatristName(paymentObject.product_detail?.psikiater_id);
-  }, [paymentObject]);
 
   const uploadPaymentSlip = async () => {
     try {
@@ -92,8 +68,12 @@ const PaymentSlipUpload = () => {
         data: formData,
       });
 
-      swal("Upload success!", "Payment slip successfully uploaded!", "success");
       setIsLoading(false);
+      swal(
+        "Upload success!",
+        "Payment slip successfully uploaded! Please wait until your payment is verified by admin.",
+        "success"
+      ).then((value) => history.push("/patient-dashboard"));
     } catch (error) {
       swal("Upload failed!", error.message, "error");
       setIsLoading(false);
@@ -144,10 +124,11 @@ const PaymentSlipUpload = () => {
                 </Card.Text>
                 <Card.Text>
                   <strong>Psychiatrist: </strong>
-                  {psychiatristName}
+                  {paymentObject.product_detail?.psikiater_id.first_name}{" "}
+                  {paymentObject.product_detail?.psikiater_id.last_name}
                 </Card.Text>
                 <Card.Text>
-                  <strong>Fee: </strong>Rp {paymentObject.amount}
+                  <strong>Fee: </strong>Rp {paymentObject.product_price}
                 </Card.Text>
                 <Card.Text>
                   <strong>Payment Date: </strong>
@@ -163,13 +144,14 @@ const PaymentSlipUpload = () => {
               label={file.name ?? "Upload bukti pembayaran"}
               custom
               onChange={(e) => setFile(e.target.files[0])}
+              disabled={paymentObject.slip_url}
             />
           </Row>
           <br />
           <Row>
             <Button
               className="w-100"
-              disabled={isLoading}
+              disabled={isLoading || paymentObject.slip_url}
               onClick={uploadPaymentSlip}
             >
               {isLoading ? <Spinner animation="border" /> : "Upload"}
@@ -187,10 +169,19 @@ const PaymentSlipUpload = () => {
               />
             </Card>
           ) : (
-            <Card className="h-100 p-3">
-              <Card.Text className="text-secondary text-center">
-                Upload your payment proof for verification
-              </Card.Text>
+            <Card className="h-100 p-2">
+              {paymentObject.slip_url ? (
+                <Card.Img
+                  className="h-100"
+                  variant="top"
+                  alt="preview"
+                  src={paymentObject.slip_url}
+                />
+              ) : (
+                <Card.Text className="text-secondary text-center">
+                  Upload your payment proof for verification
+                </Card.Text>
+              )}
             </Card>
           )}
         </Col>

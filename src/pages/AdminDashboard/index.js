@@ -2,9 +2,12 @@ import React from "react";
 import { useRouteMatch, Link } from "react-router-dom";
 import { Row, Col, Nav, Button } from "react-bootstrap";
 import AdminDashboardRoute from "./AdminDashboardRoute";
+import { logout } from "../../redux/actions/authAction";
+import { useDispatch } from "react-redux";
 
 const AdminDashboard = () => {
   const { path, url } = useRouteMatch();
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -33,7 +36,7 @@ const AdminDashboard = () => {
             </div>
             <div>
               <Nav.Item className="p-2">
-                <Button onClick={() => console.log("signout")} variant="danger">
+                <Button onClick={() => dispatch(logout())} variant="danger">
                   Sign Out
                 </Button>
               </Nav.Item>
