@@ -53,8 +53,8 @@ const CardRecentAppointment = ({ appointmentDone, appointmentFetch }) => {
     return fetchReviewPsikiater;
   }, [show]);
 
-  const dateAppointment = appointmentDone.appointment_date;
-  const timeAppointment = appointmentDone.appointment_time;
+  const dateAppointment = appointmentDone?.appointment_date;
+  const timeAppointment = appointmentDone?.appointment_time;
   const dateAppointmentFormatted = moment(dateAppointment).format(
     "dddd, DD-MMMM-YYYY"
   );

@@ -48,8 +48,8 @@ const CardNextAppointment = ({ appointmentPaid }) => {
     fetchDataAppointment();
   }, []);
 
-  const dateAppointment = appointmentPaid.appointment_date;
-  const timeAppointment = appointmentPaid.appointment_time;
+  const dateAppointment = appointmentPaid?.appointment_date;
+  const timeAppointment = appointmentPaid?.appointment_time;
   const dateAppointmentFormatted = moment(dateAppointment).format("YYYY-MM-DD");
 
   const convertDateToSecond = new Date(
@@ -62,7 +62,9 @@ const CardNextAppointment = ({ appointmentPaid }) => {
     history.push("/chatbox/baMxQGNYocZNx9khpFsp");
   };
 
-  const TimeCountdown = () => <Button onClick={handleButtonChatbox}>Start Now</Button>;
+  const TimeCountdown = () => (
+    <Button onClick={handleButtonChatbox}>Start Now</Button>
+  );
 
   return (
     <>
@@ -83,14 +85,14 @@ const CardNextAppointment = ({ appointmentPaid }) => {
             <Col className={"col-4"}>
               <Image
                 className={"PhotoPsikiater"}
-                src={`${appointmentPaid.psikiater_id.avatar_url}`}
+                src={`${appointmentPaid?.psikiater_id?.avatar_url}`}
                 style={{ width: "75px", height: "75px" }}
                 alt="psikiater_photo.jpg"
                 roundedCircle
               />
               <Card.Text
                 style={{ marginLeft: "10px" }}
-              >{`${appointmentPaid.psikiater_id.first_name} ${appointmentPaid.psikiater_id.last_name} `}</Card.Text>
+              >{`${appointmentPaid?.psikiater_id?.first_name} ${appointmentPaid?.psikiater_id?.last_name} `}</Card.Text>
             </Col>
           </Row>
         </Card.Body>

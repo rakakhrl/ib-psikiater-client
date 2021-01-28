@@ -62,7 +62,7 @@ const PatientDashboard = () => {
         style={{ height: "150px", width: "350px", paddingTop: "10" }}
       >
         <h5 className={"Judul"}>Your Next Appointment Starts In</h5>
-        {!appointmentPaid[0] ? (
+        {appointmentPaid.lenght === 0 ? (
           <h3>You Dont Have Any Appointment Schedule</h3>
         ) : (
           <CardNextAppointment appointmentPaid={appointmentPaid[0]} />
