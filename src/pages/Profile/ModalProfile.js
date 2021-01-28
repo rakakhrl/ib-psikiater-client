@@ -36,10 +36,9 @@ function ModalPsikiater(props) {
 
   return (
     <Modal {...props} size="lg" centered>
-      <Modal.Header closeButton>
-        <Modal.Title>Input Your New Schedule</Modal.Title>
-      </Modal.Header>
+      <Modal.Header closeButton></Modal.Header>
       <Modal.Body>
+        <h4 className="modal-profile-page-title">Input Your New Schedule</h4>
         <Form.Group className="mb-3">
           <Form.Label>Work Days</Form.Label>
           <Form.Control
@@ -56,10 +55,10 @@ function ModalPsikiater(props) {
         </Form.Group>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="danger" onClick={updateButtonHandler}>
+        <Button variant="outline-success" onClick={updateButtonHandler}>
           Update
         </Button>
-        <Button variant="dark" onClick={props.onHide}>
+        <Button variant="outline-dark" onClick={props.onHide}>
           Close
         </Button>
       </Modal.Footer>

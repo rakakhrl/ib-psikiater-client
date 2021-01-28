@@ -12,6 +12,7 @@ import {
   Image,
   Button,
   InputGroup,
+  Card,
 } from "react-bootstrap";
 import moment from "moment";
 import userAction from "../../redux/actions/userAction";
@@ -79,135 +80,143 @@ const Index = () => {
         Profile
       </h1>
       <Container>
-        <Row>
-          <Col md={12} lg={6}>
-            <Image
-              className="profile-psikiater-avatar"
-              src={
-                psikiater.avatar_url === ""
-                  ? "../images/pic04.jpg"
-                  : psikiater.avatar_url
-              }
-            ></Image>
-          </Col>
-          <Col md={12} lg={6} className="profile-psikiater-main-column-1">
-            <Form>
-              <Row>
-                <Col>
-                  <Form.Label>Name</Form.Label>
-                  <Form.Control
-                    value={`${psikiater.first_name} ${psikiater.last_name}`}
-                    readOnly
-                  />
-                </Col>
-                <Col>
-                  <Form.Label>Gender</Form.Label>
-                  <Form.Control value={`${psikiater.gender}`} readOnly />
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <Form.Label>Date Of Birth</Form.Label>
-                  <Form.Control
-                    value={moment(`${psikiater.date_of_birth}`).format(
-                      "DD MMMM YYYY"
-                    )}
-                    readOnly
-                  />
-                </Col>
-                <Col>
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control value={psikiater.email} readOnly />
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <Form.Label>Specialize & Experience Year</Form.Label>
-                  <Form.Control
-                    value={`${psikiater.specialize} (${psikiater.info.experience_year})`}
-                    readOnly
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <Form.Label>Work Days & Work Times</Form.Label>
-                  {psikiater.schedule.work_days.length === 0 &&
-                  psikiater.schedule.work_time.length === 0 ? (
-                    <>
-                      <InputGroup className="mb-3">
-                        <Form.Control
-                          placeholder="Input Your Work Days"
-                          onChange={workDaysHandler}
-                        />
-                      </InputGroup>
-                      <InputGroup className="mb-3">
-                        <Form.Control
-                          placeholder="Input Your Work Times"
-                          onChange={workTimesHandler}
-                        />
-                      </InputGroup>
+        <Card className="profile-psikiater-card-wrapper">
+          <Row>
+            <Col md={12} lg={6}>
+              <Image
+                className="profile-psikiater-avatar"
+                src={
+                  psikiater.avatar_url === ""
+                    ? "../images/pic04.jpg"
+                    : psikiater.avatar_url
+                }
+              ></Image>
+            </Col>
+            <Col md={12} lg={6} className="profile-psikiater-main-column-1">
+              <Form>
+                <Row>
+                  <Col lg={6} md={12}>
+                    <Form.Label>Name</Form.Label>
+                    <Form.Control
+                      value={`${psikiater.first_name} ${psikiater.last_name}`}
+                      readOnly
+                    />
+                  </Col>
+                  <Col lg={6} md={12}>
+                    <Form.Label>Gender</Form.Label>
+                    <Form.Control value={`${psikiater.gender}`} readOnly />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col lg={6} md={12}>
+                    <Form.Label>Date Of Birth</Form.Label>
+                    <Form.Control
+                      value={moment(`${psikiater.date_of_birth}`).format(
+                        "DD MMMM YYYY"
+                      )}
+                      readOnly
+                    />
+                  </Col>
+                  <Col lg={6} md={12}>
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control value={psikiater.email} readOnly />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={12} lg={6}>
+                    <Form.Label>Specialize</Form.Label>
+                    <Form.Control value={psikiater.specialize} readOnly />
+                  </Col>
+                  <Col md={12} lg={6}>
+                    <Form.Label>Experience Year</Form.Label>
+                    <Form.Control
+                      value={psikiater.info.experience_year}
+                      readOnly
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <Form.Label>Work Days & Work Times</Form.Label>
+                    {psikiater.schedule.work_days.length === 0 &&
+                    psikiater.schedule.work_time.length === 0 ? (
+                      <>
+                        <InputGroup className="mb-3">
+                          <Form.Control
+                            placeholder="Input Your Work Days"
+                            onChange={workDaysHandler}
+                          />
+                        </InputGroup>
+                        <InputGroup className="mb-3">
+                          <Form.Control
+                            placeholder="Input Your Work Times"
+                            onChange={workTimesHandler}
+                          />
+                        </InputGroup>
 
-                      <Button
-                        disabled={
-                          workDays.includes("") && workTimes.includes("")
-                            ? true
-                            : false
-                        }
-                        onClick={updateButtonHandler}
-                      >
-                        Update
-                      </Button>
-                    </>
-                  ) : (
-                    <>
-                      <Row>
-                        <Col>
-                          {psikiater.schedule.work_days.map((days) => (
-                            <li>{days}</li>
-                          ))}
-                        </Col>
-                        <Col>
-                          {psikiater.schedule.work_time.map((times) => (
-                            <li>{times}</li>
-                          ))}
-                        </Col>
-                      </Row>
-                      <Container>
                         <Button
-                          onClick={() => setModalShow(true)}
-                          style={{
-                            display: "flex",
-                            marginLeft: "auto",
-                            marginRight: "auto",
-                          }}
+                          variant="outline-dark"
+                          disabled={
+                            workDays.includes("") && workTimes.includes("")
+                              ? true
+                              : false
+                          }
+                          onClick={updateButtonHandler}
                         >
                           Update
                         </Button>
-                        <ModalProfile
-                          show={modalShow}
-                          onHide={() => setModalShow(false)}
-                        />
-                      </Container>
-                    </>
-                  )}
-                </Col>
-              </Row>
+                      </>
+                    ) : (
+                      <>
+                        <Row>
+                          <Col>
+                            {psikiater.schedule.work_days.map((days) => (
+                              <li>{days}</li>
+                            ))}
+                          </Col>
+                          <Col>
+                            {psikiater.schedule.work_time.map((times) => (
+                              <li>{times}</li>
+                            ))}
+                          </Col>
+                        </Row>
+                        <Container>
+                          <Button
+                            variant="outline-dark"
+                            onClick={() => setModalShow(true)}
+                            style={{
+                              display: "flex",
+                              marginLeft: "auto",
+                              marginRight: "auto",
+                            }}
+                          >
+                            Update
+                          </Button>
+                          <ModalProfile
+                            show={modalShow}
+                            onHide={() => setModalShow(false)}
+                          />
+                        </Container>
+                      </>
+                    )}
+                  </Col>
+                </Row>
 
-              <Row>
-                <Col>
-                  <Form.Label>Work Address</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    readOnly
-                    row={3}
-                    value={`${psikiater.work_address}, ${psikiater.info.region}`}
-                  />
-                </Col>
-              </Row>
-            </Form>
-          </Col>
-        </Row>
+                <Row>
+                  <Col>
+                    <Form.Label>Work Address</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      readOnly
+                      row={3}
+                      value={`${psikiater.work_address}, ${psikiater.info.region}`}
+                    />
+                  </Col>
+                </Row>
+              </Form>
+            </Col>
+          </Row>
+        </Card>
       </Container>
     </>
   );

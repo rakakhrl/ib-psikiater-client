@@ -1,3 +1,10 @@
+.profile-psikiater-card-wrapper {
+  padding: 40px;
+  border-color: #7d9dec !important;
+  border-radius: 40px !important;
+  box-shadow: 5px 5px 2px #7d9dec;
+}
+
 .profile-psikiater-avatar {
   width: 300px;
 }
