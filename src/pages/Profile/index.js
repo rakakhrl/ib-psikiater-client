@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import API from "../../API/mainServer";
+import swal from "sweetalert";
 import {
   Container,
   Form,
@@ -9,16 +11,18 @@ import {
   Image,
   Button,
   InputGroup,
-  FormControl,
 } from "react-bootstrap";
 import moment from "moment";
 import userAction from "../../redux/actions/userAction";
+import ModalProfile from "./ModalProfile";
 
 const Index = () => {
   const [workDays, setWorkDays] = useState([""]);
   const [workTimes, setWorkTimes] = useState([""]);
+  const [modalShow, setModalShow] = useState(false);
 
   const dispatch = useDispatch();
+  const history = useHistory();
   const accesstoken = localStorage.getItem("accesstoken");
   const psikiater = useSelector((store) => store.user.user_data);
   const psikiater_id = psikiater._id;
@@ -33,6 +37,10 @@ const Index = () => {
     console.log(workTimes);
   }, [workDays, workTimes]);
 
+  // const callback = () => {
+  //   location.reload();
+  // };
+
   const updateButtonHandler = () => {
     dispatch(
       userAction.changePsikiaterSchedule(
@@ -42,6 +50,10 @@ const Index = () => {
         workTimes
       )
     );
+    swal("Schedule Updated!", "", "success");
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   };
 
   const workDaysHandler = (e) => {
@@ -161,6 +173,7 @@ const Index = () => {
                       </Row>
                       <Container>
                         <Button
+                          onClick={() => setModalShow(true)}
                           style={{
                             display: "flex",
                             marginLeft: "auto",
@@ -169,6 +182,10 @@ const Index = () => {
                         >
                           Update
                         </Button>
+                        <ModalProfile
+                          show={modalShow}
+                          onHide={() => setModalShow(false)}
+                        />
                       </Container>
                     </>
                   )}
