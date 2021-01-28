@@ -52,16 +52,16 @@ function PsikiaterDetail() {
                 <Card.Img
                   className="psikiater-detail-image-card"
                   variant="top"
-                  src={psikiater[0].avatar_url}
+                  src={psikiater[0]?.avatar_url}
                 />
                 <Card.Body>
                   <Card.Title>
-                    {psikiater[0].first_name} {psikiater[0].last_name}
+                    {psikiater[0]?.first_name} {psikiater[0]?.last_name}
                   </Card.Title>
-                  <Card.Text>{`Experience : ${psikiater[0].info.experience_year}`}</Card.Text>
-                  <Card.Text>{`Specialize : ${psikiater[0].specialize}`}</Card.Text>
+                  <Card.Text>{`Experience : ${psikiater[0]?.info.experience_year}`}</Card.Text>
+                  <Card.Text>{`Specialize : ${psikiater[0]?.specialize}`}</Card.Text>
                   <Card.Text>
-                    <ReviewPsikiater id={psikiater[0]._id} />
+                    <ReviewPsikiater id={psikiater[0]?._id} />
                   </Card.Text>
                 </Card.Body>
               </Card>

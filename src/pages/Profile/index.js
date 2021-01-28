@@ -1,12 +1,56 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import API from "../../API/mainServer";
-import { Container, Form, Col, Row, Image } from "react-bootstrap";
+import {
+  Container,
+  Form,
+  Col,
+  Row,
+  Image,
+  Button,
+  InputGroup,
+  FormControl,
+} from "react-bootstrap";
+import moment from "moment";
+import userAction from "../../redux/actions/userAction";
 
 const Index = () => {
+  const [workDays, setWorkDays] = useState([""]);
+  const [workTimes, setWorkTimes] = useState([""]);
+
+  const dispatch = useDispatch();
   const accesstoken = localStorage.getItem("accesstoken");
-  const profile = useSelector((store) => store.user.user_data);
-  console.log(profile);
+  const psikiater = useSelector((store) => store.user.user_data);
+  const psikiater_id = psikiater._id;
+
+  useEffect(() => {
+    console.log(psikiater);
+    console.log(psikiater_id);
+  }, []);
+
+  useEffect(() => {
+    console.log(workDays);
+    console.log(workTimes);
+  }, [workDays, workTimes]);
+
+  const updateButtonHandler = () => {
+    dispatch(
+      userAction.changePsikiaterSchedule(
+        psikiater_id,
+        accesstoken,
+        workDays,
+        workTimes
+      )
+    );
+  };
+
+  const workDaysHandler = (e) => {
+    setWorkDays(e.target.value.split(", "));
+  };
+
+  const workTimesHandler = (e) => {
+    setWorkTimes(e.target.value.split(", "));
+  };
 
   return (
     <>
@@ -21,14 +65,169 @@ const Index = () => {
       >
         Profile
       </h1>
-      <Container
-        style={{
-          backgroundColor: "#ff6b81",
-          padding: "20px",
-        }}
-      >
-        <Row></Row>
-        <Form
+      <Container>
+        <Row>
+          <Col>
+            <Image
+              src={
+                psikiater.avatar_url === ""
+                  ? "../images/pic04.jpg"
+                  : psikiater.avatar_url
+              }
+            ></Image>
+          </Col>
+          <Col>
+            <Form>
+              <Row>
+                <Col>
+                  <Form.Label>Name</Form.Label>
+                  <Form.Control
+                    value={`${psikiater.first_name} ${psikiater.last_name}`}
+                    readOnly
+                  />
+                </Col>
+                <Col>
+                  <Form.Label>Gender</Form.Label>
+                  <Form.Control value={`${psikiater.gender}`} readOnly />
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Form.Label>Date Of Birth</Form.Label>
+                  <Form.Control
+                    value={moment(`${psikiater.date_of_birth}`).format(
+                      "DD MMMM YYYY"
+                    )}
+                    readOnly
+                  />
+                </Col>
+                <Col>
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control value={psikiater.email} readOnly />
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Form.Label>Specialize & Experience Year</Form.Label>
+                  <Form.Control
+                    value={`${psikiater.specialize} (${psikiater.info.experience_year})`}
+                    readOnly
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Form.Label>Work Days & Work Times</Form.Label>
+                  {psikiater.schedule.work_days.length === 0 &&
+                  psikiater.schedule.work_time.length === 0 ? (
+                    <>
+                      <InputGroup className="mb-3">
+                        <Form.Control
+                          placeholder="Input Your Work Days"
+                          onChange={workDaysHandler}
+                        />
+                      </InputGroup>
+                      <InputGroup className="mb-3">
+                        <Form.Control
+                          placeholder="Input Your Work Times"
+                          onChange={workTimesHandler}
+                        />
+                      </InputGroup>
+
+                      <Button
+                        disabled={
+                          workDays.includes("") && workTimes.includes("")
+                            ? true
+                            : false
+                        }
+                        onClick={updateButtonHandler}
+                      >
+                        Update
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      <Row>
+                        <Col>
+                          {psikiater.schedule.work_days.map((days) => (
+                            <li>{days}</li>
+                          ))}
+                        </Col>
+                        <Col>
+                          {psikiater.schedule.work_time.map((times) => (
+                            <li>{times}</li>
+                          ))}
+                        </Col>
+                      </Row>
+                      <Container>
+                        <Button
+                          style={{
+                            display: "flex",
+                            marginLeft: "auto",
+                            marginRight: "auto",
+                          }}
+                        >
+                          Update
+                        </Button>
+                      </Container>
+                    </>
+                  )}
+                </Col>
+                {/* <Col>
+                  <Form.Label>Work Days</Form.Label>
+                  {psikiater.schedule.work_days.length === 0 ? (
+                    <div>
+                      <Form.Control onChange={workDaysHandler} />
+                      <Button
+                        disabled={
+                          workDays.length === 0 && workTimes.length === 0
+                            ? true
+                            : false
+                        }
+                        onClick={updateButtonHandler}
+                      >
+                        Update
+                      </Button>
+                    </div>
+                  ) : (
+                    psikiater.schedule.work_days.map((days) => <li>{days}</li>)
+                  )}
+                </Col>
+                <Col>
+                  <Form.Label>Work Time</Form.Label>
+                  {psikiater.schedule.work_time.length === 0 ? (
+                    <Form.Control onChange={workTimesHandler} />
+                  ) : (
+                    psikiater.schedule.work_time.map((times) => (
+                      <li>{times}</li>
+                    ))
+                  )}
+                </Col> */}
+              </Row>
+
+              <Row>
+                <Col>
+                  <Form.Label>Work Address</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    row={3}
+                    value={`${psikiater.work_address}, ${psikiater.info.region}`}
+                  />
+                  <Button variant="dark">Edit Work Address</Button>
+                </Col>
+              </Row>
+            </Form>
+          </Col>
+        </Row>
+      </Container>
+    </>
+  );
+};
+
+export default Index;
+
+{
+  /* <Form
           style={{
             marginTop: "20px",
             textAlign: "center",
@@ -133,10 +332,5 @@ const Index = () => {
               />
             </Col>
           </Form.Group>
-        </Form>
-      </Container>
-    </>
-  );
-};
-
-export default Index;
+        </Form> */
+}
