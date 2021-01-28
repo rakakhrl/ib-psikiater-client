@@ -13,6 +13,14 @@ import * as yup from "yup";
 const Register = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const user = useSelector((state) => state.user);
+  const [first_name, setFirstName] = useState("");
+  const [last_name, setLastName] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [date_of_birth, setDateofBirth] = useState("");
+  const [gender, setGender] = useState("");
+  const [address, setAddress] = useState("");
 
   //  Yup Validation Schema
   const schema = yup.object().shape({
@@ -37,7 +45,7 @@ const Register = () => {
   });
 
   const callback = () => {
-    history.push("/email-verification-sent");
+    history.push(`/email-verification?type=sent&email=${email}`);
   };
 
   const onSubmit = (data, e) => {
@@ -55,31 +63,6 @@ const Register = () => {
       )
     );
   };
-
-  const user = useSelector((state) => state.user);
-  const [first_name, setFirstName] = useState("");
-  const [last_name, setLastName] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [date_of_birth, setDateofBirth] = useState("");
-  const [gender, setGender] = useState("");
-  const [address, setAddress] = useState("");
-
-  // const formHandle = (e) => {
-  //   e.preventDefault();
-  //   dispatch(
-  //     userAction.registerPatient(
-  //       first_name,
-  //       last_name,
-  //       password,
-  //       email,
-  //       date_of_birth,
-  //       gender,
-  //       address
-  //     )
-  //   );
-  //   history.push("/email-verification-sent");
-  // };
 
   const handleBack = () => {
     history.goBack();
