@@ -136,6 +136,25 @@ const fetchUserData = () => async (dispatch) => {
       dispatch({ type: LOGOUT });
     }
 
+    if (role === "ADMIN") {
+      const patient = await API({
+        method: "GET",
+        url: `/admin/admin/${user_id}`,
+        headers: {
+          accesstoken: accesstoken,
+        },
+      });
+
+      dispatch({
+        type: LOGIN,
+        payload: {
+          isLogin: true,
+          role: role,
+          user_data: patient.data.data,
+        },
+      });
+    }
+
     if (role === "PATIENT") {
       const patient = await API({
         method: "GET",

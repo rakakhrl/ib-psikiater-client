@@ -17,7 +17,7 @@ const PaymentDetailModal = ({ show, handleClose, payment }) => {
         <Row>
           <Col className="text-left">Paid by:</Col>
           <Col className="text-left">
-            {payment.patient.first_name} {payment.patient.last_name}
+            {payment.patient?.first_name} {payment.patient?.last_name}
           </Col>
         </Row>
 
