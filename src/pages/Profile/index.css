@@ -1,0 +1,14 @@
+.profile-psikiater-avatar {
+  width: 300px;
+}
+
+@media screen and (max-width: 992px) {
+  .profile-psikiater-avatar {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .profile-psikiater-main-column-1 {
+    margin: 30px;
+  }
+}

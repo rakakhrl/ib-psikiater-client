@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import userAction from "../../redux/actions/userAction";
 import swal from "sweetalert";
+import "./ModalProfile.css";
 
 function ModalPsikiater(props) {
   const [workDays, setWorkDays] = useState([]);
@@ -34,16 +35,9 @@ function ModalPsikiater(props) {
   };
 
   return (
-    <Modal
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
+    <Modal {...props} size="lg" centered>
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Input Your New Schedule
-        </Modal.Title>
+        <Modal.Title>Input Your New Schedule</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form.Group className="mb-3">
@@ -62,8 +56,12 @@ function ModalPsikiater(props) {
         </Form.Group>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={updateButtonHandler}>Update</Button>
-        <Button onClick={props.onHide}>Close</Button>
+        <Button variant="danger" onClick={updateButtonHandler}>
+          Update
+        </Button>
+        <Button variant="dark" onClick={props.onHide}>
+          Close
+        </Button>
       </Modal.Footer>
     </Modal>
   );
