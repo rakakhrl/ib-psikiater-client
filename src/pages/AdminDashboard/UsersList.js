@@ -1,11 +1,17 @@
-import { cleanup } from "@testing-library/react";
 import React, { useState, useEffect } from "react";
-import { Table } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
 import API from "../../API/mainServer";
+import moment from "moment";
+import PatientDetailModal from "./PatientDetailModal";
+import PsychiatristDetailModal from "./PsychiatristDetailModal";
 
 const UserList = () => {
   const [patients, setPatients] = useState([]);
   const [psychiatrist, setPsychiatrist] = useState([]);
+  const [selectedPatient, setSelectedPatient] = useState({});
+  const [selectedPsychiatrist, setSelectedPsychiatrist] = useState({});
+  const [showModalPatient, setShowModalPatient] = useState(false);
+  const [showModalPsychiatrist, setShowModalPsychiatrist] = useState(false);
 
   const fetchListPatient = async () => {
     try {
@@ -14,7 +20,7 @@ const UserList = () => {
       const response = await API({
         method: "GET",
         url: "/patients",
-        header: {
+        headers: {
           accesstoken: token,
         },
       });
@@ -32,7 +38,7 @@ const UserList = () => {
       const response = await API({
         method: "GET",
         url: "/psikiater",
-        header: {
+        headers: {
           accesstoken: token,
         },
       });
@@ -53,8 +59,38 @@ const UserList = () => {
     };
   }, []);
 
+  const showDetailPatientModal = (patient) => {
+    setSelectedPatient(patient);
+    setShowModalPatient(true);
+  };
+
+  const hideDetailPatientModal = () => {
+    setShowModalPatient(false);
+    setSelectedPatient({});
+  };
+
+  const showDetailPsychiatristModal = (psychiatrist) => {
+    setSelectedPsychiatrist(psychiatrist);
+    setShowModalPsychiatrist(true);
+  };
+
+  const hideDetailPsychiatristModal = () => {
+    setShowModalPsychiatrist(false);
+    setSelectedPsychiatrist({});
+  };
+
   return (
     <div className="pt-3">
+      <PatientDetailModal
+        show={showModalPatient}
+        handleClose={hideDetailPatientModal}
+        patient={selectedPatient}
+      />
+      <PsychiatristDetailModal
+        show={showModalPsychiatrist}
+        handleClose={hideDetailPsychiatristModal}
+        psychiatrist={selectedPsychiatrist}
+      />
       <h4>Patient List</h4>
       <div style={{ height: "35vh", maxHeight: "35vh", overflowY: "scroll" }}>
         <Table striped bordered hover size="sm">
@@ -69,14 +105,34 @@ const UserList = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Oji Enjoy</td>
-              <td>Active</td>
-              <td>14-11-2020</td>
-              <td>Open detail</td>
-              <td>Activate</td>
-              <td>Deactivate</td>
-            </tr>
+            {patients.map((p) => (
+              <tr key={p._id}>
+                <td>
+                  {p.first_name} {p.last_name}
+                </td>
+                <td>{p.is_active ? "Active" : "Not Active"}</td>
+                <td>{moment(p.createdAt).format("DD-MM-YYYY")}</td>
+                <td>
+                  <Button onClick={() => showDetailPatientModal(p)}>
+                    Open detail
+                  </Button>
+                </td>
+                <td>
+                  <Button
+                    onClick={() =>
+                      console.log(`activate: ${JSON.stringify(p)}`)
+                    }
+                  >
+                    Activate
+                  </Button>
+                </td>
+                <td>
+                  <Button onClick={() => console.log(`deactivate: ${p}`)}>
+                    Deactivate
+                  </Button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </Table>
       </div>
@@ -95,14 +151,34 @@ const UserList = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Van Der Sar</td>
-              <td>Active</td>
-              <td>11-04-2019</td>
-              <td>Open detail</td>
-              <td>Activate</td>
-              <td>Deactivate</td>
-            </tr>
+            {psychiatrist.map((p) => (
+              <tr key={p._id}>
+                <td>
+                  {p.first_name} {p.last_name}
+                </td>
+                <td>{p.is_active ? "Active" : "Not Active"}</td>
+                <td>{moment(p.createdAt).format("DD-MM-YYYY")}</td>
+                <td>
+                  <Button onClick={() => showDetailPsychiatristModal(p)}>
+                    Open detail
+                  </Button>
+                </td>
+                <td>
+                  <Button
+                    onClick={() =>
+                      console.log(`activate: ${JSON.stringify(p)}`)
+                    }
+                  >
+                    Activate
+                  </Button>
+                </td>
+                <td>
+                  <Button onClick={() => console.log(`deactivate: ${p}`)}>
+                    Deactivate
+                  </Button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </Table>
       </div>
