@@ -80,7 +80,7 @@ const UserList = () => {
   };
 
   return (
-    <div className="pt-3">
+    <div className="pt-1">
       <PatientDetailModal
         show={showModalPatient}
         handleClose={hideDetailPatientModal}
@@ -92,7 +92,8 @@ const UserList = () => {
         psychiatrist={selectedPsychiatrist}
       />
       <h4>Patient List</h4>
-      <div style={{ height: "35vh", maxHeight: "35vh", overflowY: "scroll" }}>
+      <p>total of {patients.length} patients.</p>
+      <div style={{ height: "35vh", maxHeight: "32vh", overflowY: "scroll" }}>
         <Table striped bordered hover size="sm">
           <thead>
             <tr>
@@ -100,8 +101,6 @@ const UserList = () => {
               <th>Status</th>
               <th>Registered at</th>
               <th>Detail</th>
-              <th>Activate</th>
-              <th>Deactivate</th>
             </tr>
           </thead>
           <tbody>
@@ -117,20 +116,6 @@ const UserList = () => {
                     Open detail
                   </Button>
                 </td>
-                <td>
-                  <Button
-                    onClick={() =>
-                      console.log(`activate: ${JSON.stringify(p)}`)
-                    }
-                  >
-                    Activate
-                  </Button>
-                </td>
-                <td>
-                  <Button onClick={() => console.log(`deactivate: ${p}`)}>
-                    Deactivate
-                  </Button>
-                </td>
               </tr>
             ))}
           </tbody>
@@ -138,7 +123,8 @@ const UserList = () => {
       </div>
       <br />
       <h4>Psychiatrist List</h4>
-      <div style={{ height: "35vh", maxHeight: "35vh", overflowY: "scroll" }}>
+      <p>total of {psychiatrist.length} psychiatrist.</p>
+      <div style={{ height: "35vh", maxHeight: "32vh", overflowY: "scroll" }}>
         <Table striped bordered hover size="sm">
           <thead>
             <tr>
@@ -146,8 +132,6 @@ const UserList = () => {
               <th>Status</th>
               <th>Registered at</th>
               <th>Detail</th>
-              <th>Activate</th>
-              <th>Deactivate</th>
             </tr>
           </thead>
           <tbody>
@@ -161,20 +145,6 @@ const UserList = () => {
                 <td>
                   <Button onClick={() => showDetailPsychiatristModal(p)}>
                     Open detail
-                  </Button>
-                </td>
-                <td>
-                  <Button
-                    onClick={() =>
-                      console.log(`activate: ${JSON.stringify(p)}`)
-                    }
-                  >
-                    Activate
-                  </Button>
-                </td>
-                <td>
-                  <Button onClick={() => console.log(`deactivate: ${p}`)}>
-                    Deactivate
                   </Button>
                 </td>
               </tr>
