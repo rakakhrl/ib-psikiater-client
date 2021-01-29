@@ -9,6 +9,7 @@ import {
   FormControl,
 } from "react-bootstrap";
 import { useParams, useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 import API from "../../API/mainServer";
 import {
   useCollection,
@@ -26,18 +27,20 @@ const ChatRoom = () => {
   const [formValue, setFormValue] = useState("");
   const [dataAppointment, setDataAppointment] = useState([]);
 
-  const role = localStorage.getItem("role");
+  const role = useSelector((store) => store.user.role);
 
   const bottomListRef = useRef();
 
   const { roomChat_id } = useParams();
+
+  console.log(dataAppointment);
 
   useEffect(() => {
     const getUserData = async () => {
       try {
         const response = await API({
           method: "GET",
-          url: `/appointments/${roomChat_id}`,
+          url: `/appointments/6006dccbb3e0a3610841acc7`,
           headers: {
             accesstoken: localStorage.getItem("accesstoken"),
           },
@@ -73,8 +76,8 @@ const ChatRoom = () => {
       text: formValue,
       sender:
         role === "PATIENT"
-          ? `${dataAppointment.patient_id.first_name} ${dataAppointment.patient_id.last_name}`
-          : `${dataAppointment.psikiater_id.first_name} ${dataAppointment.psikiater_id.last_name}`,
+          ? `${dataAppointment?.patient_id?.first_name} ${dataAppointment?.patient_id?.last_name}`
+          : `${dataAppointment?.psikiater_id?.first_name} ${dataAppointment?.psikiater_id?.last_name}`,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     });
 
@@ -93,7 +96,9 @@ const ChatRoom = () => {
         {loading && <Spinner variant="primary" animation="border"></Spinner>}
         {messages &&
           messages.map((doc) => {
-            return <Message key={doc.id} text={doc.text} sender={doc.sender} />;
+            return (
+              <Message key={doc?.id} text={doc?.text} sender={doc?.sender} />
+            );
           })}
         {/* BUTTON & FORM INPUT */}
         <div>

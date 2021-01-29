@@ -10,12 +10,13 @@ import {
   Image,
 } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Countdown from "react-countdown";
 import API from "../../API/mainServer";
 import StarRatings from "react-star-ratings";
 import ImagePasien from "../../assets/images/fauzihaqmuslim.jpg";
 import moment from "moment";
-import "./index.css";
+// import "./index.css";
 
 const CardNextAppointment = ({ appointmentPaid }) => {
   const [rating, setRating] = useState(0);
@@ -23,7 +24,8 @@ const CardNextAppointment = ({ appointmentPaid }) => {
   const [appointment, setAppointment] = useState();
 
   const history = useHistory();
-
+  const role = useSelector((store) => store.user.role);
+  console.log(role);
   const fetchDataAppointment = async () => {
     try {
       const token = localStorage.getItem("accesstoken");
@@ -51,7 +53,7 @@ const CardNextAppointment = ({ appointmentPaid }) => {
   const dateAppointment = appointmentPaid?.appointment_date;
   const timeAppointment = appointmentPaid?.appointment_time;
   const dateAppointmentFormatted = moment(dateAppointment).format("YYYY-MM-DD");
-
+  console.log(dateAppointmentFormatted);
   const convertDateToSecond = new Date(
     `${dateAppointmentFormatted} ${timeAppointment}:00`
   ).getTime();
@@ -68,6 +70,7 @@ const CardNextAppointment = ({ appointmentPaid }) => {
 
   return (
     <>
+      <h5 className={"Judul"}>Your Next Appointment Starts In</h5>
       <Card>
         <Card.Body>
           <Row>
@@ -82,18 +85,33 @@ const CardNextAppointment = ({ appointmentPaid }) => {
               <Card.Text className="">{`${dateAppointmentFormatted}`}</Card.Text>
               <Card.Text>Online Appointment</Card.Text>
             </Col>
-            <Col className={"col-4"}>
-              <Image
-                className={"PhotoPsikiater"}
-                src={`${appointmentPaid?.psikiater_id?.avatar_url}`}
-                style={{ width: "75px", height: "75px" }}
-                alt="psikiater_photo.jpg"
-                roundedCircle
-              />
-              <Card.Text
-                style={{ marginLeft: "10px" }}
-              >{`${appointmentPaid?.psikiater_id?.first_name} ${appointmentPaid?.psikiater_id?.last_name} `}</Card.Text>
-            </Col>
+            {role === "PATIENT" ? (
+              <Col className={"col-4"}>
+                <Image
+                  className={"PhotoPsikiater"}
+                  src={`${appointmentPaid?.psikiater_id?.avatar_url}`}
+                  style={{ width: "75px", height: "75px" }}
+                  alt="psikiater_photo.jpg"
+                  roundedCircle
+                />
+                <Card.Text
+                  style={{ marginLeft: "10px" }}
+                >{`${appointmentPaid?.psikiater_id?.first_name} ${appointmentPaid?.psikiater_id?.last_name} `}</Card.Text>
+              </Col>
+            ) : (
+              <Col className={"col-4"}>
+                <Image
+                  className={"PhotoPasien"}
+                  src={`${appointmentPaid?.patient_id?.avatar_url}`}
+                  style={{ width: "75px", height: "75px" }}
+                  alt="patient_photo.jpg"
+                  roundedCircle
+                />
+                <Card.Text
+                  style={{ marginLeft: "10px" }}
+                >{`${appointmentPaid?.patient_id?.first_name} ${appointmentPaid?.patient_id?.last_name} `}</Card.Text>
+              </Col>
+            )}
           </Row>
         </Card.Body>
       </Card>
