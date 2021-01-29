@@ -10,6 +10,8 @@ import CreatePrescriptionModal from "../CreatePrescriptionModal.js";
 import AddDiagnoseModal from "../AddDiagnoseModal.js";
 import appointmentAction from "../../redux/actions/appointmentAction.js";
 import swal from "sweetalert";
+import { Next } from "react-bootstrap/esm/PageItem";
+import CardNextAppointment from "../NextAppointment/cardNextAppointment";
 
 const Index = () => {
   const dispatch = useDispatch();
@@ -21,6 +23,8 @@ const Index = () => {
   const [showPrescriptionModal, setShowPrescriptionModal] = useState(false);
   const [showDiagnoseModal, setShowDiagnoseModal] = useState(false);
   const [rerender, setRerender] = useState(false);
+
+  const appointmentPaid = appointmentData.filter((el) => el.status === "Paid");
 
   //fetch data ketika page pertama kali di buka
   useEffect(() => {
@@ -143,6 +147,7 @@ const Index = () => {
       >
         Schedule
       </h1>
+      <CardNextAppointment appointmentPaid={appointmentPaid[0]} />
       <FullCalendar
         height={500}
         plugins={[timeGridPlugin]}

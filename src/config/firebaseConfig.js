@@ -1,4 +1,7 @@
-const FirebaseConfig = {
+import firebase from "firebase/app";
+import "firebase/firestore";
+
+const firebaseConfig = {
   apiKey: "AIzaSyCqOlka1Sns-IsFnj1CtXcGxHQfxt1MA8E",
   authDomain: "webchat-27f5d.firebaseapp.com",
   databaseURL: "https://webchat-27f5d-default-rtdb.firebaseio.com",
@@ -9,4 +12,6 @@ const FirebaseConfig = {
   measurementId: "G-M1D8K4HXPG",
 };
 
-export default FirebaseConfig;
+firebase.initializeApp(firebaseConfig);
+
+export default firebase;
