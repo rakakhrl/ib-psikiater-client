@@ -1,19 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
 import Jumbotron from "./Jumbotron/Jumbotron";
 import AboutCompany from "./AboutCompany/AboutCompany";
-import PremiumCard from "./PremiumCard/PremiumCard";
+import Consultation from "./Consultation/Consultation";
 import MapArea from "./MapArea/MapArea";
 import PsikiaterDetail from "./PsikiaterDetail/PsikiaterDetail";
 import Footer from "./Footer/Footer";
 import CompanyNameFooter from "./CompanyNameFooter.js/CompanyNameFooter";
 
+import { useSelector } from "react-redux";
+
 const Home = () => {
+  const store = useSelector((state) => state.user);
+
+  useEffect(() => {
+    console.log(store);
+  }, [store]);
+
   return (
     <div>
       <Jumbotron />
       <AboutCompany />
-      <PremiumCard />
+      <Consultation />
       <MapArea />
       <PsikiaterDetail />
       <Footer />

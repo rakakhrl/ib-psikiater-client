@@ -5,7 +5,9 @@
   padding-left: 0;
   font-family: "Montserrat", sans-serif;
   font-weight: bold !important;
-  color: white;
+  color: yellow;
+
+  margin: 0;
 }
 
 .side-bar .link {

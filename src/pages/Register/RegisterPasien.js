@@ -13,6 +13,14 @@ import * as yup from "yup";
 const Register = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const user = useSelector((state) => state.user);
+  const [first_name, setFirstName] = useState("");
+  const [last_name, setLastName] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [date_of_birth, setDateofBirth] = useState("");
+  const [gender, setGender] = useState("");
+  const [address, setAddress] = useState("");
 
   //  Yup Validation Schema
   const schema = yup.object().shape({
@@ -35,35 +43,26 @@ const Register = () => {
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
-  const onSubmit = (data, e) => {
-    e.preventDefault();
-    history.push("/email-verification-sent");
+
+  const callback = () => {
+    history.push(`/email-verification?type=sent&email=${email}`);
   };
 
-  const user = useSelector((state) => state.user);
-  const [first_name, setFirstName] = useState("");
-  const [last_name, setLastName] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [date_of_birth, setDateofBirth] = useState("");
-  const [gender, setGender] = useState("");
-  const [address, setAddress] = useState("");
-
-  // const formHandle = (e) => {
-  //   e.preventDefault();
-  //   dispatch(
-  //     userAction.registerPatient(
-  //       first_name,
-  //       last_name,
-  //       password,
-  //       email,
-  //       date_of_birth,
-  //       gender,
-  //       address
-  //     )
-  //   );
-  //   history.push("/email-verification-sent");
-  // };
+  const onSubmit = (data, e) => {
+    e.preventDefault();
+    dispatch(
+      userAction.registerPatient(
+        first_name,
+        last_name,
+        password,
+        email,
+        date_of_birth,
+        gender,
+        address,
+        callback
+      )
+    );
+  };
 
   const handleBack = () => {
     history.goBack();

@@ -15,7 +15,7 @@ import PublicProfilePsychiatrist from "./pages/PublicPsychiatristProfile";
 import ProfilePatient from "./pages/ProfilePatient";
 import PatientDashboard from "./pages/PatientDashboard";
 import Chatbox from "./pages/Chatbox/index";
-import EmailVerificationSent from "./pages/EmailVerificationSent";
+import EmailVerification from "./pages/EmailVerification";
 import PaymentSlipUpload from "./pages/PaymentSlipUpload";
 import AdminDashboard from "./pages/AdminDashboard";
 
@@ -49,7 +49,7 @@ const AppRoute = () => {
       <PrivateRoutePsikiater path="/psikiater-dashboard">
         <Psikiater />
       </PrivateRoutePsikiater>
-      <Route path="/checkout-payment/:appointment_id" exact>
+      <Route path="/checkout-payment/:payment_id" exact>
         <Checkout />
       </Route>
       <Route path="/profile/:psychiatrist_id" exact>
@@ -61,8 +61,8 @@ const AppRoute = () => {
       <Route path="/patient-dashboard" exact>
         <PatientDashboard />
       </Route>
-      <Route path="/email-verification-sent" exact>
-        <EmailVerificationSent />
+      <Route path="/email-verification" exact>
+        <EmailVerification />
       </Route>
       <Route path="/upload-payment-slip/:payment_id" exact>
         <PaymentSlipUpload />
