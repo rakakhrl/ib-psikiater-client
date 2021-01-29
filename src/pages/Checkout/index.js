@@ -8,7 +8,7 @@ import "./checkout.css";
 import { Container, Row, Col, Form, Card, Button } from "react-bootstrap";
 import appointmentAction from "../../redux/actions/appointmentAction";
 import ModalCheckout from "./ModalCheckout";
-import ModalCancelCheckout from './ModalCancelCheckout'
+import ModalCancelCheckout from "./ModalCancelCheckout";
 
 function Checkout() {
   const [payment, setPayment] = useState();
@@ -20,8 +20,7 @@ function Checkout() {
   const [paymentMethod, setPaymentMethod] = useState("");
 
   const [modalShow, setModalShow] = useState(false);
-  const [cancelModalShow, setCancelModalShow] = useState(false)
-  
+  const [cancelModalShow, setCancelModalShow] = useState(false);
 
   useEffect(() => {
     console.log(paymentMethod);
@@ -53,6 +52,10 @@ function Checkout() {
     setIsDisabled(true);
   };
 
+  const callback = () => {
+    history.push(`/upload-payment-slip/${payment_id}`);
+  };
+
   const checkoutButtonHandler = () => {
     const accesstoken = localStorage.getItem("accesstoken");
     if (paymentMethod === "") {
@@ -62,11 +65,11 @@ function Checkout() {
         appointmentAction.updatePaymentMethod(
           paymentMethod,
           accesstoken,
-          payment_id
+          payment_id,
+          callback
         )
       );
       setModalShow(false);
-      history.push(`/upload-payment-slip/${payment_id}`);
     }
   };
 
@@ -172,9 +175,10 @@ function Checkout() {
                   show={modalShow}
                   onHide={() => setModalShow(false)}
                 />
-                <ModalCancelCheckout 
+                <ModalCancelCheckout
                   show={cancelModalShow}
-                  onHide={() => setCancelModalShow(false)}/>
+                  onHide={() => setCancelModalShow(false)}
+                />
               </Container>
             </Card.Body>
           </Card>
