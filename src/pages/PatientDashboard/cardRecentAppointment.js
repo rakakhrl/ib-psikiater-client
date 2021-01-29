@@ -50,6 +50,7 @@ const CardRecentAppointment = ({ appointmentDone, appointmentFetch }) => {
 
   useEffect(() => {
     fetchReviewPsikiater();
+
     return fetchReviewPsikiater;
   }, [show]);
 

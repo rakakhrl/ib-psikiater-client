@@ -15,7 +15,7 @@ import API from "../../API/mainServer";
 import StarRatings from "react-star-ratings";
 import ImagePasien from "../../assets/images/fauzihaqmuslim.jpg";
 import CardUpcoming from "./cardUpcoming";
-import CardNextAppointment from "./cardNextAppointment";
+import CardNextAppointment from "../../components/NextAppointment/cardNextAppointment";
 import CardRecentAppointment from "./cardRecentAppointment";
 import PendingPayments from "../../components/PendingPayments/index";
 
@@ -91,8 +91,7 @@ const PatientDashboard = () => {
         className="pt-3"
         style={{ height: "150px", width: "350px", paddingTop: "10" }}
       >
-        <h5 className={"Judul"}>Your Next Appointment Starts In</h5>
-        {!appointmentPaid[0] ? (
+        {!appointmentPaid ? (
           <h3>You Dont Have Any Appointment Schedule</h3>
         ) : (
           <CardNextAppointment appointmentPaid={appointmentPaid[0]} />
