@@ -1,0 +1,51 @@
+.user-login-page-card-wrapper {
+  margin-top: 15%;
+  padding: 100px;
+  border-radius: 40px !important;
+  border-color: #7d9dec !important;
+  box-shadow: 5px 5px 5px #7d9dec;
+}
+
+.login-page-undraw-image {
+  width: 300px;
+}
+
+@media screen and (max-width: 992px) {
+  .login-page-undraw-image {
+    width: 230px;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+  }
+}
+
+@media screen and (width: 375px) {
+  .login-page-undraw-image {
+    width: 150px;
+  }
+}
+
+.user-login-page-button-sign-in {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  margin-left: 10px !important;
+  background-color: #7d9dec !important;
+  border-color: #7d9dec !important;
+}
+
+.user-login-page-button-sign-in:hover {
+  background-color: white !important;
+  border-color: #e65b85 !important;
+  color: #e65b85 !important;
+}
+
+.user-login-page-button-back {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+/* Error Message Styling */
+#login-page-error-message {
+  color: red;
+}
