@@ -49,7 +49,7 @@ const CardNextAppointment = ({ appointmentPaid }) => {
   useEffect(() => {
     fetchDataAppointment();
   }, []);
-
+  console.log(appointmentPaid);
   const dateAppointment = appointmentPaid?.appointment_date;
   const timeAppointment = appointmentPaid?.appointment_time;
   const dateAppointmentFormatted = moment(dateAppointment).format("YYYY-MM-DD");
@@ -61,7 +61,9 @@ const CardNextAppointment = ({ appointmentPaid }) => {
   const newDate = convertDateToSecond - now;
 
   const handleButtonChatbox = () => {
-    history.push("/chatbox/baMxQGNYocZNx9khpFsp");
+    history.push(
+      `/chatbox/${appointmentPaid.roomChat_id}/${appointmentPaid._id}`
+    );
   };
 
   const TimeCountdown = () => (

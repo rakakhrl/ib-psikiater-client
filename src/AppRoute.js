@@ -22,7 +22,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 const AppRoute = () => {
   return (
     <Switch>
-      <Route path="/chatbox/:roomChat_id">
+      <Route path="/chatbox/:roomChat_id/:appointment_id">
         <Chatbox />
       </Route>
       <Route path="/patient-dashboard">

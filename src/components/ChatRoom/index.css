@@ -16,6 +16,7 @@ body {
 .message {
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .received {
@@ -41,7 +42,8 @@ body {
   font-size: 1.5rem;
 } */
 
-.form-input-chat {
-  width: 50%;
-  position: fixed;
+Form {
+  width: 75%;
+  /* position: fixed; */
+  float: left;
 }

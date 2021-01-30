@@ -17,13 +17,15 @@ import {
   useDocument,
 } from "react-firebase-hooks/firestore";
 import firebase from "../../config/firebaseConfig";
+import "firebase/firestore";
+import moment from "moment";
 import ChatMessage from "./ChatMessage";
 import Message from "./ChatMessage";
 import "./index.css";
 
 const firestore = firebase.firestore();
 
-const ChatRoom = () => {
+const ChatRoom = ({ roomChat_id, appointment_id }) => {
   const [formValue, setFormValue] = useState("");
   const [dataAppointment, setDataAppointment] = useState([]);
 
@@ -31,16 +33,12 @@ const ChatRoom = () => {
 
   const bottomListRef = useRef();
 
-  const { roomChat_id } = useParams();
-
-  console.log(dataAppointment);
-
   useEffect(() => {
     const getUserData = async () => {
       try {
         const response = await API({
           method: "GET",
-          url: `/appointments/6006dccbb3e0a3610841acc7`,
+          url: `/appointments/${appointment_id}`,
           headers: {
             accesstoken: localStorage.getItem("accesstoken"),
           },
@@ -53,9 +51,7 @@ const ChatRoom = () => {
     getUserData();
     return getUserData;
   }, []);
-  // console.log(dataAppointment)
-  // const patientName = dataAppointment.patient_id.first_name;
-  // const psikiaterName = dataAppointment.psikiater_id.first_name;
+
   const messageRef = firestore.collection(`Message/${roomChat_id}/Chat`);
   const [value, loading, error] = useCollection(messageRef, {
     snapshotListenOptions: { includeMetadataChanges: true },
@@ -97,44 +93,44 @@ const ChatRoom = () => {
         {messages &&
           messages.map((doc) => {
             return (
-              <Message key={doc?.id} text={doc?.text} sender={doc?.sender} />
+              <Message
+                key={doc?.id}
+                text={doc?.text}
+                sender={doc?.sender}
+                createdAt={doc?.createdAt}
+              />
             );
           })}
         {/* BUTTON & FORM INPUT */}
-        <div>
+        <div className="FormButton">
           <Row>
-            <InputGroup>
-              <FormControl
-                value={formValue}
-                onChange={(e) => setFormValue(e.target.value)}
-                type="input"
-                placeholder="Type something here"
-              />
-              <InputGroup.Append>
-                <Button
-                  variant="outline-secondary"
-                  type="submit"
-                  disabled={!formValue}
-                  onClick={sendMessageHandler}
-                >
-                  💬
-                </Button>
-              </InputGroup.Append>
-            </InputGroup>
+            <Form
+              sticky="bottom"
+              onSubmit={sendMessageHandler}
+              className="float"
+            >
+              <InputGroup>
+                <FormControl
+                  className="flex-1"
+                  value={formValue}
+                  onChange={(e) => setFormValue(e.target.value)}
+                  type="input"
+                  placeholder="Type something here"
+                />
+                <InputGroup.Append>
+                  <Button
+                    variant="outline-secondary"
+                    type="submit"
+                    disabled={!formValue}
+                    onClick={sendMessageHandler}
+                  >
+                    💬
+                  </Button>
+                </InputGroup.Append>
+              </InputGroup>
+            </Form>
           </Row>
         </div>
-
-        {/* <Form.Control
-              value={formValue}
-              onChange={(e) => setFormValue(e.target.value)}
-              type="input"
-              placeholder="type something here"
-            />
-            <InputGroup.Append>
-              <Button type="submit" disabled={!formValue}>
-                💬
-              </Button>
-            </InputGroup.Append> */}
         <div ref={bottomListRef} />
       </Container>
     </>
