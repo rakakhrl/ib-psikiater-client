@@ -55,7 +55,7 @@ const AppRoute = () => {
       <Route path="/profile/:psychiatrist_id" exact>
         <PublicProfilePsychiatrist />
       </Route>
-      <Route path="/profile/me" exact>
+      <Route path="/profile-me" exact>
         <ProfilePatient />
       </Route>
       <Route path="/patient-dashboard" exact>
