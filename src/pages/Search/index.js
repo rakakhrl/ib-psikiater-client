@@ -216,6 +216,7 @@ const Index = () => {
         <Col md={10} className="result-section">
           {!filteredResult
             ? searchResult.map((item) => {
+                console.log(item);
                 return (
                   <CardResult
                     onClick={() => handleClick(item._id)}
@@ -226,8 +227,10 @@ const Index = () => {
                     work_address={item.work_address}
                     experience_year={item.info.experience_year}
                     avatar_url={item.avatar_url}
+                    gender={item.gender}
                     price={item.fees}
                     region={item.info.region}
+                    specialize={item.specialize}
                     star={item.star}
                   />
                 );
