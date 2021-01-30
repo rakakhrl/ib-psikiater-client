@@ -63,7 +63,7 @@ const Login = () => {
   useEffect(() => {
     if (user.role === "PSIKIATER") {
       // TODO: change the route to psikiater dashboard
-      history.push("/psikiater");
+      history.push("/psikiater-dashboard");
     } else if (user.role === "PATIENT") {
       history.push("/");
     }

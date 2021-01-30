@@ -44,56 +44,26 @@ function PsikiaterDetail() {
         <div>
           <h1 className="psikiater-detail-page-title">Our Personel</h1>
           <Container className="psikiater-detail-wrapper">
-
-            {psikiater.map((item) => {
-              return (
-                <>
-                  <Card
-                    onClick={() => cardClickHandler(item._id)}
-                    id="psikiater-detail-card"
-                  >
-                    <Card.Img
-                      className="psikiater-detail-image-card"
-                      variant="top"
-                      src={item.avatar_url}
-                    />
-                    <Card.Body>
-                      <Card.Title>
-                        {item.first_name} {item.last_name}
-                      </Card.Title>
-                      <Card.Text>{`Experience : ${item.info?.experience_year}`}</Card.Text>
-                      <Card.Text>{`Specialize : ${item.specialize}`}</Card.Text>
-                      <Card.Text>
-                        <ReviewPsikiater id={item._id} />
-                      </Card.Text>
-                    </Card.Body>
-                  </Card>
-                </>
-              );
-            })}
-
-            <>
-              <Card
-                onClick={() => cardClickHandler(psikiater[0]?._id)}
-                id="psikiater-detail-card"
-              >
-                <Card.Img
-                  className="psikiater-detail-image-card"
-                  variant="top"
-                  src={psikiater[0]?.avatar_url}
-                />
-                <Card.Body>
-                  <Card.Title>
-                    {psikiater[0]?.first_name} {psikiater[0]?.last_name}
-                  </Card.Title>
-                  <Card.Text>{`Experience : ${psikiater[0]?.info?.experience_year}`}</Card.Text>
-                  <Card.Text>{`Specialize : ${psikiater[0]?.specialize}`}</Card.Text>
-                  <Card.Text>
-                    <ReviewPsikiater id={psikiater[0]?._id} />
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </>
+            <Card
+              onClick={() => cardClickHandler(psikiater[0]?._id)}
+              id="psikiater-detail-card"
+            >
+              <Card.Img
+                className="psikiater-detail-image-card"
+                variant="top"
+                src={psikiater[0]?.avatar_url}
+              />
+              <Card.Body>
+                <Card.Title>
+                  {psikiater[0]?.first_name} {psikiater[0]?.last_name}
+                </Card.Title>
+                <Card.Text>{`Experience : ${psikiater[0]?.info?.experience_year}`}</Card.Text>
+                <Card.Text>{`Specialize : ${psikiater[0]?.specialize}`}</Card.Text>
+                <Card.Text>
+                  <ReviewPsikiater id={psikiater[0]?._id} />
+                </Card.Text>
+              </Card.Body>
+            </Card>
 
             <Card
               onClick={() => cardClickHandler(psikiater[1]?._id)}
@@ -135,7 +105,6 @@ function PsikiaterDetail() {
                 </Card.Text>
               </Card.Body>
             </Card>
-
           </Container>
         </div>
       )}
