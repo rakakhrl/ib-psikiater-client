@@ -145,7 +145,7 @@ const Index = () => {
 
   const handleClick = (psikiater_id) => {
     if (!isLogin) {
-      swal("anda harus login terlebih dahulu");
+      swal("You have to login first!");
     } else {
       history.push(`/appointment/${psikiater_id}`);
     }
