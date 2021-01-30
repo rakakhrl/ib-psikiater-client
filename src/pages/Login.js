@@ -82,6 +82,14 @@ const Login = () => {
     <div>
       <Container>
         <Card className="user-login-page-card-wrapper">
+          <Alert
+            show={alertShow}
+            variant="success"
+            dismissible
+            onClose={() => setAlertShow(false)}
+          >
+            Your email successfully verified! Please login to continue.
+          </Alert>
           <Row>
             <Col md={12} lg={6}>
               <img className="login-page-undraw-image" src={loginUndraw}></img>

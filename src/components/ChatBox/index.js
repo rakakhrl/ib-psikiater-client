@@ -14,7 +14,6 @@ import API from "../../API/mainServer";
 import {
   useCollection,
   useCollectionData,
-  useDocument,
 } from "react-firebase-hooks/firestore";
 import firebase from "../../config/firebaseConfig";
 import ChatMessage from "./ChatMessage";
@@ -23,15 +22,13 @@ import "./index.css";
 
 const firestore = firebase.firestore();
 
-const ChatRoom = () => {
+const ChatRoom = ({ room, appointment }) => {
   const [formValue, setFormValue] = useState("");
   const [dataAppointment, setDataAppointment] = useState([]);
 
   const role = useSelector((store) => store.user.role);
 
   const bottomListRef = useRef();
-
-  const { roomChat_id } = useParams();
 
   console.log(dataAppointment);
 
@@ -40,7 +37,7 @@ const ChatRoom = () => {
       try {
         const response = await API({
           method: "GET",
-          url: `/appointments/6006dccbb3e0a3610841acc7`,
+          url: `/appointments/${appointment}`,
           headers: {
             accesstoken: localStorage.getItem("accesstoken"),
           },
@@ -56,7 +53,7 @@ const ChatRoom = () => {
   // console.log(dataAppointment)
   // const patientName = dataAppointment.patient_id.first_name;
   // const psikiaterName = dataAppointment.psikiater_id.first_name;
-  const messageRef = firestore.collection(`Message/${roomChat_id}/Chat`);
+  const messageRef = firestore.collection(`Message/${room}/Chat`);
   const [value, loading, error] = useCollection(messageRef, {
     snapshotListenOptions: { includeMetadataChanges: true },
   });

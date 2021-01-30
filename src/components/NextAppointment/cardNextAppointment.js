@@ -61,7 +61,9 @@ const CardNextAppointment = ({ appointmentPaid }) => {
   const newDate = convertDateToSecond - now;
 
   const handleButtonChatbox = () => {
-    history.push("/chatbox/baMxQGNYocZNx9khpFsp");
+    history.push(
+      `/chatbox/${appointmentPaid.roomChat_id}/${appointmentPaid._id}`
+    );
   };
 
   const TimeCountdown = () => (
