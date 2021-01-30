@@ -28,8 +28,7 @@ const PaymentSlipUpload = () => {
         method: "GET",
         url: `/payments/${payment_id}`,
         headers: {
-          accesstoken:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjAwNjhiNDY0NjU3YTYxYWI4NWU4ODFkIiwicm9sZSI6IlBBVElFTlQiLCJpYXQiOjE2MTEyODU1NTZ9.6zFmprUjUTAJ8_c5dH0k8l0zdertofqwmDQwywjwjLg",
+          accesstoken: token,
         },
       });
 

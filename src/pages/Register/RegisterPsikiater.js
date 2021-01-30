@@ -67,7 +67,7 @@ const Register = () => {
         work_address
       )
     );
-    history.push("/email-verification-sent");
+    history.push("/email-verification-sent?type=psychiatrist-registration");
   };
 
   const handleBack = () => {

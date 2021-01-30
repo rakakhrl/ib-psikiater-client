@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button } from "react-bootstrap";
+import { Table, Button, Modal, Spinner } from "react-bootstrap";
 import API from "../../API/mainServer";
 import PsychiatristDetailModal from "./PsychiatristDetailModal";
+import swal from "sweetalert";
 
 const PsychiatristApproval = () => {
   const [psychiatrist, setPsychiatrist] = useState([]);
   const [selectedPsychiatrist, setSelectedPsychiatrist] = useState({});
   const [isModalShow, setIsModalShow] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchPsychiatrist = async () => {
     try {
@@ -20,6 +22,7 @@ const PsychiatristApproval = () => {
         },
       });
 
+      console.log(response.data.data);
       setPsychiatrist(response.data.data);
     } catch (error) {
       console.log(error);
@@ -35,6 +38,33 @@ const PsychiatristApproval = () => {
     []
   );
 
+  const psychiatristApproval = async (operation, id) => {
+    try {
+      setIsLoading(true);
+      const token = localStorage.getItem("accesstoken");
+
+      await API({
+        method: "POST",
+        url: "/admin/psychiatrist-approval",
+        headers: {
+          accesstoken: token,
+        },
+        data: {
+          admin_action: operation,
+          psychiatrist_id: id,
+        },
+      });
+      setIsLoading(false);
+
+      swal("Success", `Success ${operation} this psychiatrist.`, "success");
+    } catch (error) {
+      console.error(error);
+      setIsLoading(false);
+
+      swal("Failed", `Failed ${operation} this psychiatrist.`, "error");
+    }
+  };
+
   const showDetailModal = (psychiatrist) => {
     setSelectedPsychiatrist(psychiatrist);
     setIsModalShow(true);
@@ -47,6 +77,9 @@ const PsychiatristApproval = () => {
 
   return (
     <div className="pt-3">
+      <Modal show={isLoading} backdrop="static" keyboard={false} centered>
+        <Spinner animation="border" />
+      </Modal>
       <PsychiatristDetailModal
         show={isModalShow}
         handleClose={hideDetailModal}
@@ -81,10 +114,14 @@ const PsychiatristApproval = () => {
                   </Button>
                 </td>
                 <td>
-                  <Button>Accept</Button>
+                  <Button onClick={() => psychiatristApproval("accept", p._id)}>
+                    Accept
+                  </Button>
                 </td>
                 <td>
-                  <Button>Reject</Button>
+                  <Button onClick={() => psychiatristApproval("reject", p._id)}>
+                    Reject
+                  </Button>
                 </td>
               </tr>
             ))}

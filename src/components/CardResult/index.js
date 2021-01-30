@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import StarRatings from "react-star-ratings";
 import { Image } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import placeholderimg from "../../assets/images/fauzihaqmuslim.jpg";
+import API from "../../API/mainServer";
 
 const Index = ({
   id,
@@ -13,12 +14,37 @@ const Index = ({
   avatar_url,
   price,
   region,
-  star,
   onClick,
 }) => {
-  const [rating] = useState();
+  const [rating, setRating] = useState(0);
   const history = useHistory();
-  console.log(JSON.stringify(avatar_url));
+
+  const fetchRating = async () => {
+    try {
+      const response = await API({
+        method: "GET",
+        url: `/psikiater/rating/${id}`,
+      });
+
+      console.log(response.data.data);
+      setRating(
+        Number.parseFloat(
+          response.data.data.review.average_rating.$numberDecimal
+        )
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(
+    () => {
+      fetchRating();
+      return fetchRating;
+    },
+    // eslint-disable-next-line
+    []
+  );
 
   return (
     <>
@@ -41,7 +67,12 @@ const Index = ({
         </div>
         <div className="middle-side">
           <div className="star">
-            <StarRatings rating={rating} numberOfStars={star} name="rating" />
+            <StarRatings
+              rating={rating}
+              numberOfStars={5}
+              starRatedColor="gold"
+              name="rating"
+            />
           </div>
           <div className="price">
             <h2> Rp. {price} / hour</h2>

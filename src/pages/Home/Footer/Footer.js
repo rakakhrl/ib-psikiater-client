@@ -20,8 +20,12 @@ function Footer() {
               <a href="https://www.instagram.com/filings.co/">
                 <SiInstagram id="footer-icons" size="4em" />
               </a>
-              <a href="https://twitter.com/FilingsID"><SiTwitter id="footer-icons" size="4em" /></a>
-              <SiFacebook id="footer-icons" size="4em" />
+              <a href="https://twitter.com/FilingsID">
+                <SiTwitter id="footer-icons" size="4em" />
+              </a>
+              <a href="https://web.facebook.com/people/Filings-ID/100063397517042">
+                <SiFacebook id="footer-icons" size="4em" />
+              </a>
             </div>
           </Col>
         </Row>

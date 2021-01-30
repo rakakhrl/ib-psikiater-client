@@ -164,9 +164,12 @@ const fetchPsikiaterAppointment = () => async (dispatch) => {
   }
 };
 
-const updatePaymentMethod = (paymentMethod, accesstoken, payment_id) => async (
-  dispatch
-) => {
+const updatePaymentMethod = (
+  paymentMethod,
+  accesstoken,
+  payment_id,
+  callback
+) => async (dispatch) => {
   try {
     const updatePaymentMethod = await API({
       url: "/payments/payment-method",
@@ -179,6 +182,7 @@ const updatePaymentMethod = (paymentMethod, accesstoken, payment_id) => async (
         payment_method: paymentMethod,
       },
     });
+    callback();
   } catch (error) {
     console.log(error);
   }

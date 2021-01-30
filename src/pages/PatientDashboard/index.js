@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import {
   Container,
   Jumbotron,
@@ -14,13 +15,16 @@ import API from "../../API/mainServer";
 import StarRatings from "react-star-ratings";
 import ImagePasien from "../../assets/images/fauzihaqmuslim.jpg";
 import CardUpcoming from "./cardUpcoming";
-import CardNextAppointment from "./cardNextAppointment";
+import CardNextAppointment from "../../components/NextAppointment/cardNextAppointment";
 import CardRecentAppointment from "./cardRecentAppointment";
+import PendingPayments from "../../components/PendingPayments/index";
 
 import "./index.css";
 const PatientDashboard = () => {
   const [appointmentDone, setAppointmentDone] = useState([]);
   const [appointmentPaid, setAppointmentPaid] = useState([]);
+  const [pendingPayment, setPendingPayment] = useState([]);
+
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -32,8 +36,7 @@ const PatientDashboard = () => {
         method: "GET",
         url: `/appointments/patient`,
         headers: {
-          accesstoken:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWZlNDBiZmY4Y2IzZmEyMmY0MTRmZjk3Iiwicm9sZSI6IlBBVElFTlQiLCJpYXQiOjE2MTEwNjI0NTF9.qOPkCYGApfxSfg8Cf1MN1BMwd3Kfiy_56cpXiMBG8ss",
+          accesstoken: token,
         },
       });
 
@@ -54,6 +57,32 @@ const PatientDashboard = () => {
     fetchDataAppointment();
   }, []);
 
+  // Get patient_id from store
+  const store = useSelector((state) => state.user.user_data);
+  const patient_id = store._id;
+
+  // // Get Pending Payment Data
+  useEffect(() => {
+    const getPendingPaymentData = async () => {
+      try {
+        const response = await API({
+          url: `/payments/pending/${patient_id}`,
+          method: "GET",
+          headers: {
+            accesstoken: localStorage.getItem("accesstoken"),
+          },
+        });
+        setPendingPayment(response.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (patient_id) {
+      getPendingPaymentData();
+    }
+    return getPendingPaymentData;
+  }, [patient_id]);
+
   return (
     <>
       {/* Your Next appointment */}
@@ -61,8 +90,7 @@ const PatientDashboard = () => {
         className="pt-3"
         style={{ height: "150px", width: "350px", paddingTop: "10" }}
       >
-        <h5 className={"Judul"}>Your Next Appointment Starts In</h5>
-        {!appointmentPaid[0] ? (
+        {!appointmentPaid ? (
           <h3>You Dont Have Any Appointment Schedule</h3>
         ) : (
           <CardNextAppointment appointmentPaid={appointmentPaid[0]} />
@@ -93,6 +121,9 @@ const PatientDashboard = () => {
           ))}
         </div>
       </Container>
+      {pendingPayment.length === 0 ? null : (
+        <PendingPayments data={pendingPayment} />
+      )}
     </>
   );
 };

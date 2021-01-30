@@ -2,12 +2,26 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/actions/authAction";
 import { useHistory, useLocation } from "react-router-dom";
-import { Alert, Button, Form, Container, Row, Col } from "react-bootstrap";
+import {
+  Alert,
+  Button,
+  Form,
+  Container,
+  Row,
+  Col,
+  Card,
+} from "react-bootstrap";
 
 // Form Validation Package
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+
+// SVG
+import loginUndraw from "../images/login-page-male.svg";
+
+// CSS
+import "./Login.css";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -25,7 +39,7 @@ const Login = () => {
   // Yup Validation Schema
 
   const schema = yup.object().shape({
-    email: yup.string().required("email required").email(),
+    email: yup.string().required("email required"),
     password: yup.string().required("password required"),
   });
 
@@ -49,7 +63,7 @@ const Login = () => {
   useEffect(() => {
     if (user.role === "PSIKIATER") {
       // TODO: change the route to psikiater dashboard
-      history.push("/psikiater");
+      history.push("/psikiater-dashboard");
     } else if (user.role === "PATIENT") {
       history.push("/");
     }
@@ -66,7 +80,93 @@ const Login = () => {
 
   return (
     <div>
-      <Container style={{ marginLeft: "0%" }}>
+      <Container>
+        <Card className="user-login-page-card-wrapper">
+          <Alert
+            show={alertShow}
+            variant="success"
+            dismissible
+            onClose={() => setAlertShow(false)}
+          >
+            Your email successfully verified! Please login to continue.
+          </Alert>
+          <Row>
+            <Col md={12} lg={6}>
+              <img className="login-page-undraw-image" src={loginUndraw}></img>
+            </Col>
+            <Col md={12} lg={6}>
+              <Row>
+                <Col>
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    ref={register}
+                    name="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="example@email.com"
+                  />
+                  <p id="login-page-error-message">{errors.email?.message}</p>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    ref={register}
+                    name="password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="***********"
+                  />
+                  <p id="login-page-error-message">
+                    {errors.password?.message}
+                  </p>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Button
+                    className="user-login-page-button-back"
+                    variant="outline-dark"
+                    onClick={handleClose}
+                  >
+                    Back
+                  </Button>
+                  <Button
+                    className="user-login-page-button-sign-in"
+                    onClick={handleSubmit(onSubmit)}
+                  >
+                    Sign In
+                  </Button>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <p>
+                    Don't Have Account Yet?{"  "}
+                    <a
+                      style={{ color: "blue", cursor: "pointer" }}
+                      onClick={() => history.push("/register")}
+                    >
+                      Register here
+                    </a>
+                  </p>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Card>
+      </Container>
+    </div>
+  );
+};
+
+export default Login;
+
+{
+  /* <Container style={{ marginLeft: "0%" }}>
         <Row>
           <Col
             style={{
@@ -132,9 +232,5 @@ const Login = () => {
             </Form.Group>
           </Col>
         </Row>
-      </Container>
-    </div>
-  );
-};
-
-export default Login;
+      </Container> */
+}

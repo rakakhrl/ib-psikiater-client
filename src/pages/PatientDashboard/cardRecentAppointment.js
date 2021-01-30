@@ -35,8 +35,7 @@ const CardRecentAppointment = ({ appointmentDone, appointmentFetch }) => {
         method: "GET",
         url: `/reviews/appointment/${appointmentDone._id}`,
         headers: {
-          accesstoken:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWZlNDBiZmY4Y2IzZmEyMmY0MTRmZjk3Iiwicm9sZSI6IlBBVElFTlQiLCJpYXQiOjE2MTEwNjI0NTF9.qOPkCYGApfxSfg8Cf1MN1BMwd3Kfiy_56cpXiMBG8ss",
+          accesstoken: token,
         },
       });
 
@@ -50,6 +49,7 @@ const CardRecentAppointment = ({ appointmentDone, appointmentFetch }) => {
 
   useEffect(() => {
     fetchReviewPsikiater();
+
     return fetchReviewPsikiater;
   }, [show]);
 

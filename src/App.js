@@ -29,6 +29,8 @@ const App = () => {
     () => {
       if (user.role === "PSIKIATER") {
         history.push("/psikiater-dashboard");
+      } else if (user.role === "ADMIN") {
+        history.push("/admin-dashboard");
       }
     },
     // eslint-disable-next-line
