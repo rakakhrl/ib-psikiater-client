@@ -64,10 +64,10 @@ const Register = () => {
         experience_year,
         region,
         fee,
-        work_address
+        work_address,
+        () => history.push("/email-verification?type=psychiatrist-registration")
       )
     );
-    history.push("/email-verification-sent?type=psychiatrist-registration");
   };
 
   const handleBack = () => {

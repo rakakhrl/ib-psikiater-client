@@ -1,11 +1,54 @@
-.search-container {
-  height: 91vh;
-  max-height: 91vh;
-  overflow: hidden;
+.card-result-psikiater-card-wrapper {
+  padding: 10px;
+  border-radius: 30px !important;
+  border-color: #7d9dec;
+  box-shadow: 5px 5px 5px #7d9dec;
+  margin-bottom: 30px;
 }
 
-.result-section {
-  height: 62vh;
-  max-height: 62vh;
-  overflow-y: scroll;
+.card-result-psikiater-image {
+  width: 190px;
+}
+
+#card-result-psikiater-button {
+  width: 12em;
+  margin-top: 10px;
+}
+
+@media screen and (max-width: 992px) {
+  #card-result-psikiater-button {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .card-result-psikiater-image {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+#card-result-psikiater-form-control {
+  text-align: center;
+}
+
+#card-result-psikiater-form-group {
+  text-align: center;
+}
+
+@media screen and (max-width: 992px) {
+  #card-result-psikiater-form-group {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .card-result-psikiater-rating-wrapper {
+    display: flex;
+    justify-content: center;
+  }
 }
