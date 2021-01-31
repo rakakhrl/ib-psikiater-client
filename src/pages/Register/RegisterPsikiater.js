@@ -5,6 +5,7 @@ import { ArrowLeft } from "react-bootstrap-icons";
 import userAction from "../../redux/actions/userAction";
 import { Form, Row, Col, Container, Button, Image } from "react-bootstrap";
 import "./RegisterPsikiater.css";
+import "./index.css";
 
 // Form Validation Package
 import { useForm } from "react-hook-form";
@@ -39,6 +40,7 @@ const Register = () => {
       .min(6, "min 6 character")
       .max(15, "max 15 character"),
     dateOfBirth: yup.string().required("Required"),
+    placeOfBirth: yup.string().required("Required"),
     gender: yup.string().required("Required"),
     specialize: yup.string().required("Required").max(30),
     workAdress: yup.string().required("Required"),
@@ -70,8 +72,8 @@ const Register = () => {
     history.push("/email-verification-sent");
   };
 
-  const handleBack = () => {
-    history.goBack();
+  const handleClose = () => {
+    history.push("/");
   };
 
   useEffect(() => {
@@ -83,7 +85,7 @@ const Register = () => {
   return (
     <>
       <p>
-        <b onClick={handleBack} style={{ cursor: "pointer" }}>
+        <b onClick={handleClose} style={{ cursor: "pointer" }}>
           <ArrowLeft color="black" size={20} style={{ paddingRight: "5px" }} />
           Back
         </b>
@@ -163,6 +165,7 @@ const Register = () => {
             {errors.dateOfBirth?.message}
           </p>
         </Form.Group>
+
         <Row>
           <Col>
             <Form.Group>
@@ -264,7 +267,12 @@ const Register = () => {
             </Form.Group>
           </Col>
         </Row>
-        <Button onClick={onSubmit} type="submit" value="Register">
+        <Button
+          className="register-button"
+          onClick={onSubmit}
+          type="submit"
+          value="Register"
+        >
           Register
         </Button>
       </Form>
