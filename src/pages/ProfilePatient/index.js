@@ -1,11 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import API from "../../API/mainServer";
-import { Container, Form, Col, Row, Image } from "react-bootstrap";
+import swal from "sweetalert";
+import "./index.css";
+import {
+  Container,
+  Form,
+  Col,
+  Row,
+  Image,
+  Button,
+  InputGroup,
+  Card,
+} from "react-bootstrap";
+import moment from "moment";
+import userAction from "../../redux/actions/userAction";
 
-const ProfilePatient = () => {
+const Index = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const accesstoken = localStorage.getItem("accesstoken");
-  const profile = useSelector((store) => store.user.user_data);
+  const patient = useSelector((store) => store.user.user_data);
+
   return (
     <>
       <h1
@@ -17,33 +34,64 @@ const ProfilePatient = () => {
           color: "#70a1ff",
         }}
       >
-        Profile Pasien
+        Profile patient
       </h1>
-      <Container
-        style={{
-          backgroundColor: "#ff6b81",
-          padding: "20px",
-        }}
-      >
-        <Form style={{ marginTop: "20px", textAlign: "center" }}>
-          <Col style={{ textAlign: "center" }}>
-            <Image
-              src={
-                profile.avatar_url === ""
-                  ? "../images/pic04.jpg"
-                  : profile.avatar_url
-              }
-              roundedCircle
-              alt="images"
-              height="300px"
-              width="300px"
-            />
-          </Col>
-        </Form>
+      <Container>
+        <Card className="profile-patient-card-wrapper">
+          <Row>
+            <Col md={12} lg={6}>
+              <Image
+                className="profile-patient-avatar"
+                src={
+                  patient.avatar_url === ""
+                    ? "../images/pic04.jpg"
+                    : patient.avatar_url
+                }
+              ></Image>
+            </Col>
+            <Col md={12} lg={6} className="profile-patient-main-column-1">
+              <Form>
+                <Row>
+                  <Col lg={6} md={12}>
+                    <Form.Label>Name</Form.Label>
+                    <Form.Control
+                      value={`${patient.first_name} ${patient.last_name}`}
+                      readOnly
+                    />
+                  </Col>
+                  <Col lg={6} md={12}>
+                    <Form.Label>Gender</Form.Label>
+                    <Form.Control value={`${patient.gender}`} readOnly />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col lg={6} md={12}>
+                    <Form.Label>Date Of Birth</Form.Label>
+                    <Form.Control
+                      value={moment(`${patient.date_of_birth}`).format(
+                        "DD MMMM YYYY"
+                      )}
+                      readOnly
+                    />
+                  </Col>
+                  <Col lg={6} md={12}>
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control value={patient.email} readOnly />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col lg={19} md={12}>
+                    <Form.Label>Address</Form.Label>
+                    <Form.Control value={patient.address} readOnly row={3} />
+                  </Col>
+                </Row>
+              </Form>
+            </Col>
+          </Row>
+        </Card>
       </Container>
     </>
   );
 };
-<Form></Form>;
 
-export default ProfilePatient;
+export default Index;
