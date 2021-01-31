@@ -25,7 +25,7 @@ const CardNextAppointment = ({ appointmentPaid }) => {
 
   const history = useHistory();
   const role = useSelector((store) => store.user.role);
-  console.log(role);
+  console.log(appointmentPaid);
   const fetchDataAppointment = async () => {
     try {
       const token = localStorage.getItem("accesstoken");

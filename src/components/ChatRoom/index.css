@@ -11,12 +11,17 @@ body {
   position: relative;
   color: white;
   text-align: center;
+  font-size: medium;
+}
+
+.ChatMessage-date {
+  color: gray;
+  font-size: x-small;
 }
 
 .message {
   display: flex;
   align-items: center;
-  position: relative;
 }
 
 .received {
@@ -26,24 +31,16 @@ body {
 .sent p {
   color: white;
   background: #0b93f6;
-  align-self: flex-start;
+  align-self: flex-end;
 }
 .received p {
   background: #e5e5ea;
   color: black;
+  flex-direction: row-reverse;
 }
-
-/* Form {
-  height: 10vh;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  max-width: 728px;
-  font-size: 1.5rem;
-} */
 
 Form {
   width: 75%;
-  /* position: fixed; */
+  position: fixed;
   float: left;
 }
