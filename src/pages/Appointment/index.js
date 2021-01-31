@@ -169,8 +169,8 @@ const Appointment = () => {
               <Card className="psikiater-card-wrapper">
                 <Row className="row-1">
                   <Col className="column-row-1-wrapper" md={12} lg={6}>
-                    <Row>
-                      <Col className="column-image" md={12} lg={6}>
+                    <Row id="appointment-page-row-2">
+                      <Col md={12} lg={6}>
                         <Image
                           className="psikiater-avatar"
                           src={`${psikiaterData?.avatar_url}`}
