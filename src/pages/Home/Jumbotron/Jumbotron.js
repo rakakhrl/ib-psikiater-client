@@ -12,8 +12,8 @@ function Jumbo() {
 
   const tryButton = () => {
     history.push("search-result", {
+      name: psikiaterInput,
       region: regionInput,
-      psikiater: psikiaterInput,
     });
     setRegionInput("");
     setPsikiaterInput("");

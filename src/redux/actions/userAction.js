@@ -14,7 +14,8 @@ const registerPsikiater = (
   experience_year,
   region,
   fee,
-  work_address
+  work_address,
+  callback
 ) => async (dispatch) => {
   try {
     const psikiater = await API({
@@ -35,19 +36,7 @@ const registerPsikiater = (
       },
     });
 
-    localStorage.setItem("isLogin", true);
-    localStorage.setItem("accesstoken", psikiater.data.token);
-    localStorage.setItem("userId", psikiater.data.data._id);
-    localStorage.setItem("role", psikiater.data.role);
-
-    dispatch({
-      type: LOGIN,
-      payload: {
-        isLogin: true,
-        role: psikiater.data.role,
-        user_data: psikiater.data.data,
-      },
-    });
+    callback();
   } catch (error) {
     swal("Register Gagal!", error.response.data.message, "error");
   }

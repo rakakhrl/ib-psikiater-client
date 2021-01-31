@@ -54,7 +54,7 @@ const AppNavbar = () => {
           overlay={
             <Popover id={`popover-positioned`}>
               <Popover.Content>
-                <Link to="/profile/me">Profile</Link>
+                <Link to="/profile-me">Profile</Link>
                 <br />
                 <Link to="/patient-dashboard">Dashboard</Link>
                 <br />

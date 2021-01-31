@@ -11,61 +11,14 @@ import "./index.css";
 const Index = () => {
   const isLogin = useSelector((store) => store.user.isLogin);
   const [filter, setFilter] = useState({
-    specialties: "",
-    gender: "",
-    price: "",
+    specialties: { id: "" },
+    gender: { id: "" },
+    price: { id: "" },
   });
   const [searchInput, setSearchInput] = useState("");
   const [searchRegion, setSearchRegion] = useState("");
   const [filteredResult, setFilteredResult] = useState();
-  const [searchResult, setSearchResult] = useState([
-    {
-      fees: 600000,
-      info: {
-        specialties: "relationship",
-        experience_year: "100+ year",
-        region: "Bekasi",
-      },
-      schedule: {
-        work_days: ["Senin", "Jumat"],
-        work_time: ["09:00 - 12:00", "13:00 - 16:00"],
-      },
-      is_active: true,
-      avatar_url: "",
-      _id: "asdasddasd",
-      first_name: "Psikiater",
-      last_name: "Handal",
-      password: "$2b$10$PRx0VgUKDWZoduM9uT7BvuvyI3vHKMIdO51sFNDvegcKOPl5TF1hW",
-      email: "saya_handal@gmail.com",
-      date_of_birth: "1885-12-25T00:00:00.000Z",
-      gender: "male",
-      createdAt: "2020-12-25T08:25:19.195Z",
-      updatedAt: "2020-12-25T09:14:38.035Z",
-    },
-    {
-      fees: 1500000,
-      info: {
-        specialties: "child",
-        experience_year: "100+ year",
-        region: "Depok",
-      },
-      schedule: {
-        work_days: ["Senin", "Jumat"],
-        work_time: ["09:00 - 12:00", "13:00 - 16:00"],
-      },
-      is_active: true,
-      avatar_url: "",
-      _id: "5fe5a1efdf84fa2ae85c7861",
-      first_name: "Psikiater",
-      last_name: "Handal",
-      password: "$2b$10$PRx0VgUKDWZoduM9uT7BvuvyI3vHKMIdO51sFNDvegcKOPl5TF1hW",
-      email: "saya_handal@gmail.com",
-      date_of_birth: "1885-12-25T00:00:00.000Z",
-      gender: "female",
-      createdAt: "2020-12-25T08:25:19.195Z",
-      updatedAt: "2020-12-25T09:14:38.035Z",
-    },
-  ]);
+  const [searchResult, setSearchResult] = useState([]);
   const history = useHistory();
   const location = useLocation();
 
@@ -83,21 +36,21 @@ const Index = () => {
       label: "Specialties",
       option: [
         { label: "All", value: "" },
-        { label: "Child", value: "child" },
-        { label: "Relationship", value: "relationship" },
-        { label: "Mental Health", value: "mental" },
+        { label: "Child", value: "Child" },
+        { label: "Relationship", value: "Relationship" },
+        { label: "Mental Health", value: "Mental Health" },
       ],
-      onChange: (v) => setFilter({ ...filter, specialties: v }),
+      onChange: (v) => setFilter({ ...filter, specialties: { id: v } }),
     },
     {
       label: "Gender",
       option: [
         { label: "All", value: "" },
-        { label: "Female", value: "female" },
-        { label: "Male", value: "male" },
-        { label: "Other", value: "other" },
+        { label: "Female", value: "Female" },
+        { label: "Male", value: "Male" },
+        { label: "Other", value: "Other" },
       ],
-      onChange: (v) => setFilter({ ...filter, gender: v }),
+      onChange: (v) => setFilter({ ...filter, gender: { id: v } }),
     },
     {
       label: "Price",
@@ -128,7 +81,7 @@ const Index = () => {
             });
             break;
           default:
-            setFilter({ ...filter, price: "" });
+            setFilter({ ...filter, price: { id: "" } });
             break;
         }
       },
@@ -158,19 +111,20 @@ const Index = () => {
 
   useEffect(
     () => {
-      // fetchSearchResult(location.state);
-      // return fetchSearchResult;
+      fetchSearchResult(location.state);
+      return fetchSearchResult;
     },
     // eslint-disable-next-line
     []
   );
 
   const filterResult = () => {
+    console.log(searchResult);
     const result = _.filter(
       searchResult,
       (s) =>
-        s.gender === filter.gender ||
-        s.info.specialties === filter.specialties ||
+        s.gender === filter.gender.id ||
+        s.specialize === filter.specialties.id ||
         (s.fees >= filter.price.min && s.fees <= filter.price.max)
     );
 
@@ -179,31 +133,29 @@ const Index = () => {
 
   useEffect(() => {
     if (
-      filter.specialties !== "" ||
-      filter.gender !== "" ||
-      filter.price !== ""
+      filter.specialties.id !== "" ||
+      filter.gender.id !== "" ||
+      filter.price.id !== ""
     ) {
-      console.log("hit");
       filterResult();
     } else {
       setFilteredResult();
-      console.log("not hit");
-      console.log(filter);
     }
   }, [filter.specialties, filter.gender, filter.price]);
 
   const handleClick = (psikiater_id) => {
     if (!isLogin) {
-      swal("anda harus login terlebih dahulu");
+      swal("You have to login first!");
     } else {
       history.push(`/appointment/${psikiater_id}`);
     }
   };
 
   return (
-    <Container className="search-container">
+    <Container id="search-container">
       <h1 style={{ textAlign: "center", marginTop: "30px", color: "#70a1ff" }}>
-        {searchResult.length} Psychiatrist Found
+        {filteredResult ? filteredResult.length : searchResult.length}{" "}
+        Psychiatrist Found
       </h1>
       <Form className="mb-3 mt-5 d-flex">
         <Col md={7}>
@@ -222,12 +174,18 @@ const Index = () => {
             onChange={(e) => setSearchRegion(e.target.value)}
           >
             {regionOption.map((r) => (
-              <option>{r}</option>
+              <option value={r === "Select Region" ? "" : r}>{r}</option>
             ))}
           </Form.Control>
         </Col>
         <Col md={2}>
-          <Button onClick={() => fetchSearchResult(searchInput)}>Search</Button>
+          <Button
+            onClick={() =>
+              fetchSearchResult({ name: searchInput, region: searchRegion })
+            }
+          >
+            Search
+          </Button>
         </Col>
       </Form>
 
@@ -244,7 +202,7 @@ const Index = () => {
                     name={f.label}
                     id={`${f.label}-${option.value}`}
                     checked={
-                      filter[`${f.label.toLowerCase()}`] === option.value
+                      filter[`${f.label.toLowerCase()}`].id === option.value
                     }
                     value={option.value}
                     onChange={(e) => f.onChange(e.target.value)}
@@ -255,7 +213,7 @@ const Index = () => {
             ))}
           </Form>
         </Col>
-        <Col md={10} className="result-section">
+        <Col md={10} id="result-section">
           {!filteredResult
             ? searchResult.map((item) => {
                 return (
@@ -268,8 +226,10 @@ const Index = () => {
                     work_address={item.work_address}
                     experience_year={item.info.experience_year}
                     avatar_url={item.avatar_url}
+                    gender={item.gender}
                     price={item.fees}
                     region={item.info.region}
+                    specialize={item.specialize}
                     star={item.star}
                   />
                 );
