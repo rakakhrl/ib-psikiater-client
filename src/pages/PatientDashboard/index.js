@@ -1,30 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import {
-  Container,
-  Jumbotron,
-  Row,
-  Col,
-  Form,
-  Card,
-  Button,
-  Image,
-} from "react-bootstrap";
-import Countdown from "react-countdown";
+import { Container } from "react-bootstrap";
 import API from "../../API/mainServer";
-import StarRatings from "react-star-ratings";
-import ImagePasien from "../../assets/images/fauzihaqmuslim.jpg";
 import CardUpcoming from "./cardUpcoming";
 import CardNextAppointment from "../../components/NextAppointment/cardNextAppointment";
 import CardRecentAppointment from "./cardRecentAppointment";
 import PendingPayments from "../../components/PendingPayments/index";
-
 import "./index.css";
+
 const PatientDashboard = () => {
   const [appointmentDone, setAppointmentDone] = useState([]);
   const [appointmentPaid, setAppointmentPaid] = useState([]);
   const [pendingPayment, setPendingPayment] = useState([]);
-
+  const store = useSelector((state) => state.user.user_data);
+  const patient_id = store._id;
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -48,38 +37,40 @@ const PatientDashboard = () => {
       );
       setAppointmentDone(statusDone);
       setAppointmentPaid(statusPaid);
-      console.log(response);
     } catch (error) {
       console.log(error);
     }
   };
-  useEffect(() => {
-    fetchDataAppointment();
-  }, []);
 
-  // Get patient_id from store
-  const store = useSelector((state) => state.user.user_data);
-  const patient_id = store._id;
+  const getPendingPaymentData = async () => {
+    try {
+      const response = await API({
+        method: "GET",
+        url: `/payments/pending/${patient_id}`,
+        headers: {
+          accesstoken: localStorage.getItem("accesstoken"),
+        },
+      });
+      setPendingPayment(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  // // Get Pending Payment Data
+  useEffect(
+    () => {
+      fetchDataAppointment();
+      return fetchDataAppointment;
+    },
+    // eslint-disable-next-line
+    []
+  );
+
   useEffect(() => {
-    const getPendingPaymentData = async () => {
-      try {
-        const response = await API({
-          url: `/payments/pending/${patient_id}`,
-          method: "GET",
-          headers: {
-            accesstoken: localStorage.getItem("accesstoken"),
-          },
-        });
-        setPendingPayment(response.data.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     if (patient_id) {
       getPendingPaymentData();
     }
+
     return getPendingPaymentData;
   }, [patient_id]);
 
