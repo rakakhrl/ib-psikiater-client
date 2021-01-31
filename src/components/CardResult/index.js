@@ -153,7 +153,7 @@ const Index = ({
                 <Col lg={6} md={12}>
                   <FormGroup>
                     <Form.Label>Work Address</Form.Label>
-                    <Form.Control as="textarea" value={work_address} />
+                    <Form.Control readOnly as="textarea" value={work_address} />
                   </FormGroup>
                 </Col>
                 <Col lg={6} md={12}>
