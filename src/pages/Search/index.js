@@ -11,9 +11,9 @@ import "./index.css";
 const Index = () => {
   const isLogin = useSelector((store) => store.user.isLogin);
   const [filter, setFilter] = useState({
-    specialties: "",
-    gender: "",
-    price: "",
+    specialties: { id: "" },
+    gender: { id: "" },
+    price: { id: "" },
   });
   const [searchInput, setSearchInput] = useState("");
   const [searchRegion, setSearchRegion] = useState("");
@@ -40,7 +40,7 @@ const Index = () => {
         { label: "Relationship", value: "relationship" },
         { label: "Mental Health", value: "mental" },
       ],
-      onChange: (v) => setFilter({ ...filter, specialties: v }),
+      onChange: (v) => setFilter({ ...filter, specialties: { id: v } }),
     },
     {
       label: "Gender",
@@ -50,7 +50,7 @@ const Index = () => {
         { label: "Male", value: "Male" },
         { label: "Other", value: "Other" },
       ],
-      onChange: (v) => setFilter({ ...filter, gender: v }),
+      onChange: (v) => setFilter({ ...filter, gender: { id: v } }),
     },
     {
       label: "Price",
@@ -202,7 +202,7 @@ const Index = () => {
                     name={f.label}
                     id={`${f.label}-${option.value}`}
                     checked={
-                      filter[`${f.label.toLowerCase()}`] === option.value
+                      filter[`${f.label.toLowerCase()}`].id === option.value
                     }
                     value={option.value}
                     onChange={(e) => f.onChange(e.target.value)}
@@ -216,6 +216,7 @@ const Index = () => {
         <Col md={10} className="result-section">
           {!filteredResult
             ? searchResult.map((item) => {
+                console.log(item);
                 return (
                   <CardResult
                     onClick={() => handleClick(item._id)}
@@ -226,8 +227,10 @@ const Index = () => {
                     work_address={item.work_address}
                     experience_year={item.info.experience_year}
                     avatar_url={item.avatar_url}
+                    gender={item.gender}
                     price={item.fees}
                     region={item.info.region}
+                    specialize={item.specialize}
                     star={item.star}
                   />
                 );
