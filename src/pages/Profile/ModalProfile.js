@@ -6,8 +6,13 @@ import swal from "sweetalert";
 import "./ModalProfile.css";
 
 function ModalPsikiater(props) {
-  const [workDays, setWorkDays] = useState([]);
-  const [workTimes, setWorkTimes] = useState([]);
+  console.log(props);
+  const [workDays, setWorkDays] = useState(
+    props.psikiater.schedule.work_days.join(", ")
+  );
+  const [workTimes, setWorkTimes] = useState(
+    props.psikiater.schedule.work_time.join(", ")
+  );
 
   const accesstoken = localStorage.getItem("accesstoken");
   const psikiater = useSelector((store) => store.user.user_data);
@@ -24,8 +29,8 @@ function ModalPsikiater(props) {
       userAction.changePsikiaterSchedule(
         psikiater_id,
         accesstoken,
-        workDays,
-        workTimes
+        workDays.split(", "),
+        workTimes.split(", ")
       )
     );
     swal("Schedule Updated!", "", "success");
@@ -42,14 +47,16 @@ function ModalPsikiater(props) {
         <Form.Group className="mb-3">
           <Form.Label>Work Days</Form.Label>
           <Form.Control
-            onChange={(e) => setWorkDays(e.target.value.split(", "))}
+            value={workDays}
+            onChange={(e) => setWorkDays(e.target.value)}
             placeholder="Input Your Work Days"
           />
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Work Times</Form.Label>
           <Form.Control
-            onChange={(e) => setWorkTimes(e.target.value.split(", "))}
+            value={workTimes}
+            onChange={(e) => setWorkTimes(e.target.value)}
             placeholder="Input Your Work Times"
           />
         </Form.Group>

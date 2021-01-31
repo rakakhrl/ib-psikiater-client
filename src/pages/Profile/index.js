@@ -193,6 +193,7 @@ const Index = () => {
                             Update
                           </Button>
                           <ModalProfile
+                            psikiater={psikiater}
                             show={modalShow}
                             onHide={() => setModalShow(false)}
                           />
