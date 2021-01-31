@@ -4,7 +4,7 @@ import userAction from "../../redux/actions/userAction";
 import { useHistory } from "react-router-dom";
 import { ArrowLeft } from "react-bootstrap-icons";
 import { Form, Row, Col, Container, Button, Image } from "react-bootstrap";
-
+import "./index.css"
 // Form Validation Package
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -64,8 +64,8 @@ const Register = () => {
     );
   };
 
-  const handleBack = () => {
-    history.goBack();
+  const handleClose = () => {
+    history.push("/");
   };
 
   useEffect(() => {
@@ -77,7 +77,7 @@ const Register = () => {
   return (
     <>
       <p>
-        <b onClick={handleBack} style={{ cursor: "pointer" }}>
+        <b onClick={handleClose} style={{ cursor: "pointer" }}>
           <ArrowLeft color="black" size={20} style={{ paddingRight: "5px" }} />
           Back
         </b>
@@ -179,7 +179,7 @@ const Register = () => {
           ></Form.Control>
           <p>{errors.address?.message}</p>
         </Form.Group>
-        <Button type="submit" value="Register" style={{ margin: "10px" }}>
+        <Button className="register-button" type="submit" value="Register" style={{ margin: "10px" }}>
           Register
         </Button>
       </Form>

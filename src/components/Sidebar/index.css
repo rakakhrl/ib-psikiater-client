@@ -1,6 +1,7 @@
 .side-bar {
-  background-color: #ed51b1 !important;
+  background-color: #747d8c !important;
   height: 94%;
+  text-align: left;
   padding-left: 0;
   font-family: "Montserrat", sans-serif;
   font-weight: bold !important;
@@ -10,7 +11,7 @@
 }
 
 .side-bar .link {
-  color: yellow;
+  color: white;
 }
 
 .side-bar .link:hover {
