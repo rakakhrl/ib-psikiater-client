@@ -38,12 +38,12 @@ const Index = ({
         method: "GET",
         url: `/psikiater/rating/${id}`,
       });
-
-      console.log(response.data.data);
       setRating(
-        Number.parseFloat(
-          response.data.data.review.average_rating.$numberDecimal
-        )
+        response.data.data
+          ? Number.parseFloat(
+              response.data.data.review.average_rating.$numberDecimal
+            )
+          : 0
       );
     } catch (error) {
       console.log(error);
