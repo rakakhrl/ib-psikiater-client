@@ -24,6 +24,15 @@ const PendingPayments = (props) => {
             return (
               <>
                 <Container>
+                  {item.slip_url === " " ? (
+                    <p id="slip-payment-info">
+                      *Please Upload Slip For Your Payment
+                    </p>
+                  ) : (
+                    <p id="slip-payment-info">
+                      *Wait Admin To Confirm Your Payment
+                    </p>
+                  )}
                   <Form.Label>Product Type</Form.Label>
                   {item.product_type === "apt-ol" ? (
                     <Form.Control
