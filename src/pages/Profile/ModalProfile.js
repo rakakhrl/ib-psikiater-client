@@ -30,13 +30,11 @@ function ModalPsikiater(props) {
         psikiater_id,
         accesstoken,
         workDays.split(", "),
-        workTimes.split(", ")
+        workTimes.split(", "),
+        props.onHide
       )
     );
     swal("Schedule Updated!", "", "success");
-    setTimeout(() => {
-      window.location.reload();
-    }, 1000);
   };
 
   return (
