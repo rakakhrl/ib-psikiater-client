@@ -1,25 +1,5 @@
-.side-bar {
-  background-color: #747d8c !important;
-  height: 94%;
-  text-align: left;
-  padding-left: 0;
-  font-family: "Montserrat", sans-serif;
-  font-weight: bold !important;
-  color: yellow;
-
-  margin: 0;
-}
-
-.side-bar .link {
+#sidebar-sidenav {
+  background-color: #7d9dec;
+  height: 100vh;
   color: white;
 }
-
-.side-bar .link:hover {
-  text-decoration: none !important;
-}
-
-.links:hover {
-  text-decoration: none;
-  cursor: pointer;
-}
-/*# sourceMappingURL=index.css.map */
