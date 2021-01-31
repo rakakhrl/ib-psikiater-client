@@ -35,6 +35,7 @@ const registerPsikiater = (
         work_address: work_address,
       },
     });
+
     callback();
   } catch (error) {
     swal("Register Gagal!", error.response.data.message, "error");
