@@ -1,52 +1,76 @@
 .register {
-    margin-top: 2%;
-    margin-left: 20%;
-    padding: 50px;
-    padding-left: 20px;
-    border-radius: 40px !important;
-    border-color: #7d9dec !important;
-    box-shadow: 5px 5px 5px #7d9dec;
-  }
+  margin-top: 5%;
+  margin-bottom: 20px;
+  padding: 20px;
+  box-shadow: 5px 5px 5px #7d9dec;
+  border-radius: 30px !important;
+  border-color: #7d9dec !important;
+}
 
 .register-button {
-    margin-top: 10px;
-    margin-bottom: 20px;
-    margin-left: 10px !important;
-    background-color: #7d9dec !important;
-    border-color: #7d9dec !important;
-  }
+  margin-top: 10px;
+  margin-bottom: 20px;
+  margin-left: 10px !important;
+  background-color: #7d9dec !important;
+  border-color: #7d9dec !important;
+}
 
-
-.register-undraw{
-    width: 350px;
-    padding-top: 10%;
+.register-undraw {
+  width: 350px;
+  padding-top: 10%;
 }
 @media screen and (max-width: 992px) {
-    .register-undraw {
-      width: 200px;
-      display: flex;
-      padding-top: 1%;
-      margin-left: auto;
-      margin-right: auto;
-      margin-bottom: 50px;
-    }
+  .register-undraw {
+    width: 250px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
   }
-  
-  @media screen and (width: 375px) {
-    .register-undraw {
-      width: 150px;
-    }
-  }
-
-
-  .scroll {
-    max-height: 500px;
-    overflow-y: auto;
 }
 
-.tab-register{
-  margin: 5px;
-  padding: 5px;
-  font-size: 1.3vw;
-  border-style: solid solid none solid;
+@media screen and (width: 375px) {
+  .register-undraw {
+    width: 150px;
+  }
+}
+
+.scroll {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+/* Button Wrapper Styling */
+
+.tab-register {
+  margin-bottom: 5px;
+}
+
+/* Button Styling */
+
+.register-patient-button {
+  background-color: white !important;
+  color: #7d9dec !important;
+}
+
+.register-patient-button:hover {
+  background-color: #7d9dec !important;
+  color: white !important;
+}
+
+.register-psikiater-button {
+  margin-left: 5px;
+  background-color: white !important;
+  color: #7d9dec !important;
+}
+
+.register-psikiater-button:hover {
+  background-color: #7d9dec !important;
+  color: white !important;
+}
+
+@media screen and (max-width: 992px) {
+  .tab-register {
+    display: flex;
+    justify-content: center;
+  }
 }
