@@ -140,6 +140,10 @@ const PaymentSlipUpload = () => {
                   <strong>Payment Date: </strong>
                   {moment(paymentObject.createdAt).format("DD-MM-YYYY")}
                 </Card.Text>
+                <Card.Text>
+                  <strong>Payment Method: </strong>{" "}
+                  {paymentObject.payment_method}
+                </Card.Text>
               </Card.Body>
             </Card>
           </Row>
