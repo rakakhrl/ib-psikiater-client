@@ -36,9 +36,9 @@ const Index = () => {
       label: "Specialties",
       option: [
         { label: "All", value: "" },
-        { label: "Child", value: "child" },
-        { label: "Relationship", value: "relationship" },
-        { label: "Mental Health", value: "mental" },
+        { label: "Child", value: "Child" },
+        { label: "Relationship", value: "Relationship" },
+        { label: "Mental Health", value: "Mental Health" },
       ],
       onChange: (v) => setFilter({ ...filter, specialties: { id: v } }),
     },
@@ -81,7 +81,7 @@ const Index = () => {
             });
             break;
           default:
-            setFilter({ ...filter, price: "" });
+            setFilter({ ...filter, price: { id: "" } });
             break;
         }
       },
@@ -119,11 +119,12 @@ const Index = () => {
   );
 
   const filterResult = () => {
+    console.log(searchResult);
     const result = _.filter(
       searchResult,
       (s) =>
-        s.gender === filter.gender ||
-        s.info.specialties === filter.specialties ||
+        s.gender === filter.gender.id ||
+        s.specialize === filter.specialties.id ||
         (s.fees >= filter.price.min && s.fees <= filter.price.max)
     );
 
@@ -132,14 +133,13 @@ const Index = () => {
 
   useEffect(() => {
     if (
-      filter.specialties !== "" ||
-      filter.gender !== "" ||
-      filter.price !== ""
+      filter.specialties.id !== "" ||
+      filter.gender.id !== "" ||
+      filter.price.id !== ""
     ) {
       filterResult();
     } else {
       setFilteredResult();
-      console.log(filter);
     }
   }, [filter.specialties, filter.gender, filter.price]);
 
@@ -152,7 +152,7 @@ const Index = () => {
   };
 
   return (
-    <Container className="search-container">
+    <Container id="search-container">
       <h1 style={{ textAlign: "center", marginTop: "30px", color: "#70a1ff" }}>
         {filteredResult ? filteredResult.length : searchResult.length}{" "}
         Psychiatrist Found
@@ -213,10 +213,9 @@ const Index = () => {
             ))}
           </Form>
         </Col>
-        <Col md={10} className="result-section">
+        <Col md={10} id="result-section">
           {!filteredResult
             ? searchResult.map((item) => {
-                console.log(item);
                 return (
                   <CardResult
                     onClick={() => handleClick(item._id)}
