@@ -12,7 +12,6 @@ import appointmentAction from "../../redux/actions/appointmentAction.js";
 import swal from "sweetalert";
 import { Next } from "react-bootstrap/esm/PageItem";
 import CardNextAppointment from "../NextAppointment/cardNextAppointment";
-import "./index.css";
 
 const Index = () => {
   const dispatch = useDispatch();
@@ -37,6 +36,7 @@ const Index = () => {
       (apt) => apt._id === selectedAppointment?._id
     )[0];
     setSelectedAppointment(filteredUpdatedAppointment);
+    console.log("should rerender");
   }, [appointmentData]);
 
   const appointment = appointmentData.map((data) => {
@@ -147,14 +147,7 @@ const Index = () => {
       >
         Schedule
       </h1>
-      {appointmentPaid.length == 0 ? (
-        <h5 className="app-schedule-notif">
-          You dont have appointment schedule
-        </h5>
-      ) : (
-        <CardNextAppointment appointmentPaid={appointmentPaid[0]} />
-      )}
-
+      <CardNextAppointment appointmentPaid={appointmentPaid[0]} />
       <FullCalendar
         height={500}
         plugins={[timeGridPlugin]}

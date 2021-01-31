@@ -11,12 +11,6 @@ body {
   position: relative;
   color: white;
   text-align: center;
-  font-size: medium;
-}
-
-.ChatMessage-date {
-  color: gray;
-  font-size: x-small;
 }
 
 .message {
@@ -31,16 +25,23 @@ body {
 .sent p {
   color: white;
   background: #0b93f6;
-  align-self: flex-end;
+  align-self: flex-start;
 }
 .received p {
   background: #e5e5ea;
   color: black;
-  flex-direction: row-reverse;
 }
 
-Form {
-  width: 75%;
+/* Form {
+  height: 10vh;
   position: fixed;
-  float: left;
+  bottom: 0;
+  width: 100%;
+  max-width: 728px;
+  font-size: 1.5rem;
+} */
+
+.form-input-chat {
+  width: 50%;
+  position: fixed;
 }

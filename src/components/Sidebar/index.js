@@ -1,7 +1,7 @@
 import React from "react";
 // import { Navbar,Nav,s Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import "./index.css";
+import "./index.scss";
 import {
   BsArrowCounterclockwise,
   BsFillPersonFill,
