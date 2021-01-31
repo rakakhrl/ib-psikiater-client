@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Row, Col, Image } from "react-bootstrap";
-import "./index.css";
+import "./index.scss";
 import moment from "moment";
 
 const Index = ({ appointment }) => {

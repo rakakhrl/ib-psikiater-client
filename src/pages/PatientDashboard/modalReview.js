@@ -17,7 +17,8 @@ const ReviewPsikiaterModal = (props) => {
         method: "POST",
         url: `/reviews`,
         headers: {
-          accesstoken: token,
+          accesstoken:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWZlNDBiZmY4Y2IzZmEyMmY0MTRmZjk3Iiwicm9sZSI6IlBBVElFTlQiLCJpYXQiOjE2MTEwNjI0NTF9.qOPkCYGApfxSfg8Cf1MN1BMwd3Kfiy_56cpXiMBG8ss",
         },
         data: {
           psikiater_id: props.appointmentDone.psikiater_id._id,

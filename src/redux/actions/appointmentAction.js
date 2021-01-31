@@ -1,12 +1,9 @@
 import API from "../../API/mainServer";
 import swal from "sweetalert";
 
-const changeStatusAppointment = (
-  status,
-  appointment_id,
-  accesstoken,
-  callback
-) => async (dispatch) => {
+const changeStatusAppointment = (status, appointment_id, accesstoken) => async (
+  dispatch
+) => {
   try {
     const response = await API({
       method: "PATCH",
@@ -18,7 +15,6 @@ const changeStatusAppointment = (
         status: status,
       },
     });
-    callback();
   } catch (error) {
     console.log(error);
   }

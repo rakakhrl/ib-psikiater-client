@@ -25,7 +25,7 @@ const CardNextAppointment = ({ appointmentPaid }) => {
 
   const history = useHistory();
   const role = useSelector((store) => store.user.role);
-  console.log(appointmentPaid);
+  console.log(role);
   const fetchDataAppointment = async () => {
     try {
       const token = localStorage.getItem("accesstoken");
@@ -49,7 +49,7 @@ const CardNextAppointment = ({ appointmentPaid }) => {
   useEffect(() => {
     fetchDataAppointment();
   }, []);
-  console.log(appointmentPaid);
+
   const dateAppointment = appointmentPaid?.appointment_date;
   const timeAppointment = appointmentPaid?.appointment_time;
   const dateAppointmentFormatted = moment(dateAppointment).format("YYYY-MM-DD");
