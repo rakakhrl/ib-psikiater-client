@@ -35,6 +35,7 @@ const registerPsikiater = (
         work_address: work_address,
       },
     });
+
     callback();
   } catch (error) {
     swal("Register Gagal!", error.response.data.message, "error");
@@ -52,7 +53,7 @@ const uploadFotoPasien = (avatar) => async (dispatch) => {
     const uploadFotoPasien = await API({
       method: "POST",
       url: `/patients/upload/${user_id}`,
-      data: data,
+      datay: data,
       headers: {
         accesstoken: accesstoken,
       },

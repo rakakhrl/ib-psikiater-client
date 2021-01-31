@@ -52,3 +52,19 @@
     justify-content: center;
   }
 }
+
+#result-section {
+  height: 68vh;
+  max-height: 68vh;
+  overflow-y: scroll;
+}
+
+#result-section::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+#result-section {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
