@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory, useParams } from "react-router-dom";
-import ChatRoom from "../../components/Chatroom";
+import ChatRoom from "../../components/Chatroom/index";
 import "./index.css";
 
 const Index = () => {
