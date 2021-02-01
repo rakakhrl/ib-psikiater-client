@@ -75,9 +75,9 @@ const CardRecentAppointment = ({ appointmentDone, appointmentFetch }) => {
 
   return (
     <Card border="success" className="card-recent-appointment">
-      <Card.Img
+      <Image
         variant="top"
-        className="img-fluid mx-auto d-block"
+        className="img-fluid mx-auto d-block mt-3"
         src={appointmentDone.psikiater_id.avatar_url}
         style={{ width: "100px", height: "auto" }}
         alt="pasienPicture.jpg"
@@ -120,7 +120,7 @@ const CardRecentAppointment = ({ appointmentDone, appointmentFetch }) => {
                 readOnly
               ></StarRatings>
               {/* {typeof Number(parseFloat(feedback.rating?.$numberDecimal))} */}
-              <Card.Text className="font-italic text-center mt-2">{`"${feedback.feedback}"`}</Card.Text>
+              <Card.Text className="font-italic text-center mt-3">{`"${feedback.feedback}"`}</Card.Text>
               <Button onClick={seeHistoryChat} className=" mx-auto d-block">
                 History Chat
               </Button>

@@ -49,9 +49,9 @@ const CardUpcoming = ({ appointmentPaid }) => {
   return (
     <>
       <Card border="primary" className="card-recent-appointment" mb-3>
-        <Card.Img
+        <Image
           variant="top"
-          className="img-fluid mx-auto d-block"
+          className="img-fluid mx-auto d-block mt-3"
           src={appointmentPaid.psikiater_id.avatar_url}
           style={{ width: "100px", height: "auto" }}
           alt="psikiaterPicture.jpg"

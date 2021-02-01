@@ -84,7 +84,7 @@ const PatientDashboard = () => {
       {appointmentPaid.length === 0 ? (
         <Container className="flex-container">
           <div>
-            <h6>Next Appointment</h6>
+            <h4>Next Appointment</h4>
             <Alert variant="danger">
               <h6>You dont have any appointment.</h6>
             </Alert>
@@ -95,7 +95,7 @@ const PatientDashboard = () => {
           <Col md={4} />
           <Col md={4}>
             <div className="flex-container-center">
-              <h6 className="text-center">Next Appointment</h6>
+              <h4 className="text-center">Next Appointment</h4>
               <CardNextAppointment appointmentPaid={appointmentPaid[0]} />
             </div>
           </Col>
