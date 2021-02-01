@@ -8,20 +8,17 @@ import {
   InputGroup,
   FormControl,
 } from "react-bootstrap";
-import { useParams, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import API from "../../API/mainServer";
 import {
   useCollection,
   useCollectionData,
-  useDocument,
 } from "react-firebase-hooks/firestore";
 import appointmentAction from "../../redux/actions/appointmentAction";
 import firebase from "../../config/firebaseConfig";
 import "firebase/firestore";
 import "firebase/database";
-import moment from "moment";
-import ChatMessage from "./ChatMessage";
 import Message from "./ChatMessage";
 import swal from "sweetalert";
 import "./index.css";
