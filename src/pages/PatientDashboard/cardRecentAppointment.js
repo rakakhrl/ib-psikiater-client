@@ -11,6 +11,7 @@ import {
   Image,
   Modal,
   Alert,
+  CardDeck,
 } from "react-bootstrap";
 import Countdown from "react-countdown";
 import API from "../../API/mainServer";
@@ -73,69 +74,67 @@ const CardRecentAppointment = ({ appointmentDone, appointmentFetch }) => {
   const timeAppointmentFormatted = moment(timeAppointment).format();
 
   return (
-    <>
-      <Card className="space-card">
-        <Row>
-          <Col>
-            <Card.Body>
-              <Image
-                className={"PhotoPsikiater"}
-                src={appointmentDone.psikiater_id.avatar_url}
-                style={{ width: "190px", height: "90px" }}
-                alt="pasienPicture.jpg"
-                roundedCircle
-              />
-            </Card.Body>
-          </Col>
-          <Col>
-            <Card.Text>{`${appointmentDone.psikiater_id.first_name} ${appointmentDone.psikiater_id.last_name}`}</Card.Text>
-            <Card.Text className="">{`${dateAppointmentFormatted}`}</Card.Text>
-            <Card.Text className="">{`${timeAppointment} WIB`}</Card.Text>
-          </Col>
-          <Col>
-            <Card.Text className="mt-3">
-              {`${appointmentDone.psikiater_id.work_address}`}
-            </Card.Text>
-          </Col>
-          <Col>
-            {!feedback ? (
-              <div>
-                <Alert variant="danger">
-                  <p>Not rated yet</p>
-                </Alert>
-
-                <StarRatings
-                  rating={0}
-                  starRatedColor="gold"
-                  starDimension="30px"
-                  readOnly
-                />
-                <Button onClick={handleShow}>Create Review</Button>
-              </div>
-            ) : (
-              <div>
-                <StarRatings
-                  rating={Number(parseFloat(feedback?.rating?.$numberDecimal))}
-                  starRatedColor="gold"
-                  starDimension="30px"
-                  readOnly
-                ></StarRatings>
-                {/* {typeof Number(parseFloat(feedback.rating?.$numberDecimal))} */}
-                <Card.Text>{`"${feedback.feedback}"`}</Card.Text>
-              </div>
-            )}
-          </Col>
-          <Col>
-            <ReviewPsikiaterModal
-              show={show}
-              onHide={handleClose}
-              appointmentDone={appointmentDone}
-              appointmentFetch={appointmentFetch}
-            />
-          </Col>
-        </Row>
-      </Card>
-    </>
+    <Card border="success" className="card-recent-appointment">
+      <Card.Img
+        variant="top"
+        className="img-fluid mx-auto d-block"
+        src={appointmentDone.psikiater_id.avatar_url}
+        style={{ width: "100px", height: "auto" }}
+        alt="pasienPicture.jpg"
+        roundedCircle
+      />
+      <hr></hr>
+      <Card.Body>
+        <Card.Title>{`${appointmentDone.psikiater_id.first_name} ${appointmentDone.psikiater_id.last_name}`}</Card.Title>
+        <Card.Text className="">{`${dateAppointmentFormatted}`}</Card.Text>
+        <Card.Text className="">{`${timeAppointment} WIB`}</Card.Text>
+        <Card.Text className="mt-3">
+          {`${appointmentDone.psikiater_id.work_address}`}
+        </Card.Text>
+      </Card.Body>
+      <Card.Footer>
+        <Card.Text>
+          {" "}
+          {!feedback ? (
+            <div>
+              <Alert variant="danger" size="md">
+                <p className="text-center">Not rated yet</p>
+              </Alert>
+              {/* 
+                  <StarRatings
+                    rating={0}
+                    starRatedColor="gold"
+                    starDimension="30px"
+                    readOnly
+                  /> */}
+              <Button onClick={handleShow} className=" mx-auto d-block">
+                Create Review
+              </Button>
+            </div>
+          ) : (
+            <div>
+              <StarRatings
+                rating={Number(parseFloat(feedback?.rating?.$numberDecimal))}
+                starRatedColor="gold"
+                starDimension="30px"
+                readOnly
+              ></StarRatings>
+              {/* {typeof Number(parseFloat(feedback.rating?.$numberDecimal))} */}
+              <Card.Text className="font-italic text-center mt-2">{`"${feedback.feedback}"`}</Card.Text>
+              <Button onClick={seeHistoryChat} className=" mx-auto d-block">
+                History Chat
+              </Button>
+            </div>
+          )}
+          <ReviewPsikiaterModal
+            show={show}
+            onHide={handleClose}
+            appointmentDone={appointmentDone}
+            appointmentFetch={appointmentFetch}
+          />
+        </Card.Text>
+      </Card.Footer>
+    </Card>
   );
 };
 

@@ -7,6 +7,8 @@ import {
   Spinner,
   InputGroup,
   FormControl,
+  ButtonGroup,
+  Col,
 } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -22,14 +24,18 @@ import "firebase/database";
 import Message from "./ChatMessage";
 import swal from "sweetalert";
 import "./index.css";
+import CreatePrescriptionModal from "../CreatePrescriptionModal.js";
+import AddDiagnoseModal from "../AddDiagnoseModal.js";
 
 const firestore = firebase.firestore();
 
 const ChatRoom = ({ room, appointment }) => {
   const [formValue, setFormValue] = useState("");
-  const [dataAppointment, setDataAppointment] = useState([]);
+  const [dataAppointment, setDataAppointment] = useState({});
   const [isDone, setIsDone] = useState(false);
   const [statusAppointment, setStatusAppointment] = useState("");
+  const [showPrescriptionModal, setShowPrescriptionModal] = useState(false);
+  const [showDiagnoseModal, setShowDiagnoseModal] = useState(false);
 
   const role = useSelector((store) => store.user.role);
 
@@ -37,24 +43,29 @@ const ChatRoom = ({ room, appointment }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  const getUserData = async () => {
+    try {
+      const response = await API({
+        method: "GET",
+        url: `/appointments/${appointment}`,
+        headers: {
+          accesstoken: localStorage.getItem("accesstoken"),
+        },
+      });
+      setDataAppointment(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    const getUserData = async () => {
-      try {
-        const response = await API({
-          method: "GET",
-          url: `/appointments/${appointment}`,
-          headers: {
-            accesstoken: localStorage.getItem("accesstoken"),
-          },
-        });
-        setDataAppointment(response.data.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     getUserData();
     return getUserData;
   }, []);
+
+  useEffect(() => {
+    console.log(dataAppointment.diagnose?.diagnose_date ? true : false);
+  }, [dataAppointment]);
 
   const messageRef = firestore.collection(`Message/${room}/Chat`);
   const [value, loading, error] = useCollection(messageRef, {
@@ -68,11 +79,6 @@ const ChatRoom = ({ room, appointment }) => {
   const sendMessageHandler = async (e) => {
     e.preventDefault();
     await messageRef.add({
-      // appointment_id: "",
-      // from:
-      //   role === "PATIENT"
-      //     ? `${dataAppointment.patient_id.first_name} ${dataAppointment.patient_id.last_name}`
-      //     : `${dataAppointment.psikiater_id.first_name} ${dataAppointment.psikiater_id.last_name}`,
       text: formValue,
       sender:
         role === "PATIENT"
@@ -155,8 +161,8 @@ const ChatRoom = ({ room, appointment }) => {
       console.log(error);
     }
   };
-  getUserDataStatus();
 
+  getUserDataStatus();
   useEffect(() => {
     console.log(statusAppointment);
   }, []);
@@ -198,68 +204,101 @@ const ChatRoom = ({ room, appointment }) => {
     }
   }, [isDone]);
 
+  const handlePrescriptionModalShow = () => {
+    setShowPrescriptionModal(true);
+  };
+  const handlePrescriptionModalClose = () => {
+    getUserData();
+    setShowPrescriptionModal(false);
+  };
+
+  const handleDiagnoseModalShow = () => {
+    setShowDiagnoseModal(true);
+  };
+  const handleDiagnoseModalClose = () => {
+    getUserData();
+    setShowDiagnoseModal(false);
+  };
+
   return (
-    <>
-      {/* SHOW INPUT RESULT  */}
-      <Container>
-        {error && <strong>Error: {JSON.stringify(error)}</strong>}
-        {loading && <Spinner variant="primary" animation="border"></Spinner>}
-        {messages &&
-          messages.map((doc) => {
-            return (
-              <Message
-                key={doc?.id}
-                text={doc?.text}
-                sender={doc?.sender}
-                createdAt={doc?.createdAt}
-                role={doc?.role}
-                avatar_url={doc?.avatar_url}
-              />
-            );
-          })}
+    <Container className="d-flex flex-column justify-center">
+      <Row>
+        <CreatePrescriptionModal
+          show={showPrescriptionModal}
+          handleClose={handlePrescriptionModalClose}
+          appointment_id={appointment}
+        />
+        <AddDiagnoseModal
+          show={showDiagnoseModal}
+          handleClose={handleDiagnoseModalClose}
+          appointment_id={appointment}
+        />
+
         {role === "PSIKIATER" ? (
-          <Button onClick={changeStatusDoneAlert}>End Session</Button>
+          <ButtonGroup>
+            <Button onClick={changeStatusDoneAlert}>End Session</Button>
+            <Button
+              onClick={handleDiagnoseModalShow}
+              disabled={dataAppointment.diagnose?.diagnose_date ? true : false}
+            >
+              Add Diagnose
+            </Button>
+            <Button
+              onClick={handlePrescriptionModalShow}
+              disabled={dataAppointment.prescription_id ? true : false}
+            >
+              Create Prescription
+            </Button>
+          </ButtonGroup>
         ) : null}
-        {/* BUTTON & FORM INPUT */}
-        <div className="FormButton">
-          <Row>
-            <Form className="fixed-bottom" onSubmit={sendMessageHandler}>
-              <InputGroup>
-                {isDone ? (
-                  <FormControl
-                    disabled={true}
-                    className="flex-1"
-                    value={formValue}
-                    onChange={(e) => setFormValue(e.target.value)}
-                    type="input"
-                    placeholder="Type something here"
-                  />
-                ) : (
-                  <FormControl
-                    className="flex-1"
-                    value={formValue}
-                    onChange={(e) => setFormValue(e.target.value)}
-                    type="input"
-                    placeholder="Type something here"
-                  />
-                )}
-                <InputGroup.Append>
-                  <Button
-                    variant="outline-secondary"
-                    type="submit"
-                    disabled={!formValue}
-                    onClick={sendMessageHandler}
-                  >
-                    💬
-                  </Button>
-                </InputGroup.Append>
-              </InputGroup>
-            </Form>
-          </Row>
-        </div>
-        <div ref={bottomListRef} />
-      </Container>
-    </>
+      </Row>
+      <Row>
+        {loading && <Spinner variant="primary" animation="border"></Spinner>}
+        <Col style={{ marginTop: "20px" }}>
+          {messages &&
+            messages.map((doc) => {
+              return (
+                <Message
+                  key={doc?.id}
+                  text={doc?.text}
+                  sender={doc?.sender}
+                  createdAt={doc?.createdAt}
+                  role={doc?.role}
+                  avatar_url={doc?.avatar_url}
+                />
+              );
+            })}
+        </Col>
+      </Row>
+      <Row className="sticky-bottom">
+        <Col>
+          <Form onSubmit={sendMessageHandler}>
+            <InputGroup>
+              <FormControl
+                disabled={isDone}
+                value={formValue}
+                onChange={(e) => setFormValue(e.target.value)}
+                type="input"
+                placeholder="Type something here"
+              />
+
+              <InputGroup.Append>
+                <Button
+                  variant="outline-secondary"
+                  type="submit"
+                  disabled={!formValue}
+                  onClick={sendMessageHandler}
+                >
+                  💬
+                </Button>
+              </InputGroup.Append>
+            </InputGroup>
+          </Form>
+        </Col>
+      </Row>
+
+      <div ref={bottomListRef} />
+    </Container>
   );
 };
 
