@@ -3,7 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import Cards from "../Card/index";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
-import { Container, ButtonGroup, Button, Row, Col } from "react-bootstrap";
+import {
+  Container,
+  ButtonGroup,
+  Button,
+  Row,
+  Col,
+  Alert,
+} from "react-bootstrap";
 import API from "../../API/mainServer";
 import moment from "moment";
 import CreatePrescriptionModal from "../CreatePrescriptionModal.js";
@@ -148,9 +155,9 @@ const Index = () => {
         Schedule
       </h1>
       {appointmentPaid.length == 0 ? (
-        <h5 className="app-schedule-notif">
-          You dont have appointment schedule
-        </h5>
+        <Alert variant="danger">
+          <h6>You dont have any appointment.</h6>
+        </Alert>
       ) : (
         <CardNextAppointment appointmentPaid={appointmentPaid[0]} />
       )}

@@ -7,6 +7,7 @@ import {
   Button,
   Image,
   Modal,
+  Alert,
 } from "react-bootstrap";
 import Countdown from "react-countdown";
 import API from "../../API/mainServer";
@@ -21,6 +22,8 @@ import { useHistory } from "react-router-dom";
 const CardRecentAppointment = ({ appointmentDone, appointmentFetch }) => {
   const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [roomChat_id, setRoomChatId] = useState();
+  const [appointment_id, setAppointment_id] = useState();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -39,11 +42,18 @@ const CardRecentAppointment = ({ appointmentDone, appointmentFetch }) => {
       });
 
       setFeedback(response.data.data);
-      console.log(response.data.data);
       setIsLoading(true);
+      setRoomChatId(response.data.data.appointment_id.roomChat_id);
+      setAppointment_id(response.data.data.appointment_id._id);
     } catch (error) {
       console.log(error);
     }
+  };
+  console.log(roomChat_id);
+  console.log(appointment_id);
+  // Akses history chat
+  const seeHistoryChat = () => {
+    history.push(`/chatbox/${roomChat_id}/${appointment_id}`);
   };
 
   useEffect(() => {
@@ -87,7 +97,9 @@ const CardRecentAppointment = ({ appointmentDone, appointmentFetch }) => {
           <Col>
             {!feedback ? (
               <div>
-                <Card.Text>Not Rated Yet</Card.Text>
+                <Alert variant="danger">
+                  <p>Not rated yet</p>
+                </Alert>
                 <StarRatings
                   rating={0}
                   starRatedColor="gold"
@@ -106,6 +118,7 @@ const CardRecentAppointment = ({ appointmentDone, appointmentFetch }) => {
                 ></StarRatings>
                 {/* {typeof Number(parseFloat(feedback.rating?.$numberDecimal))} */}
                 <Card.Text>{`"${feedback.feedback}"`}</Card.Text>
+                <Button onClick={seeHistoryChat}>History Chat</Button>
               </div>
             )}
           </Col>

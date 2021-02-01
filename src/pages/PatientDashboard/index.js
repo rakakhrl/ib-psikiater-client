@@ -10,6 +10,7 @@ import {
   Button,
   Image,
   Spinner,
+  Alert,
 } from "react-bootstrap";
 import Countdown from "react-countdown";
 import API from "../../API/mainServer";
@@ -98,7 +99,14 @@ const PatientDashboard = () => {
             style={{ height: "150px", width: "350px", paddingTop: "10" }}
           >
             {appointmentPaid.length === 0 ? (
-              <h5 className={"Judul"}>Your dont have any appointment</h5>
+              <Container className="flex-container">
+                <div>
+                  <h6>Next Appointment</h6>
+                  <Alert variant="danger">
+                    <h5>You dont have any appointment.</h5>
+                  </Alert>
+                </div>
+              </Container>
             ) : (
               <CardNextAppointment appointmentPaid={appointmentPaid[0]} />
             )}
@@ -107,7 +115,9 @@ const PatientDashboard = () => {
             <Container className="flex-container mt-5">
               <div>
                 <h5>Upcoming Appointment</h5>
-                <h5 className={"Judul"}>Your dont have any appointment</h5>
+                <Alert variant="danger">
+                  <h6>You dont have any appointment.</h6>
+                </Alert>
               </div>
             </Container>
           ) : (
@@ -120,18 +130,30 @@ const PatientDashboard = () => {
               </div>
             </Container>
           )}
-          <Container className="flex-container">
-            <div>
-              <h5>Recent Appointment</h5>
-              {appointmentDone.map((item) => (
-                <CardRecentAppointment
-                  key={item._id}
-                  appointmentDone={item}
-                  appointmentFetch={fetchDataAppointment}
-                />
-              ))}
-            </div>
-          </Container>
+
+          {appointmentDone.length === 0 ? (
+            <Container className="flex-container mt-5">
+              <div>
+                <h5>Recent Appointment</h5>
+                <Alert variant="danger">
+                  <h6>You dont have any appointment.</h6>
+                </Alert>
+              </div>
+            </Container>
+          ) : (
+            <Container className="flex-container">
+              <div>
+                <h5>Recent Appointment</h5>
+                {appointmentDone.map((item) => (
+                  <CardRecentAppointment
+                    key={item._id}
+                    appointmentDone={item}
+                    appointmentFetch={fetchDataAppointment}
+                  />
+                ))}
+              </div>
+            </Container>
+          )}
         </div>
       )}
     </>

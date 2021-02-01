@@ -32,6 +32,7 @@ const ChatRoom = ({ roomChat_id, appointment_id }) => {
   const [formValue, setFormValue] = useState("");
   const [dataAppointment, setDataAppointment] = useState([]);
   const [isDone, setIsDone] = useState(false);
+  const [statusAppointment, setStatusAppointment] = useState("");
 
   const role = useSelector((store) => store.user.role);
 
@@ -143,21 +144,47 @@ const ChatRoom = ({ roomChat_id, appointment_id }) => {
     });
   };
 
-  const endedSessionAlert = () => {
-    swal("Your Session has ended", {
-      buttons: {
-        goBack: {
-          text: "Ok",
-          value: "goBack",
+  const getUserDataStatus = async () => {
+    try {
+      const response = await API({
+        method: "GET",
+        url: `/appointments/${appointment_id}`,
+        headers: {
+          accesstoken: localStorage.getItem("accesstoken"),
         },
-      },
-    }).then((value) => {
-      switch (value) {
-        case "goBack":
-          goBackHandler();
-          break;
+      });
+      setStatusAppointment(response.data.data.status);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  getUserDataStatus();
+
+  useEffect(() => {
+    console.log(statusAppointment);
+  }, []);
+
+  const endedSessionAlert = () => {
+    if (statusAppointment) {
+      if (statusAppointment === "Done") {
+        return swal("End session");
+      } else {
+        swal("Your Session has ended", {
+          buttons: {
+            goBack: {
+              text: "Ok",
+              value: "goBack",
+            },
+          },
+        }).then((value) => {
+          switch (value) {
+            case "goBack":
+              goBackHandler();
+              break;
+          }
+        });
       }
-    });
+    }
   };
 
   const goBackHandler = () => {
