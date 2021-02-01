@@ -11,8 +11,8 @@ const AdminDashboard = () => {
 
   return (
     <>
-      <Row style={{ height: "91.5vh", maxWidth: "100vw" }}>
-        <Col md={2} className="bg-primary">
+      <Row style={{ height: "93vh", maxWidth: "100vw" }}>
+        <Col md={2} style={{ background: "#7d9dec !important" }}>
           <Nav className="flex-column justify-content-between pt-2 h-100">
             <div>
               <Nav.Item className="p-2">

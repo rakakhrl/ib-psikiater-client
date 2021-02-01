@@ -91,9 +91,9 @@ export default Index;
             <Link to={`${url}`} className="links">
               <h5 className="link">
                 {" "}
-                
+
                 <BsFillCalendarFill />
-                
+
                 Schedule
               </h5>
             </Link>
