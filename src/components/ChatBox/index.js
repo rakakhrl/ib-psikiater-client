@@ -9,35 +9,42 @@ import {
   FormControl,
 } from "react-bootstrap";
 import { useParams, useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import API from "../../API/mainServer";
 import {
   useCollection,
   useCollectionData,
+  useDocument,
 } from "react-firebase-hooks/firestore";
+import appointmentAction from "../../redux/actions/appointmentAction";
 import firebase from "../../config/firebaseConfig";
+import "firebase/firestore";
+import "firebase/database";
+import moment from "moment";
 import ChatMessage from "./ChatMessage";
 import Message from "./ChatMessage";
+import swal from "sweetalert";
 import "./index.css";
 
 const firestore = firebase.firestore();
 
-const ChatRoom = ({ room, appointment }) => {
+const ChatRoom = ({ roomChat_id, appointment_id }) => {
   const [formValue, setFormValue] = useState("");
   const [dataAppointment, setDataAppointment] = useState([]);
+  const [isDone, setIsDone] = useState(false);
 
   const role = useSelector((store) => store.user.role);
 
   const bottomListRef = useRef();
-
-  console.log(dataAppointment);
+  const history = useHistory();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const getUserData = async () => {
       try {
         const response = await API({
           method: "GET",
-          url: `/appointments/${appointment}`,
+          url: `/appointments/${appointment_id}`,
           headers: {
             accesstoken: localStorage.getItem("accesstoken"),
           },
@@ -50,10 +57,8 @@ const ChatRoom = ({ room, appointment }) => {
     getUserData();
     return getUserData;
   }, []);
-  // console.log(dataAppointment)
-  // const patientName = dataAppointment.patient_id.first_name;
-  // const psikiaterName = dataAppointment.psikiater_id.first_name;
-  const messageRef = firestore.collection(`Message/${room}/Chat`);
+
+  const messageRef = firestore.collection(`Message/${roomChat_id}/Chat`);
   const [value, loading, error] = useCollection(messageRef, {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
@@ -76,6 +81,11 @@ const ChatRoom = ({ room, appointment }) => {
           ? `${dataAppointment?.patient_id?.first_name} ${dataAppointment?.patient_id?.last_name}`
           : `${dataAppointment?.psikiater_id?.first_name} ${dataAppointment?.psikiater_id?.last_name}`,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      role: role,
+      avatar_url:
+        role === "PATIENT"
+          ? `${dataAppointment?.patient_id?.avatar_url}`
+          : `${dataAppointment?.psikiater_id?.avatar_url}`,
     });
 
     setFormValue("");
@@ -84,6 +94,85 @@ const ChatRoom = ({ room, appointment }) => {
   };
 
   const messageClass = role === "PATIENT" ? "sent" : "received";
+
+  const changeStatusPatient = () => {
+    const ref = firestore.collection("Message").doc(roomChat_id);
+
+    dispatch(
+      appointmentAction.changeStatusAppointment(
+        "Done",
+        appointment_id,
+        localStorage.getItem("accesstoken"),
+        ref
+          .update({
+            isDone: true,
+          })
+          .then(function () {})
+          .catch(function (error) {
+            // The document probably doesn't exist.
+            console.error("Error updating document: ", error);
+          })
+      )
+    );
+  };
+
+  const ref = firestore.collection("Message").doc(roomChat_id);
+
+  ref.onSnapshot(function (doc) {
+    setIsDone(doc.data().isDone);
+  });
+
+  const changeStatusDoneAlert = () => {
+    swal("Are you sure want to end this session?", {
+      buttons: {
+        changeStatus: {
+          text: "Yes",
+          value: "changeStatus",
+        },
+        No: {
+          text: "No",
+          value: false,
+        },
+      },
+    }).then((value) => {
+      switch (value) {
+        case "changeStatus":
+          changeStatusPatient();
+          break;
+      }
+    });
+  };
+
+  const endedSessionAlert = () => {
+    swal("Your Session has ended", {
+      buttons: {
+        goBack: {
+          text: "Ok",
+          value: "goBack",
+        },
+      },
+    }).then((value) => {
+      switch (value) {
+        case "goBack":
+          goBackHandler();
+          break;
+      }
+    });
+  };
+
+  const goBackHandler = () => {
+    if (role === "PATIENT") {
+      history.push("/patient-dashboard");
+    } else {
+      history.push("/psikiater-dashboard");
+    }
+  };
+
+  useEffect(() => {
+    if (isDone) {
+      endedSessionAlert();
+    }
+  }, [isDone]);
 
   return (
     <>
@@ -94,44 +183,56 @@ const ChatRoom = ({ room, appointment }) => {
         {messages &&
           messages.map((doc) => {
             return (
-              <Message key={doc?.id} text={doc?.text} sender={doc?.sender} />
+              <Message
+                key={doc?.id}
+                text={doc?.text}
+                sender={doc?.sender}
+                createdAt={doc?.createdAt}
+                role={doc?.role}
+                avatar_url={doc?.avatar_url}
+              />
             );
           })}
+        {role === "PSIKIATER" ? (
+          <Button onClick={changeStatusDoneAlert}>End Session</Button>
+        ) : null}
         {/* BUTTON & FORM INPUT */}
-        <div>
+        <div className="FormButton">
           <Row>
-            <InputGroup>
-              <FormControl
-                value={formValue}
-                onChange={(e) => setFormValue(e.target.value)}
-                type="input"
-                placeholder="Type something here"
-              />
-              <InputGroup.Append>
-                <Button
-                  variant="outline-secondary"
-                  type="submit"
-                  disabled={!formValue}
-                  onClick={sendMessageHandler}
-                >
-                  💬
-                </Button>
-              </InputGroup.Append>
-            </InputGroup>
+            <Form className="fixed-bottom" onSubmit={sendMessageHandler}>
+              <InputGroup>
+                {isDone ? (
+                  <FormControl
+                    disabled={true}
+                    className="flex-1"
+                    value={formValue}
+                    onChange={(e) => setFormValue(e.target.value)}
+                    type="input"
+                    placeholder="Type something here"
+                  />
+                ) : (
+                  <FormControl
+                    className="flex-1"
+                    value={formValue}
+                    onChange={(e) => setFormValue(e.target.value)}
+                    type="input"
+                    placeholder="Type something here"
+                  />
+                )}
+                <InputGroup.Append>
+                  <Button
+                    variant="outline-secondary"
+                    type="submit"
+                    disabled={!formValue}
+                    onClick={sendMessageHandler}
+                  >
+                    💬
+                  </Button>
+                </InputGroup.Append>
+              </InputGroup>
+            </Form>
           </Row>
         </div>
-
-        {/* <Form.Control
-              value={formValue}
-              onChange={(e) => setFormValue(e.target.value)}
-              type="input"
-              placeholder="type something here"
-            />
-            <InputGroup.Append>
-              <Button type="submit" disabled={!formValue}>
-                💬
-              </Button>
-            </InputGroup.Append> */}
         <div ref={bottomListRef} />
       </Container>
     </>
