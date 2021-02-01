@@ -1,7 +1,7 @@
 import React from "react";
-import { Navbar, Nav } from "react-bootstrap";
+// import { Navbar,Nav,s Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import "./index.scss";
+import "./index.css";
 import {
   BsArrowCounterclockwise,
   BsFillPersonFill,
@@ -10,12 +10,78 @@ import {
 } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { logout } from "../../redux/actions/authAction";
+import SideNav, {
+  Toggle,
+  Nav,
+  NavItem,
+  NavIcon,
+  NavText,
+} from "@trendmicro/react-sidenav";
+import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 
 const Index = ({ url }) => {
   const dispatch = useDispatch();
 
   return (
-    <Navbar
+    <SideNav
+      id="sidebar-sidenav"
+      onSelect={(selected) => {
+        // Add your code here
+      }}
+    >
+      <SideNav.Toggle />
+      <SideNav.Nav>
+        <NavItem>
+          <NavIcon>
+            <i>
+              <BsFillCalendarFill size="2em" />
+            </i>
+          </NavIcon>
+          <NavText id="sidebar-navtext">
+            <Link to={`${url}`}>Schedule</Link>
+          </NavText>
+        </NavItem>
+        <NavItem>
+          <NavIcon>
+            <i>
+              <BsArrowCounterclockwise size="2em" />
+            </i>
+          </NavIcon>
+          <NavText>
+            <Link to={`${url}/history`}>History</Link>
+          </NavText>
+        </NavItem>
+        <NavItem>
+          <NavIcon>
+            <i>
+              <BsFillPersonFill size="2em" />
+            </i>
+          </NavIcon>
+          <NavText>
+            <Link to={`${url}/profile`}>Profile</Link>
+          </NavText>
+        </NavItem>
+        <NavItem>
+          <NavIcon>
+            <i>
+              <BsBoxArrowInLeft size="2em" />
+            </i>
+          </NavIcon>
+          <NavText>
+            <Link onClick={() => dispatch(logout())}>Sign Out</Link>
+          </NavText>
+        </NavItem>
+      </SideNav.Nav>
+    </SideNav>
+  );
+};
+
+export default Index;
+
+// Old Code
+
+{
+  /* <Navbar
       style={{ position: "fixed", minWidth: "12vw" }}
       className="side-bar d-none d-md-block"
     >
@@ -25,9 +91,9 @@ const Index = ({ url }) => {
             <Link to={`${url}`} className="links">
               <h5 className="link">
                 {" "}
-                <i>
-                  <BsFillCalendarFill />
-                </i>{" "}
+
+                <BsFillCalendarFill />
+
                 Schedule
               </h5>
             </Link>
@@ -67,8 +133,5 @@ const Index = ({ url }) => {
         </div>
       </Nav>
       <Nav className="flex-column"></Nav>
-    </Navbar>
-  );
-};
-
-export default Index;
+    </Navbar> */
+}

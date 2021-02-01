@@ -1,0 +1,46 @@
+body {
+  background-color: #282c34;
+}
+
+.ChatMessage-p {
+  max-width: 500px;
+  margin-bottom: 12px;
+  line-height: 24px;
+  padding: 10px 20px;
+  border-radius: 25px;
+  position: relative;
+  color: white;
+  text-align: center;
+  font-size: medium;
+}
+
+.ChatMessage-date {
+  color: gray;
+  font-size: x-small;
+}
+
+.message {
+  display: flex;
+  align-items: center;
+}
+
+.received {
+  flex-direction: row-reverse;
+}
+
+.sent p {
+  color: white;
+  background: #0b93f6;
+  align-self: flex-end;
+}
+.received p {
+  background: #e5e5ea;
+  color: black;
+  flex-direction: row-reverse;
+}
+
+.sticky-bottom {
+  position: fixed;
+  top: 700px;
+  width: 80%;
+}

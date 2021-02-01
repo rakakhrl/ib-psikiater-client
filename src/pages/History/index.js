@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import API from "../../API/mainServer";
-import AppointmentCard from "../../components/AppointmentCard";
+// import AppointmentCard from "../../components/AppointmentCard";
+import PsikiaterHistory from "../../components/PsikiaterHistory/PsikiaterHistory";
 import PrescriptionModal from "../../components//PrescriptionModal.js";
 
 const Index = () => {
@@ -16,7 +17,6 @@ const Index = () => {
         url: `/appointments/psikiater`,
         headers: { accesstoken: accesstoken },
       });
-      console.log(res.data);
       setListOfAppointment(res.data.data);
     };
     fetchAppointment();
@@ -33,14 +33,18 @@ const Index = () => {
     setPrescription({});
   };
 
-  const listOfHistory = listOfAppointment.map((appointment) => {
-    return (
-      <AppointmentCard
-        appointment={appointment}
-        showPrescriptionModal={(v, e) => handlePerscriptionModalShow(v, e)}
-        showRating={false}
-      />
-    );
+  // const listOfHistory = listOfAppointment.map((appointment) => {
+  //   return (
+  //     <AppointmentCard
+  //       appointment={appointment}
+  //       showPrescriptionModal={(v, e) => handlePerscriptionModalShow(v, e)}
+  //       showRating={false}
+  //     />
+  //   );
+  // });
+
+  const listOfPatientHistory = listOfAppointment.map((appointment) => {
+    return <PsikiaterHistory key={appointment._id} appointment={appointment} />;
   });
 
   return (
@@ -61,7 +65,7 @@ const Index = () => {
         handleClose={handlePrescriptionModalClose}
         prescription={prescription}
       />
-      {listOfHistory}
+      {listOfPatientHistory}
     </>
   );
 };

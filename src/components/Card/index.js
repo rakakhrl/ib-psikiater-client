@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Row, Col, Image } from "react-bootstrap";
-import "./index.scss";
+import "./index.css";
 import moment from "moment";
 
 const Index = ({ appointment }) => {
@@ -50,9 +50,7 @@ const Index = ({ appointment }) => {
           </Col>
           <Col xs="3" lg="3" md="12">
             <h6 className="">Diagnose: {appointment.diagnose.diagnose_name}</h6>
-            <h6 className="">
-              Allergy: {appointment.allergy.map((a) => `${a}, `)}
-            </h6>
+            <h6 className="">Allergy: {appointment.allergy}</h6>
             <h6 className="">
               Date: {moment(appointment.appointment_date).format("YYYY-MM-DD")}
             </h6>

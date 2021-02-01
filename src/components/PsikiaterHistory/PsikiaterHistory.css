@@ -1,0 +1,30 @@
+/* Card Styling */
+
+.card-wrapper {
+  float: left;
+  flex-wrap: wrap;
+  width: 14rem;
+  margin-left: 50px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  box-shadow: 7px 7px 4px grey;
+  transition: 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card-wrapper:hover {
+  width: 15rem;
+}
+
+.psikiater-history-card-title,
+.card-text-1,
+.card-text-2 {
+  text-align: center;
+  font-weight: bold;
+  margin: 5px;
+}
+
+.button-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

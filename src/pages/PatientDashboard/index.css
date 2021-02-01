@@ -1,0 +1,40 @@
+.upcoming-appointment {
+  background-color: #7d9dec !important;
+  text-align: center;
+  border-radius: 20px;
+}
+
+.Photo {
+  display: flex;
+  justify-content: end;
+}
+.Judul {
+  color: #e65b85;
+}
+h2,
+h3 {
+  color: white;
+}
+
+.PhotoPsikiater {
+  display: flexbox;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.card-recent-appointment {
+  margin-right: 10px;
+}
+
+.card-recent {
+  width: 18rem;
+}
+
+.flex-container-center {
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}

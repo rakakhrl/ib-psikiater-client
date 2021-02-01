@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { logout } from "./redux/actions/authAction";
 import userAction from "./redux/actions/userAction";
 import AppRoute from "./AppRoute";
-import AppNavbar from "./components/AppNavbar";
+import AppNavbar from "./components/AppNavbar/index";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -29,6 +29,8 @@ const App = () => {
     () => {
       if (user.role === "PSIKIATER") {
         history.push("/psikiater-dashboard");
+      } else if (user.role === "ADMIN") {
+        history.push("/admin-dashboard");
       }
     },
     // eslint-disable-next-line

@@ -1,7 +1,7 @@
 import API from "../../API/mainServer";
 import appAction from "./appAction";
 import swal from "sweetalert";
-import { LOGIN, LOGOUT } from "./actionTypes";
+import { CHANGE_SCHEDULE, LOGIN, LOGOUT } from "./actionTypes";
 
 const registerPsikiater = (
   first_name,
@@ -10,10 +10,12 @@ const registerPsikiater = (
   email,
   date_of_birth,
   gender,
+  specialize,
   experience_year,
   region,
   fee,
-  work_address
+  work_address,
+  callback
 ) => async (dispatch) => {
   try {
     const psikiater = await API({
@@ -26,6 +28,7 @@ const registerPsikiater = (
         email: email,
         date_of_birth,
         gender: gender,
+        specialize: specialize,
         experience_year: experience_year,
         region: region,
         fees: fee,
@@ -33,64 +36,50 @@ const registerPsikiater = (
       },
     });
 
-    localStorage.setItem("isLogin", true);
-    localStorage.setItem("accesstoken", psikiater.data.token);
-    localStorage.setItem("userId", psikiater.data.data._id);
-    localStorage.setItem("role", psikiater.data.role);
-
-    dispatch({
-      type: LOGIN,
-      payload: {
-        isLogin: true,
-        role: psikiater.data.role,
-        user_data: psikiater.data.data,
-      },
-    });
+    callback();
   } catch (error) {
     swal("Register Gagal!", error.response.data.message, "error");
   }
 };
 
-const uploadFotoPasien = (
-  avatar,
-) => async (dispatch) => {
+const uploadFotoPasien = (avatar, callback) => async (dispatch) => {
   try {
     const role = localStorage.getItem("role");
     const user_id = localStorage.getItem("userId");
     const accesstoken = localStorage.getItem("accesstoken");
 
-    const data = new FormData()
-    data.append("profile_photo", avatar)
+    const data = new FormData();
+    data.append("profile_photo", avatar);
     const uploadFotoPasien = await API({
       method: "POST",
       url: `/patients/upload/${user_id}`,
       data: data,
-      headers:{
+      headers: {
         accesstoken: accesstoken,
-      }
+      },
     });
+
+    callback();
   } catch (error) {
     console.log(error);
   }
 };
 
-const uploadFotoPsikiater = (
-  avatar,
-) => async (dispatch) => {
+const uploadFotoPsikiater = (avatar) => async (dispatch) => {
   try {
     const role = localStorage.getItem("role");
     const user_id = localStorage.getItem("userId");
     const accesstoken = localStorage.getItem("accesstoken");
 
-    const data = new FormData()
-    data.append("profile_photo", avatar)
+    const data = new FormData();
+    data.append("profile_photo", avatar);
     const uploadFotoPsikiater = await API({
       method: "POST",
       url: `/psikiater/upload/${user_id}`,
       data: data,
-      headers:{
+      headers: {
         accesstoken: accesstoken,
-      }
+      },
     });
   } catch (error) {
     console.log(error);
@@ -104,7 +93,8 @@ const registerPatient = (
   email,
   date_of_birth,
   gender,
-  address
+  address,
+  callback
 ) => async (dispatch) => {
   try {
     const patient = await API({
@@ -120,30 +110,14 @@ const registerPatient = (
         address: address,
       },
     });
-
-    localStorage.setItem("isLogin", true);
-    localStorage.setItem("accesstoken", patient.data.token);
-    localStorage.setItem("userId", patient.data.data._id);
-    localStorage.setItem("role", patient.data.role);
-
-    dispatch({
-      type: LOGIN,
-      payload: {
-        isLogin: true,
-        role: patient.data.role,
-        user_data: patient.data.data,
-      },
-    });
+    callback();
   } catch (error) {
     swal("Register Gagal!", error.response.data.message, "error");
   }
 };
 
-
-
-
-
 const fetchUserData = () => async (dispatch) => {
+  console.log("Ini Fetch User Data");
   try {
     const role = localStorage.getItem("role");
     const user_id = localStorage.getItem("userId");
@@ -152,6 +126,25 @@ const fetchUserData = () => async (dispatch) => {
     if (!role || !user_id || !accesstoken) {
       console.log("not persist data");
       dispatch({ type: LOGOUT });
+    }
+
+    if (role === "ADMIN") {
+      const patient = await API({
+        method: "GET",
+        url: `/admin/admin/${user_id}`,
+        headers: {
+          accesstoken: accesstoken,
+        },
+      });
+
+      dispatch({
+        type: LOGIN,
+        payload: {
+          isLogin: true,
+          role: role,
+          user_data: patient.data.data,
+        },
+      });
     }
 
     if (role === "PATIENT") {
@@ -206,7 +199,7 @@ const checkAccessToken = (accessToken) => async (dispatch) => {
       },
     });
 
-    console.log(getUserProfile)
+    console.log(getUserProfile);
 
     dispatch({
       type: "LOGIN",
@@ -225,7 +218,8 @@ const changePsikiaterSchedule = (
   psikiater_id,
   accesstoken,
   work_days,
-  work_time
+  work_time,
+  callback
 ) => async (dispatch) => {
   try {
     const response = await API({
@@ -238,6 +232,10 @@ const changePsikiaterSchedule = (
         work_days: work_days,
         work_time: work_time,
       },
+    });
+    dispatch({
+      type: CHANGE_SCHEDULE,
+      payload: { work_days: work_days, work_time: work_time },
     });
   } catch (error) {
     console.log(error);

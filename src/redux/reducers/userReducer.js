@@ -1,12 +1,10 @@
-import { LOGIN, LOGOUT } from "../actions/actionTypes";
+import { LOGIN, LOGOUT, CHANGE_SCHEDULE } from "../actions/actionTypes";
 
 const initialState = {
   isLogin: false,
   role: "",
   user_data: {},
 };
-
-console.log(initialState)
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -20,6 +18,18 @@ const userReducer = (state = initialState, action) => {
 
     case LOGOUT:
       return initialState;
+
+    case CHANGE_SCHEDULE:
+      return {
+        ...state,
+        user_data: {
+          ...state.user_data,
+          schedule: {
+            work_days: action.payload.work_days,
+            work_time: action.payload.work_time,
+          },
+        },
+      };
 
     default:
       return state;

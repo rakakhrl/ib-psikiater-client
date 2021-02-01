@@ -1,23 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import Jumbotron from "./Jumbotron/Jumbotron";
+import AboutCompany from "./AboutCompany/AboutCompany";
+import Consultation from "./Consultation/Consultation";
+import MapArea from "./MapArea/MapArea";
+import PsikiaterDetail from "./PsikiaterDetail/PsikiaterDetail";
+import Footer from "./Footer/Footer";
+import CompanyNameFooter from "./CompanyNameFooter.js/CompanyNameFooter";
 
-import Corousel from "./Corousel";
-import LineSatu from "./LineSatu";
-import LineDua from "./LineDua";
-import Testimoni from "./Testimoni";
-import Footer from "./Footer";
+import { useSelector } from "react-redux";
 
 const Home = () => {
-  const history = useHistory();
+  const store = useSelector((state) => state.user);
+
+  useEffect(() => {
+    console.log(store);
+  }, [store]);
 
   return (
     <div>
-      <Corousel />
-      <LineSatu />
-      <LineDua />
-      <Testimoni />
+      <Jumbotron />
+      <AboutCompany />
+      <Consultation />
+      <MapArea />
+      <PsikiaterDetail />
       <Footer />
+      <CompanyNameFooter />
     </div>
   );
 };

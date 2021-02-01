@@ -1,0 +1,16 @@
+#modal-pending-payment-form-control {
+  text-align: center;
+  font-weight: 500;
+}
+
+.modal-pending-payment-button {
+  background-color: #7d9dec !important;
+  border-color: #7d9dec !important;
+  box-shadow: 3px 3px 2px black;
+}
+
+.modal-pending-payment-button:hover {
+  background-color: white !important;
+  border-color: #7d9dec !important;
+  color: #7d9dec !important;
+}

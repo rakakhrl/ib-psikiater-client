@@ -1,29 +1,70 @@
-.link {
-  font-family: "Montserrat", sans-serif;
+.card-result-psikiater-card-wrapper {
+  padding: 10px;
+  border-radius: 30px !important;
+  border-color: #7d9dec;
+  box-shadow: 5px 5px 5px #7d9dec;
+  margin-bottom: 30px;
 }
 
-.link:hover {
-  text-decoration: none;
+.card-result-psikiater-image {
+  width: 190px;
 }
 
-.link .card {
-  display: -ms-grid !important;
-  display: grid !important;
-  -ms-grid-columns: (auto)[12];
-      grid-template-columns: repeat(12, auto);
-  border-radius: 5px;
-  border: 2px solid #0a0a0a;
-  color: black;
-  padding: 12px;
-  margin-top: 30px;
+#card-result-psikiater-button {
+  width: 12em;
+  margin-top: 10px;
 }
 
-.link .card:hover {
-  -webkit-box-shadow: 7px 9px 12px #1d1d1d;
-          box-shadow: 7px 9px 12px #1d1d1d;
+@media screen and (max-width: 992px) {
+  #card-result-psikiater-button {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
-.link .card .left-side .name h4 {
-  font-weight: bold;
+@media screen and (max-width: 992px) {
+  .card-result-psikiater-image {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
-/*# sourceMappingURL=index.css.map */
+
+#card-result-psikiater-form-control {
+  text-align: center;
+}
+
+#card-result-psikiater-form-group {
+  text-align: center;
+}
+
+@media screen and (max-width: 992px) {
+  #card-result-psikiater-form-group {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .card-result-psikiater-rating-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+#result-section {
+  height: 68vh;
+  max-height: 68vh;
+  overflow-y: scroll;
+}
+
+#result-section::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+#result-section {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

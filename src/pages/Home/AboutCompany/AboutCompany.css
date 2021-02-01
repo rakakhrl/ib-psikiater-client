@@ -1,0 +1,48 @@
+.about-company-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 5%;
+}
+
+.about-filings-h1 {
+  margin-top: 2em;
+  margin-bottom: 1em;
+  font-weight: 700;
+}
+
+@media screen and (max-width: 992px) {
+  .about-filings-h1 {
+    margin-top: 1em;
+    text-align: center;
+  }
+}
+
+.about-filings-p1,
+.about-filings-p2 {
+  text-align: justify;
+}
+
+.about-filings-p1 {
+  font-weight: 400;
+}
+
+.about-filings-p2 {
+  font-weight: bold;
+}
+
+.about-filings-logo {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  width: 35em;
+}
+
+@media screen and (max-width: 992px) {
+  .about-filings-logo {
+    width: 18em;
+  }
+}
+
+#horizontal-rule-about {
+  margin-top: 15%;
+}

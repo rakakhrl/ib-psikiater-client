@@ -1,0 +1,37 @@
+#navbar-global {
+  background-color: #5073c9 !important;
+  height: 50px;
+  padding: 0.5rem;
+  z-index: 10;
+}
+
+.btn-1 {
+  font-size: medium;
+  border-radius: 10px;
+}
+#navbar-global {
+  transition: 500ms ease;
+  background-color: #7d9dec !important;
+}
+
+#navbar-button {
+  color: white !important;
+  border-color: white;
+  transition: 0.4s ease;
+}
+
+#navbar-button:hover {
+  color: #e65b85 !important;
+  border-color: #e65b85;
+}
+
+#navbar-brand-name {
+  font-size: 30px;
+  font-weight: bolder;
+  color: white;
+  transition: 0.4s ease;
+}
+
+#navbar-brand-name:hover {
+  color: #ff7deb;
+}
