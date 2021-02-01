@@ -15,24 +15,26 @@ const Message = (props) => {
   const Role = useSelector((store) => store.user.role);
   moment.locale("en");
   const isMyMessage = Role === props.role;
-  const messageClass = isMyMessage ? "sent" : "received";
+  const messageClass = isMyMessage ? "received" : "sent";
 
   return (
     <div className={`message ${messageClass}`}>
-      <Row>
+      <Row style={{ padding: "50px" }}>
         <Col>
           {" "}
           <Image
             className="rounded-full"
             src={props?.avatar_url}
-            width={45}
-            height={45}
+            width="0"
+            height="auto"
           ></Image>
         </Col>
         <Col>
           <Row>
             {" "}
-            <span>{props?.sender}</span>
+            <span>
+              <strong>{props?.sender}</strong>
+            </span>
             <p className="ChatMessage-p">{props?.text}</p>
           </Row>
           <Row>

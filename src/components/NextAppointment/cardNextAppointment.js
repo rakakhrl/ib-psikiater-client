@@ -95,7 +95,7 @@ const CardNextAppointment = ({ appointmentPaid }) => {
                 roundedCircle
               />
               <Card.Title
-                style={{ marginRight: "20px", marginTop: "10px" }}
+                style={{ marginRight: "5px", marginTop: "10px" }}
               >{`${appointmentPaid?.psikiater_id?.first_name} ${appointmentPaid?.psikiater_id?.last_name} `}</Card.Title>
             </Col>
           ) : (

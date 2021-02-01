@@ -6,8 +6,9 @@ import "./index.css";
 const Index = () => {
   const { roomChat_id, appointment_id } = useParams();
   return (
-    <div>
-      <h1>Chat Room </h1>
+    <div className="chatbox-body">
+      {/* <h1>Chat Room </h1> */}
+      <></>
       <ChatRoom room={roomChat_id} appointment={appointment_id} />
     </div>
   );
