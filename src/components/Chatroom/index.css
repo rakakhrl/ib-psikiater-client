@@ -60,7 +60,8 @@
   margin-top: 25px;
 }
 .scroll-chatbox {
-  /* max-height: 300px; */
-  overflow: auto;
-  padding: 50px;
+  max-height: 400px;
+  max-width: 1050px;
+  overflow: scroll;
+  overflow-x: hidden;
 }
