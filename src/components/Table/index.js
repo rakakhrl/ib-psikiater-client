@@ -19,7 +19,6 @@ import appointmentAction from "../../redux/actions/appointmentAction.js";
 import swal from "sweetalert";
 import { Next } from "react-bootstrap/esm/PageItem";
 import CardNextAppointment from "../NextAppointment/cardNextAppointment";
-import "./index.css";
 
 const Index = () => {
   const dispatch = useDispatch();
@@ -44,6 +43,7 @@ const Index = () => {
       (apt) => apt._id === selectedAppointment?._id
     )[0];
     setSelectedAppointment(filteredUpdatedAppointment);
+    console.log("should rerender");
   }, [appointmentData]);
 
   const appointment = appointmentData.map((data) => {

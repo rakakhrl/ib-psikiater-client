@@ -39,7 +39,7 @@ body {
   flex-direction: row-reverse;
 }
 
-Form {
+.fixed-bottom {
   width: 75%;
   /* position: fixed; */
   float: left;

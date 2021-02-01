@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import {
   Container,
+  Jumbotron,
   Row,
   Col,
+  Form,
   Card,
   Button,
   Image,
@@ -17,17 +20,17 @@ import ReviewPsikiaterModal from "./modalReview";
 import ImagePasien from "../../assets/images/fauzihaqmuslim.jpg";
 import "./index.css";
 import { set } from "lodash";
-import { useHistory } from "react-router-dom";
 
 const CardRecentAppointment = ({ appointmentDone, appointmentFetch }) => {
   const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [roomChat_id, setRoomChatId] = useState();
   const [appointment_id, setAppointment_id] = useState();
+  const history = useHistory();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const history = useHistory();
+
   const [feedback, setFeedback] = useState(null);
 
   const fetchReviewPsikiater = async () => {
@@ -100,6 +103,7 @@ const CardRecentAppointment = ({ appointmentDone, appointmentFetch }) => {
                 <Alert variant="danger">
                   <p>Not rated yet</p>
                 </Alert>
+
                 <StarRatings
                   rating={0}
                   starRatedColor="gold"
@@ -118,7 +122,6 @@ const CardRecentAppointment = ({ appointmentDone, appointmentFetch }) => {
                 ></StarRatings>
                 {/* {typeof Number(parseFloat(feedback.rating?.$numberDecimal))} */}
                 <Card.Text>{`"${feedback.feedback}"`}</Card.Text>
-                <Button onClick={seeHistoryChat}>History Chat</Button>
               </div>
             )}
           </Col>
@@ -137,56 +140,3 @@ const CardRecentAppointment = ({ appointmentDone, appointmentFetch }) => {
 };
 
 export default CardRecentAppointment;
-
-// <Card>
-//         <Card.Body>
-//           <Row>
-//             <Col lg={4}>
-//               <Image
-//                 className={"PhotoPsikiater"}
-//                 src={appointmentDone.psikiater_id.avatar_url}
-//                 style={{ width: "190px", height: "90px" }}
-//                 alt="pasienPicture.jpg"
-//                 roundedCircle
-//               />
-//             </Col>
-//             <Col lg={4}>
-//               <Card.Text>{`${appointmentDone.psikiater_id.first_name} ${appointmentDone.psikiater_id.last_name}`}</Card.Text>
-//               <Card.Text className="">{`${dateAppointmentFormatted}`}</Card.Text>
-//               <Card.Text className="">{`${timeAppointment} WIB`}</Card.Text>
-//             </Col>
-//             <Card.Text className="mt-3">
-//               {`${appointmentDone.psikiater_id.work_address}`}
-//             </Card.Text>
-//           </Row>
-//         </Card.Body>
-//         {!feedback ? (
-//           <div>
-//             <Card.Text>Not Rated Yet</Card.Text>
-//             <StarRatings
-//               rating={0}
-//               starRatedColor="gold"
-//               starDimension="30px"
-//               readOnly
-//             />
-//             <Button onClick={handleShow}>Create Review</Button>
-//           </div>
-//         ) : (
-//           <div>
-//             <StarRatings
-//               rating={Number(parseFloat(feedback?.rating?.$numberDecimal))}
-//               starRatedColor="gold"
-//               starDimension="30px"
-//               readOnly
-//             ></StarRatings>
-//             {/* {typeof Number(parseFloat(feedback.rating?.$numberDecimal))} */}
-//             <Card.Text>{`"${feedback.feedback}"`}</Card.Text>
-//           </div>
-//         )}
-//       </Card>
-//       <ReviewPsikiaterModal
-//         show={show}
-//         onHide={handleClose}
-//         appointmentDone={appointmentDone}
-//         appointmentFetch={appointmentFetch}
-//       />
