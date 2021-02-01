@@ -53,7 +53,7 @@ const uploadFotoPasien = (avatar) => async (dispatch) => {
     const uploadFotoPasien = await API({
       method: "POST",
       url: `/patients/upload/${user_id}`,
-      datay: data,
+      data: data,
       headers: {
         accesstoken: accesstoken,
       },
