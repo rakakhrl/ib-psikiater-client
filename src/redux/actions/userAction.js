@@ -42,7 +42,7 @@ const registerPsikiater = (
   }
 };
 
-const uploadFotoPasien = (avatar) => async (dispatch) => {
+const uploadFotoPasien = (avatar, callback) => async (dispatch) => {
   try {
     const role = localStorage.getItem("role");
     const user_id = localStorage.getItem("userId");
@@ -58,6 +58,8 @@ const uploadFotoPasien = (avatar) => async (dispatch) => {
         accesstoken: accesstoken,
       },
     });
+
+    callback();
   } catch (error) {
     console.log(error);
   }
