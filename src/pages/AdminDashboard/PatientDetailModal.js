@@ -22,10 +22,12 @@ const PatientDetailModal = ({ show, handleClose, patient }) => {
         </Row>
         <Row>
           <Col>
-            <Form.Label>Patient ID : {patient._id}</Form.Label>
+            <Form.Label style={{ marginTop: "15px" }}>
+              Patient ID : {patient._id}
+            </Form.Label>
           </Col>
         </Row>
-        <Row>
+        <Row style={{ marginTop: "10px" }}>
           <Col>
             <Form.Label>Patient Name </Form.Label>
             <Form.Control
@@ -38,7 +40,7 @@ const PatientDetailModal = ({ show, handleClose, patient }) => {
             <Form.Control className="text-center" value={patient.gender} />
           </Col>
         </Row>
-        <Row>
+        <Row style={{ marginTop: "10px" }}>
           <Col>
             <Form.Label>Date Of Birth</Form.Label>
             <Form.Control
@@ -51,13 +53,13 @@ const PatientDetailModal = ({ show, handleClose, patient }) => {
             <Form.Control className="text-center" value={patient.email} />
           </Col>
         </Row>
-        <Row>
+        <Row style={{ marginTop: "10px" }}>
           <Col>
             <Form.Label>Address</Form.Label>
             <Form.Control as="textarea" value={patient.address} />
           </Col>
         </Row>
-        <Row>
+        <Row style={{ marginTop: "10px" }}>
           <Col>
             <Form.Label>Registered At</Form.Label>
             <Form.Control
