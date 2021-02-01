@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Container } from "react-bootstrap";
+import { Container, Alert } from "react-bootstrap";
+import Countdown from "react-countdown";
 import API from "../../API/mainServer";
 import CardUpcoming from "./cardUpcoming";
 import CardNextAppointment from "../../components/NextAppointment/cardNextAppointment";
@@ -77,7 +78,7 @@ const PatientDashboard = () => {
   return (
     <>
       {/* Your Next appointment */}
-      <Container
+      {/* <Container
         className="pt-3"
         style={{ height: "150px", width: "350px", paddingTop: "10" }}
       >
@@ -86,11 +87,12 @@ const PatientDashboard = () => {
         ) : (
           <CardNextAppointment appointmentPaid={appointmentPaid[0]} />
         )}
-      </Container>
+      </Container> */}
 
       {/* Your Next appointment */}
+
       {/* Upcoming appointment */}
-      <Container className="flex-container mt-5">
+      {/* <Container className="flex-container mt-5">
         <div>
           <h5>Upcoming Appointment</h5>
           {appointmentPaid.map((item) => (
@@ -98,18 +100,71 @@ const PatientDashboard = () => {
           ))}
         </div>
       </Container>
-      <hr></hr>
+      <hr></hr> */}
+
       {/* RECENT APPOINTMENT */}
       <Container className="flex-container">
         <div>
-          <h5>Recent Appointment</h5>
-          {appointmentDone.map((item) => (
-            <CardRecentAppointment
-              key={item._id}
-              appointmentDone={item}
-              appointmentFetch={fetchDataAppointment}
-            />
-          ))}
+          <Container
+            className="pt-3"
+            style={{ height: "150px", width: "350px", paddingTop: "10" }}
+          >
+            {appointmentPaid.length === 0 ? (
+              <Container className="flex-container">
+                <div>
+                  <h6>Next Appointment</h6>
+                  <Alert variant="danger">
+                    <h5>You dont have any appointment.</h5>
+                  </Alert>
+                </div>
+              </Container>
+            ) : (
+              <CardNextAppointment appointmentPaid={appointmentPaid[0]} />
+            )}
+          </Container>
+          {appointmentPaid.length === 0 ? (
+            <Container className="flex-container mt-5">
+              <div>
+                <h5>Upcoming Appointment</h5>
+                <Alert variant="danger">
+                  <h6>You dont have any appointment.</h6>
+                </Alert>
+              </div>
+            </Container>
+          ) : (
+            <Container className="flex-container mt-5">
+              <div>
+                <h5>Upcoming Appointment</h5>
+                {appointmentPaid.map((item) => (
+                  <CardUpcoming key={item._id} appointmentPaid={item} />
+                ))}
+              </div>
+            </Container>
+          )}
+
+          {appointmentDone.length === 0 ? (
+            <Container className="flex-container mt-5">
+              <div>
+                <h5>Recent Appointment</h5>
+                <Alert variant="danger">
+                  <h6>You dont have any appointment.</h6>
+                </Alert>
+              </div>
+            </Container>
+          ) : (
+            <Container className="flex-container">
+              <div>
+                <h5>Recent Appointment</h5>
+                {appointmentDone.map((item) => (
+                  <CardRecentAppointment
+                    key={item._id}
+                    appointmentDone={item}
+                    appointmentFetch={fetchDataAppointment}
+                  />
+                ))}
+              </div>
+            </Container>
+          )}
         </div>
       </Container>
       {pendingPayment.length === 0 ? null : (
