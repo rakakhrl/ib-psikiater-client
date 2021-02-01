@@ -9,10 +9,13 @@
 
 .pending-payment-card {
   padding: 40px;
+  float: left;
+  flex-wrap: wrap;
+  margin-right: 20px;
   margin-bottom: 40px;
   background-color: #7d9dec !important;
   color: white;
-  max-width: 23rem;
+  max-width: 20rem;
   box-shadow: 5px 5px 4px black;
   border-color: #7d9dec !important;
   text-align: center;

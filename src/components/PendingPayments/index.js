@@ -19,65 +19,68 @@ const PendingPayments = (props) => {
     <div>
       <Container>
         <h5 className="pending-payment-title">Pending Payment</h5>
-        <Card className="pending-payment-card">
-          {data.map((item) => {
-            return (
-              <>
-                <Container>
-                  {item.slip_url === " " ? (
-                    <p id="slip-payment-info">
-                      *Please Upload Slip For Your Payment
-                    </p>
-                  ) : (
-                    <p id="slip-payment-info">
-                      *Wait Admin To Confirm Your Payment
-                    </p>
-                  )}
-                  <Form.Label>Product Type</Form.Label>
-                  {item.product_type === "apt-ol" ? (
+
+        {data.map((item) => {
+          return (
+            <>
+              <Container>
+                <Card className="pending-payment-card">
+                  <Container>
+                    {item.slip_url === " " ? (
+                      <p id="slip-payment-info">
+                        *Please Upload Slip For Your Payment
+                      </p>
+                    ) : (
+                      <p id="slip-payment-info">
+                        *Wait Admin To Confirm Your Payment
+                      </p>
+                    )}
+                    <Form.Label>Product Type</Form.Label>
+                    {item.product_type === "apt-ol" ? (
+                      <Form.Control
+                        id="payment-pending-form-control"
+                        value="Appointment Online"
+                      />
+                    ) : (
+                      <Form.Control
+                        id="payment-pending-form-control"
+                        value="Appointment Offline"
+                      />
+                    )}
+                    <Form.Label>Payment Method</Form.Label>
                     <Form.Control
                       id="payment-pending-form-control"
-                      value="Appointment Online"
+                      value={item.payment_method}
                     />
-                  ) : (
+                    <Form.Label>Product Price</Form.Label>
                     <Form.Control
                       id="payment-pending-form-control"
-                      value="Appointment Offline"
+                      value={currencyFormatter.format(item.product_price, {
+                        code: "IDR",
+                      })}
                     />
-                  )}
-                  <Form.Label>Payment Method</Form.Label>
-                  <Form.Control
-                    id="payment-pending-form-control"
-                    value={item.payment_method}
-                  />
-                  <Form.Label>Product Price</Form.Label>
-                  <Form.Control
-                    id="payment-pending-form-control"
-                    value={currencyFormatter.format(item.product_price, {
-                      code: "IDR",
-                    })}
-                  />
-                  <Row id="payment-pending-button">
-                    <Col>
-                      <Button
-                        onClick={() => setModalShow(true)}
-                        className="payment-pending-button-detail"
-                      >
-                        Detail
-                      </Button>
-                      <Button
-                        onClick={() => checkoutButtonHandler(item._id)}
-                        className="payment-pending-button-checkout"
-                      >
-                        Checkout
-                      </Button>
-                    </Col>
-                  </Row>
-                </Container>
-              </>
-            );
-          })}
-        </Card>
+                    <Row id="payment-pending-button">
+                      <Col>
+                        <Button
+                          onClick={() => setModalShow(true)}
+                          className="payment-pending-button-detail"
+                        >
+                          Detail
+                        </Button>
+                        <Button
+                          onClick={() => checkoutButtonHandler(item._id)}
+                          className="payment-pending-button-checkout"
+                        >
+                          Checkout
+                        </Button>
+                      </Col>
+                    </Row>
+                  </Container>
+                </Card>
+              </Container>
+            </>
+          );
+        })}
         <ModalPendingPayment
           data={data}
           show={modalShow}
