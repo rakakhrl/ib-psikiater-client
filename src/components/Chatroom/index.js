@@ -145,7 +145,7 @@ const ChatRoom = ({ room, appointment }) => {
     try {
       const response = await API({
         method: "GET",
-        url: `/appointments/${appointment_id}`,
+        url: `/appointments/${appointment}`,
         headers: {
           accesstoken: localStorage.getItem("accesstoken"),
         },

@@ -48,22 +48,45 @@ const CardUpcoming = ({ appointmentPaid }) => {
 
   return (
     <>
-      <Card className="">
+      <Card border="primary" className="card-recent-appointment" mb-3>
+        <Card.Img
+          variant="top"
+          className="img-fluid mx-auto d-block"
+          src={appointmentPaid.psikiater_id.avatar_url}
+          style={{ width: "100px", height: "auto" }}
+          alt="psikiaterPicture.jpg"
+          roundedCircle
+        />
+        <hr></hr>
+        <Card.Body>
+          <Card.Title>{`${appointmentPaid.psikiater_id.first_name} ${appointmentPaid.psikiater_id.last_name}`}</Card.Title>
+          <Card.Text className="">{`${dateAppointmentFormatted}`}</Card.Text>
+          <Card.Text className="">{`${appointmentPaid.appointment_time} WIB`}</Card.Text>
+          <Card.Text className="mt-3">
+            {`${appointmentPaid.psikiater_id.work_address}`}
+          </Card.Text>
+        </Card.Body>
+        <Card.Footer></Card.Footer>
+      </Card>
+    </>
+  );
+
+  /* OLD>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+  /* <Card className="">
         <Card.Body>
           <Row>
             <Col className="col-4">
               <Image
                 className={"PhotoPsikiater"}
-                src={appointmentPaid.psikiater_id.avatar_url}
+             
                 style={{ width: "50px", height: "50px" }}
                 alt="psikiater_photo.jpg"
                 roundedCircle
               />
             </Col>
             <Col className="col-8">
-              <Card.Text>{`${appointmentPaid.psikiater_id.first_name} ${appointmentPaid.psikiater_id.last_name}`}</Card.Text>
-              <Card.Text className="">{`${dateAppointmentFormatted}`}</Card.Text>
-              <Card.Text className="">{`${appointmentPaid.appointment_time} WIB`}</Card.Text>
+              <Card.Text></Card.Text>
+             
             </Col>
           </Row>
           <Row>
@@ -71,8 +94,7 @@ const CardUpcoming = ({ appointmentPaid }) => {
           </Row>
         </Card.Body>
       </Card>
-    </>
-  );
+    </> */
 };
 
 export default CardUpcoming;

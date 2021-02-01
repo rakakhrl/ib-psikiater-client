@@ -71,53 +71,50 @@ const CardNextAppointment = ({ appointmentPaid }) => {
   );
 
   return (
-    <>
-      <h6>Next Appointment</h6>
-      <Card>
-        <Card.Body>
-          <Row>
-            <Col className={"col-8"}>
-              <Card.Text style={{ fontSize: "2em" }}>
-                {
-                  <Countdown date={Date.now() + newDate}>
-                    <TimeCountdown />
-                  </Countdown>
-                }
-              </Card.Text>
-              <Card.Text className="">{`${dateAppointmentFormatted}`}</Card.Text>
-              <Card.Text>Online Appointment</Card.Text>
+    <Card>
+      <Card.Body>
+        <Row>
+          <Col className="col-8">
+            <Card.Text style={{ fontSize: "2em" }}>
+              {
+                <Countdown date={Date.now() + newDate}>
+                  <TimeCountdown />
+                </Countdown>
+              }
+            </Card.Text>
+            <Card.Text className="">{`${dateAppointmentFormatted}`}</Card.Text>
+            <Card.Text>Online Appointment</Card.Text>
+          </Col>
+          {role === "PATIENT" ? (
+            <Col className={"col-4"}>
+              <Image
+                className={"PhotoPsikiater"}
+                src={`${appointmentPaid?.psikiater_id?.avatar_url}`}
+                style={{ width: "75px", height: "75px" }}
+                alt="psikiater_photo.jpg"
+                roundedCircle
+              />
+              <Card.Text
+                style={{ marginLeft: "10px" }}
+              >{`${appointmentPaid?.psikiater_id?.first_name} ${appointmentPaid?.psikiater_id?.last_name} `}</Card.Text>
             </Col>
-            {role === "PATIENT" ? (
-              <Col className={"col-4"}>
-                <Image
-                  className={"PhotoPsikiater"}
-                  src={`${appointmentPaid?.psikiater_id?.avatar_url}`}
-                  style={{ width: "75px", height: "75px" }}
-                  alt="psikiater_photo.jpg"
-                  roundedCircle
-                />
-                <Card.Text
-                  style={{ marginLeft: "10px" }}
-                >{`${appointmentPaid?.psikiater_id?.first_name} ${appointmentPaid?.psikiater_id?.last_name} `}</Card.Text>
-              </Col>
-            ) : (
-              <Col className={"col-4"}>
-                <Image
-                  className={"PhotoPasien"}
-                  src={`${appointmentPaid?.patient_id?.avatar_url}`}
-                  style={{ width: "75px", height: "75px" }}
-                  alt="patient_photo.jpg"
-                  roundedCircle
-                />
-                <Card.Text
-                  style={{ marginLeft: "10px" }}
-                >{`${appointmentPaid?.patient_id?.first_name} ${appointmentPaid?.patient_id?.last_name} `}</Card.Text>
-              </Col>
-            )}
-          </Row>
-        </Card.Body>
-      </Card>
-    </>
+          ) : (
+            <Col className={"col-4"}>
+              <Image
+                className={"PhotoPasien"}
+                src={`${appointmentPaid?.patient_id?.avatar_url}`}
+                style={{ width: "75px", height: "75px" }}
+                alt="patient_photo.jpg"
+                roundedCircle
+              />
+              <Card.Text
+                style={{ marginLeft: "10px" }}
+              >{`${appointmentPaid?.patient_id?.first_name} ${appointmentPaid?.patient_id?.last_name} `}</Card.Text>
+            </Col>
+          )}
+        </Row>
+      </Card.Body>
+    </Card>
   );
 };
 
