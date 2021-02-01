@@ -71,7 +71,7 @@ const CardNextAppointment = ({ appointmentPaid }) => {
   );
 
   return (
-    <Card>
+    <Card border="danger">
       <Card.Body>
         <Row>
           <Col className="col-8">
@@ -88,15 +88,15 @@ const CardNextAppointment = ({ appointmentPaid }) => {
           {role === "PATIENT" ? (
             <Col className={"col-4"}>
               <Image
-                className={"PhotoPsikiater"}
+                className="img-fluid"
                 src={`${appointmentPaid?.psikiater_id?.avatar_url}`}
                 style={{ width: "75px", height: "75px" }}
                 alt="psikiater_photo.jpg"
                 roundedCircle
               />
-              <Card.Text
-                style={{ marginLeft: "10px" }}
-              >{`${appointmentPaid?.psikiater_id?.first_name} ${appointmentPaid?.psikiater_id?.last_name} `}</Card.Text>
+              <Card.Title
+                style={{ marginRight: "20px", marginTop: "10px" }}
+              >{`${appointmentPaid?.psikiater_id?.first_name} ${appointmentPaid?.psikiater_id?.last_name} `}</Card.Title>
             </Col>
           ) : (
             <Col className={"col-4"}>

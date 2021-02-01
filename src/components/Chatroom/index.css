@@ -40,7 +40,7 @@ body {
 }
 
 .sticky-bottom {
-  position: absolute;
+  position: fixed;
   top: 700px;
   width: 80%;
 }
