@@ -18,34 +18,32 @@ const Message = (props) => {
   const messageClass = isMyMessage ? "sent" : "received";
 
   return (
-    <>
-      <div className={`message ${messageClass}`}>
-        <Row>
-          <Col>
+    <div className={`message ${messageClass}`}>
+      <Row>
+        <Col>
+          {" "}
+          <Image
+            className="rounded-full"
+            src={props?.avatar_url}
+            width={45}
+            height={45}
+          ></Image>
+        </Col>
+        <Col>
+          <Row>
             {" "}
-            <Image
-              className="rounded-full"
-              src={props?.avatar_url}
-              width={45}
-              height={45}
-            ></Image>
-          </Col>
-          <Col>
-            <Row>
-              {" "}
-              <span>{props?.sender}</span>
-              <p className="ChatMessage-p">{props?.text}</p>
-            </Row>
-            <Row>
-              {" "}
-              <span className="ChatMessage-date">
-                Send {moment(props?.createdAt?.toDate()).calendar()}
-              </span>
-            </Row>
-          </Col>
-        </Row>
-      </div>
-    </>
+            <span>{props?.sender}</span>
+            <p className="ChatMessage-p">{props?.text}</p>
+          </Row>
+          <Row>
+            {" "}
+            <span className="ChatMessage-date">
+              Send {moment(props?.createdAt?.toDate()).calendar()}
+            </span>
+          </Row>
+        </Col>
+      </Row>
+    </div>
   );
 };
 

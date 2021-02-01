@@ -199,67 +199,62 @@ const ChatRoom = ({ room, appointment }) => {
   }, [isDone]);
 
   return (
-    <>
-      {/* SHOW INPUT RESULT  */}
-      <Container>
-        {error && <strong>Error: {JSON.stringify(error)}</strong>}
-        {loading && <Spinner variant="primary" animation="border"></Spinner>}
-        {messages &&
-          messages.map((doc) => {
-            return (
-              <Message
-                key={doc?.id}
-                text={doc?.text}
-                sender={doc?.sender}
-                createdAt={doc?.createdAt}
-                role={doc?.role}
-                avatar_url={doc?.avatar_url}
+    <Container>
+      {loading && <Spinner variant="primary" animation="border"></Spinner>}
+      {messages &&
+        messages.map((doc) => {
+          return (
+            <Message
+              key={doc?.id}
+              text={doc?.text}
+              sender={doc?.sender}
+              createdAt={doc?.createdAt}
+              role={doc?.role}
+              avatar_url={doc?.avatar_url}
+            />
+          );
+        })}
+
+      {/* BUTTON & FORM INPUT */}
+      <div className="FormButton">
+        <Form className="fixed-bottom" onSubmit={sendMessageHandler}>
+          <InputGroup>
+            {isDone ? (
+              <FormControl
+                disabled={true}
+                className="flex-1"
+                value={formValue}
+                onChange={(e) => setFormValue(e.target.value)}
+                type="input"
+                placeholder="Type something here"
               />
-            );
-          })}
-        {role === "PSIKIATER" ? (
-          <Button onClick={changeStatusDoneAlert}>End Session</Button>
-        ) : null}
-        {/* BUTTON & FORM INPUT */}
-        <div className="FormButton">
-          <Row>
-            <Form className="fixed-bottom" onSubmit={sendMessageHandler}>
-              <InputGroup>
-                {isDone ? (
-                  <FormControl
-                    disabled={true}
-                    className="flex-1"
-                    value={formValue}
-                    onChange={(e) => setFormValue(e.target.value)}
-                    type="input"
-                    placeholder="Type something here"
-                  />
-                ) : (
-                  <FormControl
-                    className="flex-1"
-                    value={formValue}
-                    onChange={(e) => setFormValue(e.target.value)}
-                    type="input"
-                    placeholder="Type something here"
-                  />
-                )}
-                <InputGroup.Append>
-                  <Button
-                    variant="outline-secondary"
-                    type="submit"
-                    disabled={!formValue}
-                    onClick={sendMessageHandler}
-                  >
-                    💬
-                  </Button>
-                </InputGroup.Append>
-              </InputGroup>
-            </Form>
-          </Row>
-        </div>
-        <div ref={bottomListRef} />
-      </Container>
-    </>
+            ) : (
+              <FormControl
+                className="flex-1"
+                value={formValue}
+                onChange={(e) => setFormValue(e.target.value)}
+                type="input"
+                placeholder="Type something here"
+              />
+            )}
+            <InputGroup.Append>
+              <Button
+                variant="outline-secondary"
+                type="submit"
+                disabled={!formValue}
+                onClick={sendMessageHandler}
+              >
+                💬
+              </Button>
+            </InputGroup.Append>
+            {role === "PSIKIATER" ? (
+              <Button onClick={changeStatusDoneAlert}>End Session</Button>
+            ) : null}
+          </InputGroup>
+        </Form>
+      </div>
+      <div ref={bottomListRef} />
+    </Container>
   );
 };
 
