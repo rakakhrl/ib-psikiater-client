@@ -39,8 +39,8 @@ body {
   flex-direction: row-reverse;
 }
 
-.fixed-bottom {
-  width: 75%;
-  /* position: fixed; */
-  float: left;
+.sticky-bottom {
+  position: fixed;
+  top: 700px;
+  width: 80%;
 }
