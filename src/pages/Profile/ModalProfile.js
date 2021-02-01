@@ -34,6 +34,7 @@ function ModalPsikiater(props) {
         props.onHide
       )
     );
+    props.callback();
     swal("Schedule Updated!", "", "success");
   };
 
