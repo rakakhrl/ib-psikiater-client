@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT } from "../actions/actionTypes";
+import { LOGIN, LOGOUT, CHANGE_SCHEDULE } from "../actions/actionTypes";
 
 const initialState = {
   isLogin: false,
@@ -18,6 +18,18 @@ const userReducer = (state = initialState, action) => {
 
     case LOGOUT:
       return initialState;
+
+    case CHANGE_SCHEDULE:
+      return {
+        ...state,
+        user_data: {
+          ...state.user_data,
+          schedule: {
+            work_days: action.payload.work_days,
+            work_time: action.payload.work_time,
+          },
+        },
+      };
 
     default:
       return state;
