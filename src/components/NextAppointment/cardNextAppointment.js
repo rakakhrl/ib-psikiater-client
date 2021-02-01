@@ -1,23 +1,64 @@
-import React from "react";
-import { Row, Col, Card, Button, Image } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import {
+  Container,
+  Jumbotron,
+  Row,
+  Col,
+  Form,
+  Card,
+  Button,
+  Image,
+} from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Countdown from "react-countdown";
+import API from "../../API/mainServer";
+import StarRatings from "react-star-ratings";
+import ImagePasien from "../../assets/images/fauzihaqmuslim.jpg";
 import moment from "moment";
+// import "./index.css";
 
 const CardNextAppointment = ({ appointmentPaid }) => {
+  const [rating, setRating] = useState(0);
+  const [review, setReview] = useState("");
+  const [appointment, setAppointment] = useState();
+
   const history = useHistory();
   const role = useSelector((store) => store.user.role);
-
+  console.log(appointmentPaid);
+  const fetchDataAppointment = async () => {
+    try {
+      const token = localStorage.getItem("accesstoken");
+      const response = await API({
+        method: "GET",
+        url: `/appointments/patient`,
+        headers: {
+          accesstoken: token,
+        },
+      });
+      const statusDone = response.data.data.filter(
+        (el) => el.status === "Done"
+      );
+      const statusPaid = response.data.data.filter(
+        (el) => el.status === "Paid"
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    fetchDataAppointment();
+  }, []);
+  console.log(appointmentPaid);
   const dateAppointment = appointmentPaid?.appointment_date;
   const timeAppointment = appointmentPaid?.appointment_time;
   const dateAppointmentFormatted = moment(dateAppointment).format("YYYY-MM-DD");
+  console.log(dateAppointmentFormatted);
   const convertDateToSecond = new Date(
     `${dateAppointmentFormatted} ${timeAppointment}:00`
   ).getTime();
   const now = new Date().getTime();
   const newDate = convertDateToSecond - now;
-  const countdownTime = Date.now() + newDate;
 
   const handleButtonChatbox = () => {
     history.push(
@@ -25,37 +66,25 @@ const CardNextAppointment = ({ appointmentPaid }) => {
     );
   };
 
-  const CountdownComplete = () => (
+  const TimeCountdown = () => (
     <Button onClick={handleButtonChatbox}>Start Now</Button>
   );
 
-  const renderer = ({ hours, minutes, seconds, completed }) => {
-    if (completed) {
-      // Render a completed state
-      return <CountdownComplete />;
-    } else {
-      // Render a countdown
-      return (
-        <span>
-          {hours}:{minutes}:{seconds}
-        </span>
-      );
-    }
-  };
-
   return (
     <>
-      <h5 className="Judul">Your Next Appointment Starts In</h5>
+      <h6>Next Appointment</h6>
       <Card>
         <Card.Body>
           <Row>
             <Col className={"col-8"}>
               <Card.Text style={{ fontSize: "2em" }}>
-                {countdownTime ? (
-                  <Countdown date={countdownTime} renderer={renderer} />
-                ) : null}
+                {
+                  <Countdown date={Date.now() + newDate}>
+                    <TimeCountdown />
+                  </Countdown>
+                }
               </Card.Text>
-              <Card.Text className="">{`${dateAppointmentFormatted} ${timeAppointment}`}</Card.Text>
+              <Card.Text className="">{`${dateAppointmentFormatted}`}</Card.Text>
               <Card.Text>Online Appointment</Card.Text>
             </Col>
             {role === "PATIENT" ? (

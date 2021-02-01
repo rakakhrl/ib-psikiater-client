@@ -107,25 +107,27 @@ const PatientDashboard = () => {
         <div>
           <Container
             className="pt-3"
-            style={{ height: "150px", width: "350px", paddingTop: "10" }}
+            style={{ height: "150px", width: "400px", paddingTop: "10" }}
           >
             {appointmentPaid.length === 0 ? (
               <Container className="flex-container">
                 <div>
                   <h6>Next Appointment</h6>
                   <Alert variant="danger">
-                    <h5>You dont have any appointment.</h5>
+                    <h6>You dont have any appointment.</h6>
                   </Alert>
                 </div>
               </Container>
             ) : (
               <CardNextAppointment appointmentPaid={appointmentPaid[0]} />
             )}
+
+            {/* UPCOMING APPOINTMENT */}
           </Container>
           {appointmentPaid.length === 0 ? (
             <Container className="flex-container mt-5">
               <div>
-                <h5>Upcoming Appointment</h5>
+                <h6>Upcoming Appointment</h6>
                 <Alert variant="danger">
                   <h6>You dont have any appointment.</h6>
                 </Alert>
@@ -134,7 +136,7 @@ const PatientDashboard = () => {
           ) : (
             <Container className="flex-container mt-5">
               <div>
-                <h5>Upcoming Appointment</h5>
+                <h6>Upcoming Appointment</h6>
                 {appointmentPaid.map((item) => (
                   <CardUpcoming key={item._id} appointmentPaid={item} />
                 ))}
@@ -145,16 +147,16 @@ const PatientDashboard = () => {
           {appointmentDone.length === 0 ? (
             <Container className="flex-container mt-5">
               <div>
-                <h5>Recent Appointment</h5>
+                <h6>Recent Appointment</h6>
                 <Alert variant="danger">
                   <h6>You dont have any appointment.</h6>
                 </Alert>
               </div>
             </Container>
           ) : (
-            <Container className="flex-container">
-              <div>
-                <h5>Recent Appointment</h5>
+            <Container>
+              <h6>Recent Appointment</h6>
+              <div className="flex-container">
                 {appointmentDone.map((item) => (
                   <CardRecentAppointment
                     key={item._id}
