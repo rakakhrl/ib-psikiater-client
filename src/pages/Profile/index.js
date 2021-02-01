@@ -47,7 +47,6 @@ const Index = () => {
 
   const callback = () => {
     dispatch(userAction.fetchUserData);
-    setModalShow(false);
   };
 
   return (
@@ -158,7 +157,8 @@ const Index = () => {
                       <ModalProfile
                         psikiater={psikiaterData}
                         show={modalShow}
-                        onHide={() => callback()}
+                        onHide={() => setModalShow(false)}
+                        callback={callback}
                       />
                     </Container>
                   </Col>
