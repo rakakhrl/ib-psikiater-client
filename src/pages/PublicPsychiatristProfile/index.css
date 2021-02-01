@@ -70,3 +70,8 @@
   border-color: #e65b85 !important;
   color: white !important;
 }
+
+#public-psikiater-form-control,
+#public-psikiater-form-group {
+  text-align: center;
+}
