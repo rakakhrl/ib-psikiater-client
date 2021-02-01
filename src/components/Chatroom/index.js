@@ -25,7 +25,7 @@ import "./index.css";
 
 const firestore = firebase.firestore();
 
-const ChatRoom = ({ roomChat_id, appointment_id }) => {
+const ChatRoom = ({ room, appointment }) => {
   const [formValue, setFormValue] = useState("");
   const [dataAppointment, setDataAppointment] = useState([]);
   const [isDone, setIsDone] = useState(false);
@@ -41,7 +41,7 @@ const ChatRoom = ({ roomChat_id, appointment_id }) => {
       try {
         const response = await API({
           method: "GET",
-          url: `/appointments/${appointment_id}`,
+          url: `/appointments/${appointment}`,
           headers: {
             accesstoken: localStorage.getItem("accesstoken"),
           },
@@ -55,7 +55,7 @@ const ChatRoom = ({ roomChat_id, appointment_id }) => {
     return getUserData;
   }, []);
 
-  const messageRef = firestore.collection(`Message/${roomChat_id}/Chat`);
+  const messageRef = firestore.collection(`Message/${room}/Chat`);
   const [value, loading, error] = useCollection(messageRef, {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
@@ -93,12 +93,12 @@ const ChatRoom = ({ roomChat_id, appointment_id }) => {
   const messageClass = role === "PATIENT" ? "sent" : "received";
 
   const changeStatusPatient = () => {
-    const ref = firestore.collection("Message").doc(roomChat_id);
+    const ref = firestore.collection("Message").doc(room);
 
     dispatch(
       appointmentAction.changeStatusAppointment(
         "Done",
-        appointment_id,
+        appointment,
         localStorage.getItem("accesstoken"),
         ref
           .update({
@@ -113,10 +113,10 @@ const ChatRoom = ({ roomChat_id, appointment_id }) => {
     );
   };
 
-  const ref = firestore.collection("Message").doc(roomChat_id);
+  const ref = firestore.collection("Message").doc(room);
 
   ref.onSnapshot(function (doc) {
-    setIsDone(doc.data().isDone);
+    setIsDone(doc?.data()?.isDone);
   });
 
   const changeStatusDoneAlert = () => {
