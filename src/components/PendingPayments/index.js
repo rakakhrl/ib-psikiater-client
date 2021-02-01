@@ -18,8 +18,8 @@ const PendingPayments = (props) => {
   return (
     <div>
       <Container>
+        <h5 className="pending-payment-title">Pending Payment</h5>
         <Card className="pending-payment-card">
-          <h3 className="pending-payment-title">Pending Payment</h3>
           {data.map((item) => {
             return (
               <>

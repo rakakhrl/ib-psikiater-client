@@ -19,44 +19,23 @@ import userAction from "../../redux/actions/userAction";
 import ModalProfile from "./ModalProfile";
 
 const Index = () => {
+  const psikiater = useSelector((store) => store.user.user_data);
+  const psikiater_id = psikiater._id;
   const [workDays, setWorkDays] = useState([""]);
   const [workTimes, setWorkTimes] = useState([""]);
+  const [psikiaterData, setPsikiaterData] = useState(psikiater);
   const [modalShow, setModalShow] = useState(false);
 
   const dispatch = useDispatch();
-  const history = useHistory();
-  const accesstoken = localStorage.getItem("accesstoken");
-  const psikiater = useSelector((store) => store.user.user_data);
-  const psikiater_id = psikiater._id;
 
   useEffect(() => {
-    console.log(psikiater);
-    console.log(psikiater_id);
-  }, []);
+    setPsikiaterData(psikiater);
+  }, [psikiater]);
 
   useEffect(() => {
     console.log(workDays);
     console.log(workTimes);
   }, [workDays, workTimes]);
-
-  // const callback = () => {
-  //   location.reload();
-  // };
-
-  const updateButtonHandler = () => {
-    dispatch(
-      userAction.changePsikiaterSchedule(
-        psikiater_id,
-        accesstoken,
-        workDays,
-        workTimes
-      )
-    );
-    swal("Schedule Updated!", "", "success");
-    setTimeout(() => {
-      window.location.reload();
-    }, 1000);
-  };
 
   const workDaysHandler = (e) => {
     setWorkDays(e.target.value.split(", "));
@@ -64,6 +43,11 @@ const Index = () => {
 
   const workTimesHandler = (e) => {
     setWorkTimes(e.target.value.split(", "));
+  };
+
+  const callback = () => {
+    dispatch(userAction.fetchUserData);
+    setModalShow(false);
   };
 
   return (
@@ -98,20 +82,20 @@ const Index = () => {
                   <Col lg={6} md={12}>
                     <Form.Label>Name</Form.Label>
                     <Form.Control
-                      value={`${psikiater.first_name} ${psikiater.last_name}`}
+                      value={`${psikiaterData.first_name} ${psikiaterData.last_name}`}
                       readOnly
                     />
                   </Col>
                   <Col lg={6} md={12}>
                     <Form.Label>Gender</Form.Label>
-                    <Form.Control value={`${psikiater.gender}`} readOnly />
+                    <Form.Control value={`${psikiaterData.gender}`} readOnly />
                   </Col>
                 </Row>
                 <Row>
                   <Col lg={6} md={12}>
                     <Form.Label>Date Of Birth</Form.Label>
                     <Form.Control
-                      value={moment(`${psikiater.date_of_birth}`).format(
+                      value={moment(`${psikiaterData.date_of_birth}`).format(
                         "DD MMMM YYYY"
                       )}
                       readOnly
@@ -119,18 +103,18 @@ const Index = () => {
                   </Col>
                   <Col lg={6} md={12}>
                     <Form.Label>Email</Form.Label>
-                    <Form.Control value={psikiater.email} readOnly />
+                    <Form.Control value={psikiaterData.email} readOnly />
                   </Col>
                 </Row>
                 <Row>
                   <Col md={12} lg={6}>
                     <Form.Label>Specialize</Form.Label>
-                    <Form.Control value={psikiater.specialize} readOnly />
+                    <Form.Control value={psikiaterData.specialize} readOnly />
                   </Col>
                   <Col md={12} lg={6}>
                     <Form.Label>Experience Year</Form.Label>
                     <Form.Control
-                      value={psikiater.info.experience_year}
+                      value={psikiaterData.info.experience_year}
                       readOnly
                     />
                   </Col>
@@ -138,67 +122,45 @@ const Index = () => {
                 <Row>
                   <Col>
                     <Form.Label>Work Days & Work Times</Form.Label>
-                    {psikiater.schedule.work_days.length === 0 &&
-                    psikiater.schedule.work_time.length === 0 ? (
+                    {psikiaterData.schedule.work_days.length === 0 &&
+                    psikiaterData.schedule.work_time.length === 0 ? (
                       <>
-                        <InputGroup className="mb-3">
-                          <Form.Control
-                            placeholder="Input Your Work Days"
-                            onChange={workDaysHandler}
-                          />
-                        </InputGroup>
-                        <InputGroup className="mb-3">
-                          <Form.Control
-                            placeholder="Input Your Work Times"
-                            onChange={workTimesHandler}
-                          />
-                        </InputGroup>
-
-                        <Button
-                          variant="outline-dark"
-                          disabled={
-                            workDays.includes("") && workTimes.includes("")
-                              ? true
-                              : false
-                          }
-                          onClick={updateButtonHandler}
-                        >
-                          Update
-                        </Button>
+                        <p>You Don't Have Schedule Yet</p>
                       </>
                     ) : (
                       <>
                         <Row>
                           <Col>
-                            {psikiater.schedule.work_days.map((days) => (
+                            {psikiaterData.schedule.work_days.map((days) => (
                               <li>{days}</li>
                             ))}
                           </Col>
                           <Col>
-                            {psikiater.schedule.work_time.map((times) => (
+                            {psikiaterData.schedule.work_time.map((times) => (
                               <li>{times}</li>
                             ))}
                           </Col>
                         </Row>
-                        <Container>
-                          <Button
-                            variant="outline-dark"
-                            onClick={() => setModalShow(true)}
-                            style={{
-                              display: "flex",
-                              marginLeft: "auto",
-                              marginRight: "auto",
-                            }}
-                          >
-                            Update
-                          </Button>
-                          <ModalProfile
-                            show={modalShow}
-                            onHide={() => setModalShow(false)}
-                          />
-                        </Container>
                       </>
                     )}
+                    <Container>
+                      <Button
+                        variant="outline-dark"
+                        onClick={() => setModalShow(true)}
+                        style={{
+                          display: "flex",
+                          marginLeft: "auto",
+                          marginRight: "auto",
+                        }}
+                      >
+                        Update
+                      </Button>
+                      <ModalProfile
+                        psikiater={psikiaterData}
+                        show={modalShow}
+                        onHide={() => callback()}
+                      />
+                    </Container>
                   </Col>
                 </Row>
 
@@ -209,7 +171,7 @@ const Index = () => {
                       as="textarea"
                       readOnly
                       row={3}
-                      value={`${psikiater.work_address}, ${psikiater.info.region}`}
+                      value={`${psikiaterData.work_address}, ${psikiaterData.info.region}`}
                     />
                   </Col>
                 </Row>

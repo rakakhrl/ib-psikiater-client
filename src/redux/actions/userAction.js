@@ -215,7 +215,8 @@ const changePsikiaterSchedule = (
   psikiater_id,
   accesstoken,
   work_days,
-  work_time
+  work_time,
+  callback
 ) => async (dispatch) => {
   try {
     const response = await API({
@@ -229,6 +230,7 @@ const changePsikiaterSchedule = (
         work_time: work_time,
       },
     });
+    callback();
   } catch (error) {
     console.log(error);
   }
