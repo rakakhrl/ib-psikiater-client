@@ -27,6 +27,7 @@ const Message = (props) => {
             src={props?.avatar_url}
             width="50"
             height="auto"
+            roundedCircle
           ></Image>
         </Col>
         <Col>
