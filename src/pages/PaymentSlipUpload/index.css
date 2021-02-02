@@ -1,0 +1,28 @@
+.upload-payment-proof-page-title {
+  text-align: center;
+  color: #7d9dec;
+  text-transform: uppercase;
+  margin-bottom: 2em;
+}
+
+@media screen and (max-width: 992px) {
+  .payment-slip-how-to-pay-title {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+}
+
+.scroll {
+  overflow-x: hidden;
+  overflow: scroll;
+  max-height: 320px;
+}
+
+@media screen and (max-width: 992px) {
+  .scroll {
+    overflow-x: hidden;
+    overflow: scroll;
+    max-height: 400px;
+  }
+}
