@@ -235,7 +235,7 @@ const ChatRoom = ({ room, appointment }) => {
         />
 
         {role === "PSIKIATER" ? (
-          <ButtonGroup>
+          <ButtonGroup className="chatroom-button-psikiater">
             <Button onClick={changeStatusDoneAlert}>End Session</Button>
             <Button
               onClick={handleDiagnoseModalShow}
