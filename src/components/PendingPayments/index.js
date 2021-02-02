@@ -9,7 +9,6 @@ const PendingPayments = (props) => {
   const [modalShow, setModalShow] = useState(false);
   const history = useHistory();
   const data = props.data;
-  console.log(data);
 
   const checkoutButtonHandler = (payment_id) => {
     history.push(`/upload-payment-slip/${payment_id}`);

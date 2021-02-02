@@ -53,8 +53,6 @@ const CardRecentAppointment = ({ appointmentDone, appointmentFetch }) => {
       console.log(error);
     }
   };
-  console.log(roomChat_id);
-  console.log(appointment_id);
   // Akses history chat
   const seeHistoryChat = () => {
     history.push(`/chatbox/${roomChat_id}/${appointment_id}`);

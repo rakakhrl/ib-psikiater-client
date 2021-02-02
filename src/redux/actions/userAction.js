@@ -117,7 +117,6 @@ const registerPatient = (
 };
 
 const fetchUserData = () => async (dispatch) => {
-  console.log("Ini Fetch User Data");
   try {
     const role = localStorage.getItem("role");
     const user_id = localStorage.getItem("userId");
@@ -198,8 +197,6 @@ const checkAccessToken = (accessToken) => async (dispatch) => {
         accessToken: accessToken,
       },
     });
-
-    console.log(getUserProfile);
 
     dispatch({
       type: "LOGIN",

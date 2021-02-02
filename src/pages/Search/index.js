@@ -119,7 +119,6 @@ const Index = () => {
   );
 
   const filterResult = () => {
-    console.log(searchResult);
     const result = _.filter(
       searchResult,
       (s) =>

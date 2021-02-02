@@ -29,8 +29,6 @@ const ReviewPsikiaterModal = (props) => {
       });
       swal("Success", response.data.message, "success");
 
-      console.log(response);
-
       props.onHide();
     } catch (error) {
       swal("Failed", error.response.data.message, "error");

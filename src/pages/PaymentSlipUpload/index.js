@@ -35,7 +35,6 @@ const PaymentSlipUpload = () => {
         },
       });
 
-      console.log(response.data.data);
       setPaymentObject(response.data.data);
     } catch (error) {
       console.log(error);
