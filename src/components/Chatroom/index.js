@@ -271,8 +271,8 @@ const ChatRoom = ({ room, appointment }) => {
               })}
           </Col>
         </Row>
+        <div ref={bottomListRef} />
       </div>
-      <hr></hr>
       <Row className="sticky-bottom">
         <Col className="form-chatbox">
           <Form onSubmit={sendMessageHandler}>
@@ -299,8 +299,6 @@ const ChatRoom = ({ room, appointment }) => {
           </Form>
         </Col>
       </Row>
-
-      <div ref={bottomListRef} />
     </Container>
   );
 };
