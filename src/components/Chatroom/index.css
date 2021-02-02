@@ -38,6 +38,10 @@
   background: #0b93f6;
   color: rgb(255, 255, 255);
   flex-direction: row-reverse;
+  width: max-content;
+  inline-size: max-content;
+  height: max-content;
+  block-size: max-content;
 }
 
 .sticky-bottom {
