@@ -221,7 +221,7 @@ const ChatRoom = ({ room, appointment }) => {
   };
 
   return (
-    <Container className="d-flex flex-column justify-center">
+    <Container className="d-flex flex-column justify-center bg-style">
       <Row>
         <CreatePrescriptionModal
           show={showPrescriptionModal}
@@ -235,7 +235,7 @@ const ChatRoom = ({ room, appointment }) => {
         />
 
         {role === "PSIKIATER" ? (
-          <ButtonGroup>
+          <ButtonGroup className="chatroom-button-psikiater">
             <Button onClick={changeStatusDoneAlert}>End Session</Button>
             <Button
               onClick={handleDiagnoseModalShow}
@@ -252,26 +252,29 @@ const ChatRoom = ({ room, appointment }) => {
           </ButtonGroup>
         ) : null}
       </Row>
-      <Row>
-        {loading && <Spinner variant="primary" animation="border"></Spinner>}
-        <Col style={{ marginTop: "20px" }}>
-          {messages &&
-            messages.map((doc) => {
-              return (
-                <Message
-                  key={doc?.id}
-                  text={doc?.text}
-                  sender={doc?.sender}
-                  createdAt={doc?.createdAt}
-                  role={doc?.role}
-                  avatar_url={doc?.avatar_url}
-                />
-              );
-            })}
-        </Col>
-      </Row>
+      <div className="scroll-chatbox">
+        <Row>
+          {loading && <Spinner variant="primary" animation="border"></Spinner>}
+          <Col style={{ marginBottom: "50px" }}>
+            {messages &&
+              messages.map((doc) => {
+                return (
+                  <Message
+                    key={doc?.id}
+                    text={doc?.text}
+                    sender={doc?.sender}
+                    createdAt={doc?.createdAt}
+                    role={doc?.role}
+                    avatar_url={doc?.avatar_url}
+                  />
+                );
+              })}
+          </Col>
+        </Row>
+      </div>
+      <hr></hr>
       <Row className="sticky-bottom">
-        <Col>
+        <Col className="form-chatbox">
           <Form onSubmit={sendMessageHandler}>
             <InputGroup>
               <FormControl
