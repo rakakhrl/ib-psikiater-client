@@ -1,8 +1,9 @@
 import React from "react";
-import { Modal, Row, Col, Image } from "react-bootstrap";
+import { Modal, Row, Col, Image, Form, Container } from "react-bootstrap";
 import moment from "moment";
 
 const PsychiatristDetailModal = ({ show, handleClose, psychiatrist }) => {
+  const currencyFormatter = require("currency-formatter");
   return (
     <Modal size="lg" show={show} onHide={handleClose} centered>
       <Modal.Header closeButton>
@@ -21,77 +22,102 @@ const PsychiatristDetailModal = ({ show, handleClose, psychiatrist }) => {
           </Col>
         </Row>
         <Row>
-          <Col className="text-left">Psychiatrist ID:</Col>
-          <Col className="text-left">{psychiatrist._id}</Col>
-        </Row>
-        <Row>
-          <Col className="text-left">Psychiatrist First Name:</Col>
-          <Col className="text-left">{psychiatrist.first_name}</Col>
-        </Row>
-        <Row>
-          <Col className="text-left">Psychiatrist Last Name:</Col>
-          <Col className="text-left">{psychiatrist.last_name}</Col>
-        </Row>
-        <Row>
-          <Col className="text-left">Psychiatrist Email:</Col>
-          <Col className="text-left">{psychiatrist.email}</Col>
-        </Row>
-        <Row>
-          <Col className="text-left">Date of birth:</Col>
-          <Col className="text-left">
-            {moment(psychiatrist.date_of_birth).format("DD-MM-YYYY")}
+          <Col>
+            <Form.Label style={{ marginTop: "20px", marginBottom: "20px" }}>
+              Psychiatrist ID : {psychiatrist._id}
+            </Form.Label>
           </Col>
         </Row>
         <Row>
-          <Col className="text-left">Gender:</Col>
-          <Col className="text-left">{psychiatrist.gender}</Col>
+          <Col lg={4} sm={12}>
+            <Form.Label>Name</Form.Label>
+            <Form.Control
+              className="text-center"
+              value={`${psychiatrist.first_name} ${psychiatrist.last_name} `}
+            />
+          </Col>
+          <Col lg={5} sm={12}>
+            <Form.Label>Psychiatrist Email</Form.Label>
+            <Form.Control className="text-center" value={psychiatrist.email} />
+          </Col>
+          <Col lg={3} sm={12}>
+            <Form.Label>Gender</Form.Label>
+            <Form.Control className="text-center" value={psychiatrist.gender} />
+          </Col>
         </Row>
         <Row>
-          <Col className="text-left">Experience Year:</Col>
-          <Col className="text-left">{psychiatrist.info?.experience_year}</Col>
+          <Col lg={4} sm={12}>
+            <Form.Label>Date of Birth</Form.Label>
+            <Form.Control
+              className="text-center"
+              value={moment(psychiatrist.date_of_birth).format("DD-MM-YYYY")}
+            />
+          </Col>
+          <Col lg={5} sm={12}>
+            <Form.Label>Specialize In</Form.Label>
+            <Form.Control
+              className="text-center"
+              value={psychiatrist.specialize}
+            />
+          </Col>
+          <Col lg={3} sm={12}>
+            <Form.Label>Experience Year</Form.Label>
+            <Form.Control
+              className="text-center"
+              value={psychiatrist.info?.experience_year}
+            />
+          </Col>
         </Row>
         <Row>
-          <Col className="text-left">Specialize in:</Col>
-          <Col className="text-left">{psychiatrist.specialize}</Col>
-        </Row>
-        <Row>
-          <Col className="text-left">Region:</Col>
-          <Col className="text-left">{psychiatrist.info?.region}</Col>
-        </Row>
-        <Row>
-          <Col className="text-left">Work Days:</Col>
-          <Col className="text-left">
+          <Col sm="3">
+            <Form.Label>Region</Form.Label>
+            <Form.Control
+              className="text-center"
+              value={psychiatrist.info?.region}
+            />
+          </Col>
+          <Col>
+            <Form.Label>Work Days</Form.Label>
             {psychiatrist.schedule?.work_days.map((d) => (
-              <Row>{d}</Row>
+              <li>{d}</li>
             ))}
           </Col>
-        </Row>
-        <Row>
-          <Col className="text-left">Work Time:</Col>
-          <Col className="text-left">
+          <Col>
+            <Form.Label>Work Times</Form.Label>
             {psychiatrist.schedule?.work_time.map((t) => (
-              <Row>{t}</Row>
+              <li>{t}</li>
             ))}
           </Col>
         </Row>
         <Row>
-          <Col className="text-left">Work Address:</Col>
-          <Col className="text-left">{psychiatrist.work_address}</Col>
-        </Row>
-        <Row>
-          <Col className="text-left">Fee:</Col>
-          <Col className="text-left">{psychiatrist.fees}</Col>
-        </Row>
-        <Row>
-          <Col className="text-left">Registered At:</Col>
-          <Col className="text-left">
-            {moment(psychiatrist.createdAt).format("DD-MM-YYYY")}
+          <Col lg={6} sm={12}>
+            <Form.Label>Work Address</Form.Label>
+            <Form.Control as="textarea" value={psychiatrist.work_address} />
+          </Col>
+          <Col lg={6} sm={12}>
+            <Form.Label>Fee</Form.Label>
+            <Form.Control
+              className="text-center"
+              value={currencyFormatter.format(psychiatrist.fees, {
+                code: "IDR",
+              })}
+            />
           </Col>
         </Row>
         <Row>
-          <Col className="text-left">Updated At:</Col>
-          <Col className="text-left">
-            {moment(psychiatrist.updatedAt).format("DD-MM-YYYY")}
+          <Col lg={6} sm={12}>
+            <Form.Label>Registered At</Form.Label>
+            <Form.Control
+              className="text-center"
+              value={moment(psychiatrist.createdAt).format("DD-MM-YYYY")}
+            />
+          </Col>
+          <Col lg={6} sm={12}>
+            <Form.Label>Updated At</Form.Label>
+            <Form.Control
+              className="text-center"
+              value={moment(psychiatrist.updatedAt).format("DD-MM-YYYY")}
+            />
           </Col>
         </Row>
       </Modal.Body>
