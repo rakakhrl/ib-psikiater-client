@@ -25,7 +25,10 @@
 }
 
 .psikiater-profile-avatar {
-  height: 280px;
+  max-height: 300px;
+  max-width: 280px;
+  display: flex;
+  align-self: center;
 }
 
 .psikiater-profile-col-2 {

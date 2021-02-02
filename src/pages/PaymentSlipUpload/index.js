@@ -14,6 +14,7 @@ import { useParams, useHistory } from "react-router-dom";
 import swal from "sweetalert";
 import API from "../../API/mainServer";
 import moment from "moment";
+import "./index.css";
 
 const PaymentSlipUpload = () => {
   const [file, setFile] = useState({});
@@ -99,14 +100,9 @@ const PaymentSlipUpload = () => {
     }
   };
 
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-    return () => (document.body.style.overflow = "unset");
-  }, []);
-
   return (
     <Container className="py-4">
-      <h3>Upload Payment Proof</h3>
+      <h3 className="upload-payment-proof-page-title">Upload Payment Proof</h3>
       <Row className="mt-4">
         <Col md={6}>
           <Row>
@@ -170,131 +166,139 @@ const PaymentSlipUpload = () => {
         </Col>
         <Col md={6} style={{ height: "440px" }}>
           {/* Menampilkan Cara Pembayaran */}
-          <h5>How To Pay </h5>
-          <Accordion defaultActiveKey="">
-            <Card>
-              <Card.Header>
-                <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                  PayPal
-                </Accordion.Toggle>
-              </Card.Header>
-              <Accordion.Collapse eventKey="0">
-                <Card.Body>
-                  {" "}
-                  1. Sign in to your PayPal Account <br />
-                  2. Select a payment method you are connected (for example, a
-                  credit card or bank account) in the Select a method to pay
-                  section
-                  <br />
-                  3. Click Continue
-                  <br />
-                  4.Confirm the payment method, read PayPal's policies, then
-                  click Approve & Continue
-                </Card.Body>
-              </Accordion.Collapse>
-            </Card>
-            <Card>
-              <Card.Header>
-                <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                  Gopay
-                </Accordion.Toggle>
-              </Card.Header>
-              <Accordion.Collapse eventKey="1">
-                <Card.Body>
-                  <Image
-                    style={{ width: "200px" }}
-                    src="https://1.bp.blogspot.com/-kzndGg4wwa8/XNeG6m5AGYI/AAAAAAAAk0s/wSQtqkx1NTE9e9b6iVwhlpaOmPImyLEPACLcBGAs/s1600/qr.jpg"
-                  />
-                  <br />
-                  1. First, open the GoPay application on your cellphone. <br />
-                  2. Then, click the 'Scan' menu. <br />
-                  3. Do a QR scan. <br />
-                  4. After that, your payment will be check by our admin if
-                  valid <br />
-                  5. If Valid you will get an email.
-                </Card.Body>
-              </Accordion.Collapse>
-            </Card>
-            <Card>
-              <Card.Header>
-                <Accordion.Toggle as={Button} variant="link" eventKey="2">
-                  DANA
-                </Accordion.Toggle>
-              </Card.Header>
-              <Accordion.Collapse eventKey="2">
-                <Card.Body>
-                  1. Make sure you have downloaded and logged in the DANA
-                  application first. <br />
-                  2. After selecting the DANA payment method, you will be
-                  directed to the DANA page to make a payment.
-                  <br />
-                  3. Enter your DANA PIN. <br />
-                  4. Click Pay and your transaction will be successful (Payment
-                  Success) <br />
-                  5. If your payment has been entered, your order status will
-                  change to 'Paid'.
-                </Card.Body>
-              </Accordion.Collapse>
-            </Card>
-            <Card>
-              <Card.Header>
-                <Accordion.Toggle as={Button} variant="link" eventKey="3">
-                  OVO
-                </Accordion.Toggle>
-              </Card.Header>
-              <Accordion.Collapse eventKey="3">
-                <Card.Body>
-                  <Image
-                    style={{ width: "200px" }}
-                    src="https://1.bp.blogspot.com/-Zb1PYeqnNxs/XSOUOht-xKI/AAAAAAAAFAg/j4znYJWsw2Q3Fef9RKjjeDq7zMAd1KskgCLcBGAs/s1600/ovoku%2Bgold%2Bcaptain.png"
-                  />
-                  <br />
-                  1. First, open the OVO application on your cellphone. <br />
-                  2. Then, click the 'Scan' menu. <br />
-                  3. Do a QR scan. <br />
-                  4. After that, your payment will be check by our admin if
-                  valid <br />
-                  5. If Valid you will get an email.
-                </Card.Body>
-              </Accordion.Collapse>
-            </Card>
-            <Card>
-              <Card.Header>
-                <Accordion.Toggle as={Button} variant="link" eventKey="4">
-                  Jenius Pay
-                </Accordion.Toggle>
-              </Card.Header>
-              <Accordion.Collapse eventKey="4">
-                <Card.Body>
-                  1.
-                  <Form.Control value="Enter your $ Cashtag" />
-                  <br />
-                  2. Open Your Jenius To Confirm Payment
-                </Card.Body>
-              </Accordion.Collapse>
-            </Card>
-            <Card>
-              <Card.Header>
-                <Accordion.Toggle as={Button} variant="link" eventKey="5">
-                  Bank Transfer
-                </Accordion.Toggle>
-              </Card.Header>
-              <Accordion.Collapse eventKey="5">
-                <Card.Body>
-                  1. Insert an ATM card. <br />
-                  2. Select a language <br />
-                  3. Enter a Pin <br />
-                  4. Select Transfer on the menu <br />
-                  5. Choose another bank transfer destination <br />
-                  6. Enter the bank code <br />
-                  7. Enter Filings Bank Account : <b>3262-01-012057-53-9</b>
-                  8. Enter the nominal according to the bill
-                  <br />
-                  9. You will get notification when your payment confirm.
-                </Card.Body>
-              </Accordion.Collapse>
-            </Card>
-          </Accordion>
+          <h5 className="payment-slip-how-to-pay-title">How To Pay </h5>
+          <div
+            className="scroll"
+            data-bs-target="#navbar-example2"
+            data-bs-offset="0"
+            tabindex="0"
+          >
+            <Accordion defaultActiveKey="">
+              <Card>
+                <Card.Header>
+                  <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                    PayPal
+                  </Accordion.Toggle>
+                </Card.Header>
+                <Accordion.Collapse eventKey="0">
+                  <Card.Body>
+                    {" "}
+                    1. Sign in to your PayPal Account <br />
+                    2. Select a payment method you are connected (for example, a
+                    credit card or bank account) in the Select a method to pay
+                    section
+                    <br />
+                    3. Click Continue
+                    <br />
+                    4.Confirm the payment method, read PayPal's policies, then
+                    click Approve & Continue
+                  </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Card.Header>
+                  <Accordion.Toggle as={Button} variant="link" eventKey="1">
+                    Gopay
+                  </Accordion.Toggle>
+                </Card.Header>
+                <Accordion.Collapse eventKey="1">
+                  <Card.Body>
+                    <Image
+                      style={{ width: "200px" }}
+                      src="https://1.bp.blogspot.com/-kzndGg4wwa8/XNeG6m5AGYI/AAAAAAAAk0s/wSQtqkx1NTE9e9b6iVwhlpaOmPImyLEPACLcBGAs/s1600/qr.jpg"
+                    />
+                    <br />
+                    1. First, open the GoPay application on your cellphone.{" "}
+                    <br />
+                    2. Then, click the 'Scan' menu. <br />
+                    3. Do a QR scan. <br />
+                    4. After that, your payment will be check by our admin if
+                    valid <br />
+                    5. If Valid you will get an email.
+                  </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Card.Header>
+                  <Accordion.Toggle as={Button} variant="link" eventKey="2">
+                    DANA
+                  </Accordion.Toggle>
+                </Card.Header>
+                <Accordion.Collapse eventKey="2">
+                  <Card.Body>
+                    1. Make sure you have downloaded and logged in the DANA
+                    application first. <br />
+                    2. After selecting the DANA payment method, you will be
+                    directed to the DANA page to make a payment.
+                    <br />
+                    3. Enter your DANA PIN. <br />
+                    4. Click Pay and your transaction will be successful
+                    (Payment Success) <br />
+                    5. If your payment has been entered, your order status will
+                    change to 'Paid'.
+                  </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Card.Header>
+                  <Accordion.Toggle as={Button} variant="link" eventKey="3">
+                    OVO
+                  </Accordion.Toggle>
+                </Card.Header>
+                <Accordion.Collapse eventKey="3">
+                  <Card.Body>
+                    <Image
+                      style={{ width: "200px" }}
+                      src="https://1.bp.blogspot.com/-Zb1PYeqnNxs/XSOUOht-xKI/AAAAAAAAFAg/j4znYJWsw2Q3Fef9RKjjeDq7zMAd1KskgCLcBGAs/s1600/ovoku%2Bgold%2Bcaptain.png"
+                    />
+                    <br />
+                    1. First, open the OVO application on your cellphone. <br />
+                    2. Then, click the 'Scan' menu. <br />
+                    3. Do a QR scan. <br />
+                    4. After that, your payment will be check by our admin if
+                    valid <br />
+                    5. If Valid you will get an email.
+                  </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Card.Header>
+                  <Accordion.Toggle as={Button} variant="link" eventKey="4">
+                    Jenius Pay
+                  </Accordion.Toggle>
+                </Card.Header>
+                <Accordion.Collapse eventKey="4">
+                  <Card.Body>
+                    1.
+                    <Form.Control value="Enter your $ Cashtag" />
+                    <br />
+                    2. Open Your Jenius To Confirm Payment
+                  </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Card.Header>
+                  <Accordion.Toggle as={Button} variant="link" eventKey="5">
+                    Bank Transfer
+                  </Accordion.Toggle>
+                </Card.Header>
+                <Accordion.Collapse eventKey="5">
+                  <Card.Body>
+                    1. Insert an ATM card. <br />
+                    2. Select a language <br />
+                    3. Enter a Pin <br />
+                    4. Select Transfer on the menu <br />
+                    5. Choose another bank transfer destination <br />
+                    6. Enter the bank code <br />
+                    7. Enter Filings Bank Account : <b>3262-01-012057-53-9</b>
+                    8. Enter the nominal according to the bill
+                    <br />
+                    9. You will get notification when your payment confirm.
+                  </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+            </Accordion>
+          </div>
         </Col>
       </Row>
     </Container>

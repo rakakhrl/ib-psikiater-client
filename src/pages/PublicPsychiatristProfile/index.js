@@ -121,7 +121,7 @@ const PublicPsychiatristProfile = () => {
                     <FormGroup id="public-psikiater-form-group">
                       <Form.Label>Experience Year</Form.Label>
                       <Form.Control
-                        id="  "
+                        id="public-psikiater-form-control"
                         value={psikiater?.info?.experience_year}
                       />
                     </FormGroup>
