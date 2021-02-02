@@ -222,6 +222,7 @@ const ChatRoom = ({ room, appointment }) => {
 
   return (
     <Container className="d-flex flex-column justify-center bg-style">
+      {/* {loading && <Spinner variant="primary" animation="border"></Spinner>} */}
       <Row>
         <CreatePrescriptionModal
           show={showPrescriptionModal}
@@ -252,9 +253,9 @@ const ChatRoom = ({ room, appointment }) => {
           </ButtonGroup>
         ) : null}
       </Row>
-      <div className="scroll-chatbox">
+      <div className="scroll-chatbox bg-style">
         <Row>
-          {loading && <Spinner variant="primary" animation="border"></Spinner>}
+          {/* {loading && <Spinner variant="primary" animation="border"></Spinner>} */}
           <Col style={{ marginBottom: "50px" }}>
             {messages &&
               messages.map((doc) => {
@@ -269,9 +270,9 @@ const ChatRoom = ({ room, appointment }) => {
                   />
                 );
               })}
+            <div ref={bottomListRef} />
           </Col>
         </Row>
-        <div ref={bottomListRef} />
       </div>
       <Row className="sticky-bottom">
         <Col className="form-chatbox">

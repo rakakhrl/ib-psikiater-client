@@ -25,7 +25,7 @@ const Message = (props) => {
           <Image
             className="rounded-full"
             src={props?.avatar_url}
-            width="0"
+            width="50"
             height="auto"
           ></Image>
         </Col>

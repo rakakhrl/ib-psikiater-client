@@ -45,16 +45,22 @@
 }
 
 .sticky-bottom {
-  /* position: fixed; */
-  top: 700px;
+  /* top: 700px; */
   width: 80%;
   display: flex;
   align-self: center;
+  /* height: 10vh; */
+  /* margin-bottom: 20px; */
+  /* position: fixed; */
 }
 
 .bg-style {
   background: antiquewhite;
   border-radius: 15px 15px 0px 0px;
+  height: 80vh;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 .rounded-full {
@@ -64,7 +70,7 @@
   margin-top: 25px;
 }
 .scroll-chatbox {
-  max-height: 400px;
+  max-height: 500px;
   max-width: 1050px;
   overflow: scroll;
   overflow-x: hidden;
