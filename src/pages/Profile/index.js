@@ -32,11 +32,6 @@ const Index = () => {
     setPsikiaterData(psikiater);
   }, [psikiater]);
 
-  useEffect(() => {
-    console.log(workDays);
-    console.log(workTimes);
-  }, [workDays, workTimes]);
-
   const workDaysHandler = (e) => {
     setWorkDays(e.target.value.split(", "));
   };

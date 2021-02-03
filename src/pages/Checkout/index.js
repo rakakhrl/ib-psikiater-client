@@ -23,11 +23,6 @@ function Checkout() {
   const [cancelModalShow, setCancelModalShow] = useState(false);
 
   useEffect(() => {
-    console.log(paymentMethod);
-    console.log(isDisabled);
-  });
-
-  useEffect(() => {
     const getCheckoutPaymentData = async () => {
       try {
         const response = await API({
@@ -38,7 +33,6 @@ function Checkout() {
           },
         });
         setPayment(response.data.data);
-        console.log(response.data.data);
       } catch (error) {
         console.log(error);
       }

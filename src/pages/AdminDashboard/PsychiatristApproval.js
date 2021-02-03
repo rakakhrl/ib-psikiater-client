@@ -22,7 +22,6 @@ const PsychiatristApproval = () => {
         },
       });
 
-      console.log(response.data.data);
       setPsychiatrist(response.data.data);
     } catch (error) {
       console.log(error);

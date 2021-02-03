@@ -63,9 +63,7 @@ const ChatRoom = ({ room, appointment }) => {
     return getUserData;
   }, []);
 
-  useEffect(() => {
-    console.log(dataAppointment.diagnose?.diagnose_date ? true : false);
-  }, [dataAppointment]);
+  useEffect(() => {}, [dataAppointment]);
 
   const messageRef = firestore.collection(`Message/${room}/Chat`);
   const [value, loading, error] = useCollection(messageRef, {
@@ -161,12 +159,7 @@ const ChatRoom = ({ room, appointment }) => {
       console.log(error);
     }
   };
-
   getUserDataStatus();
-  useEffect(() => {
-    console.log(statusAppointment);
-  }, []);
-
   const endedSessionAlert = () => {
     if (statusAppointment) {
       if (statusAppointment === "Done") {

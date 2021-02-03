@@ -138,7 +138,7 @@ const createPayment = (
         product_price: fees,
       },
     });
-    console.log(createPayment.data.data);
+
     getIdCallback(createPayment.data.data._id);
   } catch (error) {
     console.log(error);

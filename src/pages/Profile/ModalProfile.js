@@ -19,11 +19,6 @@ function ModalPsikiater(props) {
   const psikiater_id = psikiater._id;
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    console.log(workDays);
-    console.log(workTimes);
-  }, [workDays, workTimes]);
-
   const updateButtonHandler = () => {
     dispatch(
       userAction.changePsikiaterSchedule(

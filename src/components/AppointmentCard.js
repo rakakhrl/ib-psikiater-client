@@ -21,8 +21,6 @@ const AppointmentCard = ({
           accesstoken: token,
         },
       });
-
-      console.log(response.data.data);
       setExistedRating(response.data.data);
     } catch (error) {
       console.log(error);

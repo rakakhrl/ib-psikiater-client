@@ -79,7 +79,6 @@ const Appointment = () => {
           psikiaterData.fees
         )
       );
-      console.log(accesstoken);
     } else {
       trigger("timeSchedule");
     }
@@ -97,7 +96,6 @@ const Appointment = () => {
         });
         setIsLoading(false);
         setPsikiaterData(getData.data.data);
-        console.log(getData.data);
       } catch (error) {
         console.log(error);
       }
