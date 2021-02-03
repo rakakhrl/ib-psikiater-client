@@ -159,7 +159,7 @@ const ChatRoom = ({ room, appointment }) => {
       console.log(error);
     }
   };
-
+  getUserDataStatus();
   const endedSessionAlert = () => {
     if (statusAppointment) {
       if (statusAppointment === "Done") {

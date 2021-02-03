@@ -19,7 +19,7 @@ const Message = (props) => {
 
   return (
     <div className={`message ${messageClass}`}>
-      <Row style={{ padding: "50px" }}>
+      <Row style={{ padding: "25px" }}>
         <Col>
           {" "}
           <Image
